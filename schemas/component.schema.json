@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bakia.dev/bithabit/component.schema.json",
+  "title": "BITHABIT component spec",
+  "description": "Machine-readable contract of one design-system component. Read by developers and by their Claude (ds-sync skill).",
+  "type": "object",
+  "required": ["id", "name", "version", "status", "category", "summary", "purpose", "platforms", "surfaces", "anatomy", "props", "states", "tokens", "accessibility", "behavior", "sources", "open_questions", "changelog"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9]*$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "enum": ["draft", "stable", "deprecated"] },
+    "category": { "enum": ["action", "input", "navigation", "container", "feedback", "data-display", "list", "content"] },
+    "summary": { "type": "string", "minLength": 10 },
+    "purpose": { "type": "string", "minLength": 10 },
+    "platforms": { "type": "array", "items": { "enum": ["react-native"] }, "minItems": 1 },
+    "surfaces": { "type": "array", "items": { "enum": ["app", "watch", "widget", "landing"] }, "minItems": 1 },
+    "anatomy": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["part", "description", "required"], "additionalProperties": false,
+        "properties": { "part": { "type": "string" }, "description": { "type": "string" }, "required": { "type": "boolean" } }
+      }
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name", "type", "required", "description"], "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" }, "type": { "type": "string" }, "required": { "type": "boolean" },
+          "default": {}, "description": { "type": "string" }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "items": { "type": "object", "required": ["name", "description"], "additionalProperties": false,
+        "properties": { "name": { "type": "string" }, "description": { "type": "string" } } }
+    },
+    "states": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "object", "required": ["name", "description"], "additionalProperties": false,
+        "properties": { "name": { "type": "string" }, "description": { "type": "string" } } }
+    },
+    "tokens": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true,
+      "description": "Dot paths of every token the component reads (component layer or semantic)." },
+    "accessibility": {
+      "type": "object", "required": ["role", "notes"], "additionalProperties": false,
+      "properties": {
+        "role": { "type": "string" },
+        "label": { "type": "string" },
+        "touch_target": { "type": "string" },
+        "notes": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "behavior": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "content": { "type": "array", "items": { "type": "string" } },
+    "related": { "type": "array", "items": { "type": "string" } },
+    "sources": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "figma": { "type": "array", "items": { "type": "object", "required": ["file", "node"], "properties": { "file": { "type": "string" }, "node": { "type": "string" }, "name": { "type": "string" } } } },
+        "claude_design": { "type": "array", "items": { "type": "string" } },
+        "videos": { "type": "array", "items": { "type": "string" } },
+        "code": { "type": "array", "items": { "type": "object", "required": ["repo", "path", "verified"], "properties": { "repo": { "type": "string" }, "path": { "type": "string" }, "verified": { "type": "boolean" } } } }
+      }
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" },
+      "description": "Facts not yet verified against the production code. Must be empty before status can be 'stable'." },
+    "changelog": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "object", "required": ["version", "date", "changes"], "additionalProperties": false,
+        "properties": { "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" }, "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "changes": { "type": "array", "items": { "type": "string" }, "minItems": 1 } } }
+    }
+  }
+}

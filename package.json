@@ -1,0 +1,45 @@
+{
+  "name": "@bakia/bithabit-design-system",
+  "version": "0.1.0",
+  "description": "BITHABIT design system: white-label tokens, component specs and the contract layer between design and development.",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elflacosoyyo/bithabit-design-system.git"
+  },
+  "files": [
+    "dist",
+    "components",
+    "brands",
+    "schemas",
+    "docs"
+  ],
+  "exports": {
+    "./themes/*": {
+      "types": "./dist/*/theme.d.ts",
+      "default": "./dist/*/theme.js"
+    },
+    "./tailwind-preset/*": "./dist/*/tailwind.preset.cjs",
+    "./css/*": "./dist/*/tokens.css",
+    "./manifest": "./dist/manifest.json",
+    "./components/*": "./components/*",
+    "./brands/*": "./brands/*",
+    "./schemas/*": "./schemas/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "npm run test && npm run validate && npm run build && git diff --exit-code -- dist"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "yaml": "^2.8.0"
+  }
+}

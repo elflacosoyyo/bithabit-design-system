@@ -1,0 +1,99 @@
+id: segmented-control
+name: SegmentedControl
+version: 0.1.0
+status: draft
+category: navigation
+summary: Pill-shaped switch between two to four mutually exclusive views or values.
+purpose: >
+  Switches content inside one screen (habit detail: Notes / History, or Norm / Notes / History)
+  without navigating away. The only component besides the progress bar that uses the pill radius.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: track
+    description: Pill container filled with the alt surface.
+    required: true
+  - part: thumb
+    description: Pill that slides under the selected segment, canvas-colored.
+    required: true
+  - part: segment
+    description: Equal-width pressable label.
+    required: true
+props:
+  - name: options
+    type: '{ value: string; label: string; disabled?: boolean }[]'
+    required: true
+    description: Two to four segments.
+  - name: value
+    type: string
+    required: true
+    description: Selected option value.
+  - name: onChange
+    type: '(value: string) => void'
+    required: true
+    description: Called when a different enabled segment is pressed.
+  - name: semantics
+    type: '''tabs'' | ''radio'''
+    required: false
+    default: tabs
+    description: tabs when it switches views of the same entity; radio when it chooses a setting value.
+  - name: accessibilityLabel
+    type: string
+    required: true
+    description: Names the group.
+states:
+  - name: unselected
+    description: Label on the track.
+  - name: selected
+    description: Thumb under the label; label weight medium.
+  - name: pressed
+    description: Segment at opacity.pressed.
+  - name: disabled
+    description: Segment at opacity.disabled, not selectable.
+tokens:
+  - segmented-control.track-bg
+  - segmented-control.track-radius
+  - segmented-control.track-padding
+  - segmented-control.thumb-bg
+  - segmented-control.thumb-radius
+  - segmented-control.label
+  - segmented-control.font-size
+  - segmented-control.font-weight-active
+  - segmented-control.font-weight-inactive
+  - segmented-control.segment-padding-y
+  - segmented-control.disabled-opacity
+  - segmented-control.duration
+accessibility:
+  role: tablist (semantics=tabs) | radiogroup (semantics=radio)
+  label: Required group label; each segment exposes its own label and selected state.
+  touch_target: Each segment at least 44pt tall.
+  notes:
+    - Selection must not rely on the thumb alone; expose accessibilityState.selected on the segment.
+    - Labels stay on one line; if a label does not fit, shorten it, never wrap.
+behavior:
+  - Segments share the width equally; the thumb slides in segmented-control.duration.
+  - Selecting never changes layout height.
+  - More than four options, or long labels, is a different pattern (list or menu).
+content:
+  - Labels are single nouns in sentence case ("Notes", "History").
+related: [bottom-sheet]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5432:2176"
+      name: Norma detail (instance 'Segmented control')
+  videos:
+    - plandevida-ios-part1.mp4 / part2.mp4 (Notes/History, Norm/Notes/History)
+  claude_design:
+    - "Plan de Vida Design System README: pill track and pill thumb"
+  code:
+    - { repo: Bakia/plan-de-vida, path: src/components/segmented-control.tsx, verified: false }
+open_questions:
+  - Dark-mode thumb colour is not visible in the references; assumed canvas.
+  - The Settings screen uses a different chip-style selector (Light / Dark / System). Consolidate or specify ChipSelect (audit decision D-08).
+  - In the references an unselected tab appears dimmed during transitions; is that the disabled state or an animation?
+changelog:
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft from reference videos, Figma and the Claude Design export.

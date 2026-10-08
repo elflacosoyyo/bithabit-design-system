@@ -1,0 +1,32 @@
+{
+  "opacity": {
+    "disabled": {
+      "$value": 0.5,
+      "$type": "number"
+    },
+    "pressed": {
+      "$value": 0.7,
+      "$type": "number"
+    },
+    "backdrop": {
+      "$value": 0.5,
+      "$type": "number"
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": {
+        "$value": "150ms",
+        "$type": "duration"
+      },
+      "base": {
+        "$value": "250ms",
+        "$type": "duration"
+      },
+      "slow": {
+        "$value": "400ms",
+        "$type": "duration"
+      }
+    }
+  }
+}

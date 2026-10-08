@@ -1,0 +1,112 @@
+id: habit-card
+name: HabitCard
+version: 0.1.0
+status: draft
+category: list
+summary: Tappable row for one habit with a done-today checkbox and a streak strip underneath.
+purpose: >
+  Hero component of the Today screen. Lets the user see today's habits at a glance, complete them
+  with one tap and open a habit's detail. The streak strip is the signature visual pattern of the product.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: surface
+    description: Filled rectangle. Top corners rounded (radius-top), bottom corners square so it blends into the strip.
+    required: true
+  - part: title
+    description: Single-line habit name, sans light.
+    required: true
+  - part: checkbox
+    description: Trailing Checkbox that toggles completion for today.
+    required: true
+  - part: streak-strip
+    description: Row of 7 equal segments below the card. Filled segments count the current consecutive streak, right-aligned (today is the rightmost segment).
+    required: true
+props:
+  - name: title
+    type: string
+    required: true
+    description: Habit name as written by the user.
+  - name: completed
+    type: boolean
+    required: true
+    description: Whether the habit is done today.
+  - name: streakDays
+    type: number
+    required: false
+    default: 0
+    description: Current consecutive-day streak. Clamped to 0..7 for display.
+  - name: onToggle
+    type: () => void
+    required: true
+    description: Called when the checkbox is pressed. Never opens the detail.
+  - name: onPress
+    type: () => void
+    required: true
+    description: Called when the row (outside the checkbox) is pressed; opens the habit detail.
+  - name: disabled
+    type: boolean
+    required: false
+    default: false
+    description: Dims the card and blocks both callbacks.
+states:
+  - name: default
+    description: Habit not completed today. Checkbox shows the ring.
+  - name: completed
+    description: Checkbox shows the check glyph; today's strip segment is filled.
+  - name: pressed
+    description: Whole card at opacity.pressed while a finger is down.
+  - name: disabled
+    description: Whole card at opacity.disabled.
+tokens:
+  - habit-card.bg
+  - habit-card.text
+  - habit-card.font-size
+  - habit-card.font-weight
+  - habit-card.padding-x
+  - habit-card.padding-y
+  - habit-card.radius-top
+  - habit-card.radius-bottom
+  - habit-card.pressed-opacity
+  - habit-card.strip.height
+  - habit-card.strip.gap
+  - habit-card.strip.segment-filled
+  - habit-card.strip.segment-empty
+accessibility:
+  role: button
+  label: "{title}, completed today | {title}, not completed today"
+  touch_target: Row at least 48pt tall. The checkbox keeps its own 48pt hit area (see Checkbox).
+  notes:
+    - The strip is decorative. Hide it from assistive tech and expose the streak as accessibilityValue ("5 day streak").
+    - The checkbox is a separate accessibility element with role checkbox; do not merge it into the row element.
+    - Completion must never be conveyed by the strip colour alone; the check glyph carries it.
+behavior:
+  - Pressing the row opens the habit detail (BottomSheet). Pressing the checkbox toggles today only.
+  - The card is part of a vertical list; rows have no gap, each card sits directly above the next card's strip.
+  - Title is one line; long titles truncate with an ellipsis.
+content:
+  - Titles are user-owned. Do not force casing; seed habits are sentence case.
+related: [checkbox, bottom-sheet, stat-card]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5457:5715"
+      name: Home (instances of 'card / semana')
+  videos:
+    - plandevida-ios-part1.mp4 (home list, completion, strip fill)
+    - plandevida-ios-part2.mp4 (strip with 5-day streak)
+  claude_design:
+    - "Plan de Vida Design System: HabitCard (README: rounded-t-sm, strip is the brand pattern)"
+  code:
+    - { repo: Bakia/plan-de-vida, path: src/components/habit-card.tsx, verified: false }
+open_questions:
+  - Confirm in code that the strip always has 7 segments and is right-aligned (inferred from video).
+  - Does the strip count today only after completion? (video shows 1 segment right after completing today).
+  - Row height and padding are estimated from video; measure against code.
+  - Is there swipe-to-delete or drag-to-reorder on this card? (README mentions gesture-handler swipe-to-delete.)
+  - Truncation rule for long titles (ellipsis vs wrap).
+changelog:
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft from reference videos, Figma and the Claude Design export.

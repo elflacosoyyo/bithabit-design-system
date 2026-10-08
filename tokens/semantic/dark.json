@@ -1,0 +1,100 @@
+{
+  "color": {
+    "bg": {
+      "canvas": {
+        "$value": "{color.gray.950}",
+        "$type": "color"
+      },
+      "surface": {
+        "$value": "{color.gray.900}",
+        "$type": "color"
+      },
+      "surface-alt": {
+        "$value": "{color.gray.800}",
+        "$type": "color"
+      },
+      "input": {
+        "$value": "{color.gray.800}",
+        "$type": "color"
+      },
+      "overlay": {
+        "$value": "{color.alpha.scrim-50}",
+        "$type": "color"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.gray.50}",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "{color.gray.400}",
+        "$type": "color"
+      },
+      "disabled": {
+        "$value": "{color.gray.600}",
+        "$type": "color"
+      },
+      "accent": {
+        "$value": "{color.blue.400}",
+        "$type": "color"
+      },
+      "on-accent": {
+        "$value": "{color.gray.950}",
+        "$type": "color"
+      },
+      "destructive": {
+        "$value": "{color.red.400}",
+        "$type": "color"
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.alpha.white-10}",
+        "$type": "color"
+      },
+      "strong": {
+        "$value": "{color.gray.500}",
+        "$type": "color"
+      },
+      "focus": {
+        "$value": "{color.blue.400}",
+        "$type": "color"
+      }
+    },
+    "accent": {
+      "default": {
+        "$value": "{color.blue.400}",
+        "$type": "color"
+      },
+      "pressed": {
+        "$value": "{color.blue.300}",
+        "$type": "color"
+      },
+      "subtle": {
+        "$value": "{color.blue.900}",
+        "$type": "color"
+      }
+    },
+    "status": {
+      "destructive": {
+        "$value": "{color.red.400}",
+        "$type": "color"
+      },
+      "success": {
+        "$value": "{color.green.400}",
+        "$type": "color"
+      }
+    },
+    "brand": {
+      "splash-bg": {
+        "$value": "{color.gray.950}",
+        "$type": "color"
+      },
+      "splash-fg": {
+        "$value": "{color.white}",
+        "$type": "color"
+      }
+    }
+  }
+}

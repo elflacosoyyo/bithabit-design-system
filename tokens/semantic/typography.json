@@ -1,0 +1,120 @@
+{
+  "font": {
+    "family": {
+      "sans": {
+        "$value": "{font.family.inter}",
+        "$type": "fontFamily",
+        "$description": "Body, buttons, labels, list items."
+      },
+      "display": {
+        "$description": "Brand display face, resolved per platform (RN cannot ship every system font).",
+        "ios": {
+          "$value": "{font.family.inter}",
+          "$type": "fontFamily"
+        },
+        "android": {
+          "$value": "{font.family.inter}",
+          "$type": "fontFamily"
+        },
+        "web": {
+          "$value": "{font.family.inter}",
+          "$type": "fontFamily"
+        }
+      }
+    }
+  },
+  "typography": {
+    "$description": "Composite text styles. fontFamily is a ROLE ('sans' | 'display'), resolved with font.family.<role>[.platform].",
+    "display": {
+      "$value": {
+        "fontFamily": "display",
+        "fontSize": "{font.size.display-lg}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.line-height.display-lg}",
+        "letterSpacing": "{font.tracking.display}"
+      },
+      "$type": "typography"
+    },
+    "heading": {
+      "$value": {
+        "fontFamily": "display",
+        "fontSize": "{font.size.display-sm}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.line-height.display-sm}",
+        "letterSpacing": "{font.tracking.heading}"
+      },
+      "$type": "typography"
+    },
+    "screen-title": {
+      "$value": {
+        "fontFamily": "display",
+        "fontSize": "{font.size.3xl}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.line-height.3xl}",
+        "letterSpacing": "{font.tracking.title}"
+      },
+      "$type": "typography"
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "sans",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.body}",
+        "letterSpacing": "{font.tracking.normal}"
+      },
+      "$type": "typography"
+    },
+    "reading": {
+      "$value": {
+        "fontFamily": "display",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.body}",
+        "letterSpacing": "{font.tracking.normal}"
+      },
+      "$type": "typography"
+    },
+    "card-title": {
+      "$value": {
+        "fontFamily": "sans",
+        "fontSize": "{font.size.sm}",
+        "fontWeight": "{font.weight.light}",
+        "lineHeight": "{font.line-height.sm}",
+        "letterSpacing": "{font.tracking.normal}"
+      },
+      "$type": "typography"
+    },
+    "caption": {
+      "$value": {
+        "fontFamily": "sans",
+        "fontSize": "{font.size.xs}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.line-height.xs}",
+        "letterSpacing": "{font.tracking.normal}"
+      },
+      "$type": "typography"
+    },
+    "label-caps": {
+      "$value": {
+        "fontFamily": "sans",
+        "fontSize": "{font.size.xs}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.line-height.xs}",
+        "letterSpacing": "{font.tracking.label}",
+        "textTransform": "uppercase"
+      },
+      "$type": "typography"
+    },
+    "metric": {
+      "$value": {
+        "fontFamily": "sans",
+        "fontSize": "{font.size.3xl}",
+        "fontWeight": "{font.weight.light}",
+        "lineHeight": "{font.line-height.3xl}",
+        "letterSpacing": "{font.tracking.normal}"
+      },
+      "$type": "typography"
+    }
+  }
+}

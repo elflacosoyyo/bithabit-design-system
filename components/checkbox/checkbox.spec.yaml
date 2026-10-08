@@ -1,0 +1,86 @@
+id: checkbox
+name: Checkbox
+version: 0.1.0
+status: draft
+category: input
+summary: Circular completion control. A ring when empty, a bare check glyph when done.
+purpose: >
+  One-tap completion of a habit for today. Used inside HabitCard and in the detail sheet footer
+  ("Mark as done today"). Extracted as its own component so every completion control looks and behaves the same.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: ring
+    description: Circular outline. Visible only when unchecked.
+    required: true
+  - part: check
+    description: Feather "check" glyph. Replaces the ring when checked (no filled circle).
+    required: true
+  - part: hit-area
+    description: Invisible padding that extends the touch target beyond the visual size.
+    required: true
+props:
+  - name: checked
+    type: boolean
+    required: true
+    description: Current value.
+  - name: onChange
+    type: '(next: boolean) => void'
+    required: true
+    description: Called with the new value on press.
+  - name: disabled
+    type: boolean
+    required: false
+    default: false
+    description: Dims the control and blocks presses.
+  - name: accessibilityLabel
+    type: string
+    required: true
+    description: Names the thing being completed, e.g. the habit title.
+states:
+  - name: unchecked
+    description: Ring only.
+  - name: checked
+    description: Check glyph only, no ring.
+  - name: pressed
+    description: Opacity drops to opacity.pressed.
+  - name: disabled
+    description: opacity.disabled, not focusable.
+tokens:
+  - checkbox.size
+  - checkbox.hit-slop
+  - checkbox.border-width
+  - checkbox.ring
+  - checkbox.check
+  - checkbox.disabled-opacity
+accessibility:
+  role: checkbox
+  label: Required. Must describe the habit, not the control ("Evening prayer", not "checkbox").
+  touch_target: "24pt visual + 12pt hit slop on every side = 48pt."
+  notes:
+    - Expose accessibilityState.checked; announce the change.
+    - Ring and check use text.primary, which meets 3:1 against canvas and surface in every brand and mode.
+behavior:
+  - Toggles on press-up. No long-press behavior.
+  - Does not own any confirmation or undo; the parent decides.
+related: [habit-card]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5457:5715"
+      name: Home (completion controls)
+  videos:
+    - plandevida-ios-part1.mp4 / part2.mp4 (ring to check on completion)
+  claude_design:
+    - "Plan de Vida Design System README: home checkbox uses border-2"
+  code:
+    - { repo: Bakia/plan-de-vida, path: "src/components/habit-card.tsx (checkbox is inline today)", verified: false }
+open_questions:
+  - Checkbox is inline in HabitCard and in FooterAction today; confirm there is no shared component and no completion animation.
+  - Exact visual size (24pt) is estimated from video.
+  - Does the check animate (draw-in) or just swap?
+changelog:
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft. New component extracted from HabitCard and FooterAction.

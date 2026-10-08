@@ -1,0 +1,52 @@
+{
+  "segmented-control": {
+    "track-bg": {
+      "$value": "{color.bg.surface-alt}",
+      "$type": "color"
+    },
+    "track-radius": {
+      "$value": "{radius.pill}",
+      "$type": "dimension"
+    },
+    "track-padding": {
+      "$value": "{spacing.2xs}",
+      "$type": "dimension"
+    },
+    "thumb-bg": {
+      "$value": "{color.bg.canvas}",
+      "$type": "color"
+    },
+    "thumb-radius": {
+      "$value": "{radius.pill}",
+      "$type": "dimension"
+    },
+    "label": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "font-size": {
+      "$value": "{font.size.sm}",
+      "$type": "dimension"
+    },
+    "font-weight-active": {
+      "$value": "{font.weight.medium}",
+      "$type": "fontWeight"
+    },
+    "font-weight-inactive": {
+      "$value": "{font.weight.regular}",
+      "$type": "fontWeight"
+    },
+    "segment-padding-y": {
+      "$value": "{spacing.sm}",
+      "$type": "dimension"
+    },
+    "disabled-opacity": {
+      "$value": "{opacity.disabled}",
+      "$type": "number"
+    },
+    "duration": {
+      "$value": "{motion.duration.fast}",
+      "$type": "duration"
+    }
+  }
+}

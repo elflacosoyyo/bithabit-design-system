@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bakia.dev/bithabit/brand.schema.json",
+  "title": "BITHABIT brand definition",
+  "type": "object",
+  "required": ["id", "name", "owner", "status", "description", "surfaces", "fonts", "logo", "voice", "accessibility"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string" },
+    "status": { "enum": ["default", "active", "draft", "archived"] },
+    "extends": { "type": "string" },
+    "description": { "type": "string" },
+    "surfaces": {
+      "type": "object",
+      "required": ["app"],
+      "additionalProperties": { "type": "boolean" }
+    },
+    "fonts": {
+      "type": "object",
+      "required": ["sans", "display"],
+      "properties": {
+        "sans": { "type": "object", "required": ["family"] },
+        "display": { "type": "object", "required": ["ios", "android", "web"] }
+      }
+    },
+    "logo": { "type": "object", "required": ["status"] },
+    "voice": { "type": "object", "required": ["language", "rules"] },
+    "accessibility": {
+      "type": "object",
+      "required": ["target", "waivers"],
+      "properties": {
+        "waivers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "pair", "reason", "status"],
+            "properties": {
+              "id": { "type": "string" },
+              "pair": { "type": "string" },
+              "reason": { "type": "string" },
+              "recommendation": { "type": "string" },
+              "status": { "enum": ["needs-design-decision", "accepted-with-note"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

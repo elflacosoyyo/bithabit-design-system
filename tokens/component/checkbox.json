@@ -1,0 +1,28 @@
+{
+  "checkbox": {
+    "size": {
+      "$value": "24px",
+      "$type": "dimension"
+    },
+    "hit-slop": {
+      "$value": "12px",
+      "$type": "dimension"
+    },
+    "border-width": {
+      "$value": "{border-width.thick}",
+      "$type": "dimension"
+    },
+    "ring": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "check": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "disabled-opacity": {
+      "$value": "{opacity.disabled}",
+      "$type": "number"
+    }
+  }
+}

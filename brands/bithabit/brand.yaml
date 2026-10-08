@@ -1,0 +1,42 @@
+# BITHABIT: the white-label default brand. Every client brand overrides this one.
+id: bithabit
+name: BITHABIT
+owner: Bakia
+status: default
+description: >
+  Neutral base brand of the BITHABIT habit-tracking platform: grays, white and a single blue accent.
+  Deliberately plain so that any client brand override is immediately visible in audits.
+surfaces:
+  app: true
+  watch: false
+  widget: false
+  landing: false
+fonts:
+  sans:
+    family: Inter
+    source: Google Fonts (OFL)
+  display:
+    ios: Inter
+    android: Inter
+    web: Inter
+    notes: No serif in the default brand.
+logo:
+  mark: brands/bithabit/logo-mark.svg
+  status: placeholder
+voice:
+  language: en
+  address: you
+  tone: [neutral, clear, encouraging]
+  rules:
+    - Sentence case everywhere.
+    - No emoji.
+    - Describe the action, not the feeling ("Mark as done today").
+    - Confirmations are past tense and quiet ("Completed today").
+accessibility:
+  target: WCAG 2.2 AA
+  waivers: []
+sources:
+  - docs/token-architecture.md
+status_notes: >
+  The blue/gray palette is a proposal by the design system maintainers (Tailwind-compatible values).
+  Pending design approval.

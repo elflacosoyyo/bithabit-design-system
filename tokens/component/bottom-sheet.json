@@ -1,0 +1,46 @@
+{
+  "bottom-sheet": {
+    "bg": {
+      "$value": "{color.bg.canvas}",
+      "$type": "color"
+    },
+    "radius-top": {
+      "$value": "{radius.2xl}",
+      "$type": "dimension"
+    },
+    "padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "handle": {
+      "width": {
+        "$value": "36px",
+        "$type": "dimension"
+      },
+      "height": {
+        "$value": "4px",
+        "$type": "dimension"
+      },
+      "radius": {
+        "$value": "{radius.pill}",
+        "$type": "dimension"
+      },
+      "bg": {
+        "$value": "{color.border.strong}",
+        "$type": "color"
+      },
+      "margin-top": {
+        "$value": "{spacing.sm}",
+        "$type": "dimension"
+      }
+    },
+    "backdrop": {
+      "$value": "{color.bg.overlay}",
+      "$type": "color"
+    },
+    "duration": {
+      "$value": "{motion.duration.base}",
+      "$type": "duration"
+    }
+  }
+}

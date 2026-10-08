@@ -1,0 +1,82 @@
+# Plan de Vida: first client brand built on BITHABIT.
+id: plandevida
+name: Plan de Vida
+owner: Bakia
+status: active
+extends: bithabit
+description: >
+  Private, ad-free habit tracker for the daily Catholic spiritual practices ("normas de piedad").
+  Near-monochrome warm cream system with a single tan accent. Visual-only customization (v1).
+surfaces:
+  app: true
+  watch: false      # exploration exists (Watch.dc.html); not specified yet
+  widget: false     # exploration exists (widget.dc.html); not specified yet
+  landing: false    # landing tokens are out of scope for v1
+fonts:
+  sans:
+    family: Inter
+    source: Google Fonts (OFL)
+  display:
+    ios: Kefa III
+    android: Crimson Pro
+    web: Crimson Pro
+    notes: >
+      Kefa III is an Apple system font and cannot be bundled. Android/web fall back to Crimson Pro.
+      OPEN: confirm the exact PostScript name RN needs on iOS (candidate "Kefa-Regular").
+logo:
+  mark_cream: brands/plandevida/assets/logo-cream.svg
+  mark_accent: brands/plandevida/assets/logo-accent.svg
+  mark_ink: brands/plandevida/assets/logo-ink.svg
+  status: from-figma     # Figma "Splash > Logo", recolored; confirm with brand owner
+  meaning: Stack of overlapping ellipses, read as footprints on a path.
+voice:
+  language: es          # canonical product voice is Spanish; docs and specs stay in English
+  address: tu (informal)
+  tone: [plain, devotional, warm, reverent]
+  vocabulary:
+    - 'User-facing noun is "norma" (plural "normas"), never "hábito".'
+    - '"Plan de Vida" is the proper noun for the whole life-rule.'
+  rules:
+    - Sentence case everywhere. Single-noun screen titles are bare ("Normas").
+    - No emoji. No exclamation marks except the chat onboarding.
+    - Action-first CTAs ("Marcar como hecha hoy", "Agregar norma").
+    - Confirmations are past tense and quiet ("Completada hoy").
+    - Empty states are direct, never apologetic.
+    - Privacy is a recurring value ("Sin anuncios ni rastreos").
+imagery:
+  policy: >
+    No photography inside the product. Photography is allowed only on marketing/conversion
+    surfaces (paywall, onboarding). Decision pending confirmation (see audit/decisions.md D-07).
+accessibility:
+  target: WCAG 2.2 AA
+  waivers:
+    - id: PDV-W1
+      pair: text.accent-on-*
+      reason: >
+        Tan (#EDA96D) text on white/cream is about 2:1. Inherited from the production app
+        (outline buttons, links such as "Back" and "Add norm").
+      recommendation: Introduce a darker tan for TEXT only via color.text.accent, keep fills unchanged.
+      status: needs-design-decision
+    - id: PDV-W2
+      pair: accent-fill-on-*
+      reason: Streak strip segments and calendar rings are decorative reinforcement; completion is also shown by the check and the number.
+      status: accepted-with-note
+    - id: PDV-W3
+      pair: brand.splash-fg-on-splash-bg
+      reason: The splash mark is a logotype, which WCAG 1.4.3 exempts from contrast requirements.
+      status: accepted-with-note
+    - id: PDV-W4
+      pair: text.secondary-on-input
+      reason: Muted text (#717182) on the input fill (#F3F3F5) is 4.32:1 in light mode, just under AA. Inherited from production.
+      recommendation: Darken text.secondary slightly (about #6B6B7B) or lighten bg.input.
+      status: needs-design-decision
+    - id: PDV-W5
+      pair: text.destructive-on-*
+      reason: Destructive text (#D16161) on white or cream is 3.5 to 3.75:1 ("Delete norm", delete-account confirmation). Inherited from production.
+      recommendation: Use a darker red for TEXT (about #B83F3F) and keep #D16161 for fills and icons.
+      status: needs-design-decision
+sources:
+  - Claude Design export "Plan de Vida Design System" (README, colors_and_type.css, manifest)
+  - Figma "Plan de Vida (Copy)" file qWMcWuD7X6qnzXxAmRopvf
+  - Reference videos of the production iOS app (Oct 2026)
+  - Code repo Bakia/plan-de-vida (NOT yet accessible; values unverified against code)

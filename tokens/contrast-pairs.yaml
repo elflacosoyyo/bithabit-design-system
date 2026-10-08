@@ -1,0 +1,21 @@
+# WCAG 2.2 contrast checks run for EVERY brand and mode by `npm run validate`.
+# kind: text -> 4.5:1 (SC 1.4.3) | ui -> 3:1 (SC 1.4.11). Waivers live in brands/<id>/brand.yaml.
+pairs:
+  - { id: text.primary-on-canvas,       fg: color.text.primary,    bg: color.bg.canvas,       min: 4.5, kind: text }
+  - { id: text.primary-on-surface,      fg: color.text.primary,    bg: color.bg.surface,      min: 4.5, kind: text }
+  - { id: text.primary-on-surface-alt,  fg: color.text.primary,    bg: color.bg.surface-alt,  min: 4.5, kind: text }
+  - { id: text.primary-on-input,        fg: color.text.primary,    bg: color.bg.input,        min: 4.5, kind: text }
+  - { id: text.secondary-on-canvas,     fg: color.text.secondary,  bg: color.bg.canvas,       min: 4.5, kind: text }
+  - { id: text.secondary-on-surface,    fg: color.text.secondary,  bg: color.bg.surface,      min: 4.5, kind: text }
+  - { id: text.secondary-on-input,      fg: color.text.secondary,  bg: color.bg.input,        min: 4.5, kind: text }
+  - { id: text.accent-on-canvas,        fg: color.text.accent,     bg: color.bg.canvas,       min: 4.5, kind: text }
+  - { id: text.accent-on-surface,       fg: color.text.accent,     bg: color.bg.surface,      min: 4.5, kind: text }
+  - { id: text.on-accent-on-accent,     fg: color.text.on-accent,  bg: color.accent.default,  min: 4.5, kind: text }
+  - { id: text.destructive-on-canvas,   fg: color.text.destructive, bg: color.bg.canvas,      min: 4.5, kind: text }
+  - { id: text.destructive-on-surface,  fg: color.text.destructive, bg: color.bg.surface,     min: 4.5, kind: text }
+  - { id: accent-fill-on-canvas,        fg: color.accent.default,  bg: color.bg.canvas,       min: 3.0, kind: ui }
+  - { id: accent-fill-on-surface,       fg: color.accent.default,  bg: color.bg.surface,      min: 3.0, kind: ui }
+  - { id: accent-fill-on-surface-alt,   fg: color.accent.default,  bg: color.bg.surface-alt,  min: 3.0, kind: ui }
+  - { id: border.strong-on-canvas,      fg: color.border.strong,   bg: color.bg.canvas,       min: 3.0, kind: ui }
+  - { id: border.focus-on-canvas,       fg: color.border.focus,    bg: color.bg.canvas,       min: 3.0, kind: ui }
+  - { id: brand.splash-fg-on-splash-bg, fg: color.brand.splash-fg, bg: color.brand.splash-bg, min: 3.0, kind: ui }

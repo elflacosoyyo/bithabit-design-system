@@ -1,0 +1,92 @@
+{
+  "color": {
+    "pdv": {
+      "ink": {
+        "$value": "#030213",
+        "$type": "color"
+      },
+      "ink-dark": {
+        "$value": "#f5f2ec",
+        "$type": "color"
+      },
+      "cream-50": {
+        "$value": "#faf8f2",
+        "$type": "color"
+      },
+      "cream-100": {
+        "$value": "#efede6",
+        "$type": "color"
+      },
+      "cream-warm": {
+        "$value": "#fdf5eb",
+        "$type": "color"
+      },
+      "night": {
+        "$value": "#131210",
+        "$type": "color"
+      },
+      "night-surface": {
+        "$value": "#1e1c19",
+        "$type": "color"
+      },
+      "night-alt": {
+        "$value": "#2a2722",
+        "$type": "color"
+      },
+      "tan": {
+        "$value": "#eda96d",
+        "$type": "color"
+      },
+      "splash": {
+        "$value": "#d77d2d",
+        "$type": "color"
+      },
+      "splash-press": {
+        "$value": "#c47d33",
+        "$type": "color"
+      },
+      "muted": {
+        "$value": "#717182",
+        "$type": "color"
+      },
+      "muted-dark": {
+        "$value": "#9b9893",
+        "$type": "color"
+      },
+      "red": {
+        "$value": "#d16161",
+        "$type": "color"
+      },
+      "red-dark": {
+        "$value": "#e07575",
+        "$type": "color"
+      },
+      "input": {
+        "$value": "#f3f3f5",
+        "$type": "color"
+      },
+      "today": {
+        "$value": "#3f4244",
+        "$type": "color"
+      },
+      "overlay": {
+        "$value": "rgba(3, 2, 19, 0.5)",
+        "$type": "color"
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "kefa-iii": {
+        "$value": "Kefa III",
+        "$type": "fontFamily",
+        "$description": "Apple system serif (iOS only). Not redistributable."
+      },
+      "crimson-pro": {
+        "$value": "Crimson Pro",
+        "$type": "fontFamily",
+        "$description": "Open-license serif used where Kefa III is unavailable (Android, web, Storybook)."
+      }
+    }
+  }
+}

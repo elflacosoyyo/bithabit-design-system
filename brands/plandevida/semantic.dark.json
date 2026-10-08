@@ -1,0 +1,84 @@
+{
+  "color": {
+    "bg": {
+      "canvas": {
+        "$value": "{color.pdv.night}",
+        "$type": "color"
+      },
+      "surface": {
+        "$value": "{color.pdv.night-surface}",
+        "$type": "color"
+      },
+      "surface-alt": {
+        "$value": "{color.pdv.night-alt}",
+        "$type": "color"
+      },
+      "input": {
+        "$value": "{color.pdv.night-alt}",
+        "$type": "color"
+      },
+      "overlay": {
+        "$value": "{color.pdv.overlay}",
+        "$type": "color"
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.pdv.ink-dark}",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "{color.pdv.muted-dark}",
+        "$type": "color"
+      },
+      "accent": {
+        "$value": "{color.pdv.tan}",
+        "$type": "color"
+      },
+      "on-accent": {
+        "$value": "{color.pdv.ink}",
+        "$type": "color"
+      },
+      "destructive": {
+        "$value": "{color.pdv.red-dark}",
+        "$type": "color"
+      }
+    },
+    "border": {
+      "focus": {
+        "$value": "{color.pdv.tan}",
+        "$type": "color"
+      }
+    },
+    "accent": {
+      "default": {
+        "$value": "{color.pdv.tan}",
+        "$type": "color"
+      },
+      "pressed": {
+        "$value": "{color.pdv.splash}",
+        "$type": "color"
+      },
+      "subtle": {
+        "$value": "{color.pdv.night-alt}",
+        "$type": "color"
+      }
+    },
+    "status": {
+      "destructive": {
+        "$value": "{color.pdv.red-dark}",
+        "$type": "color"
+      }
+    },
+    "brand": {
+      "splash-bg": {
+        "$value": "{color.pdv.splash}",
+        "$type": "color"
+      },
+      "splash-fg": {
+        "$value": "{color.pdv.cream-100}",
+        "$type": "color"
+      }
+    }
+  }
+}

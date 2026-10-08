@@ -1,0 +1,102 @@
+id: bottom-sheet
+name: BottomSheet
+version: 0.1.0
+status: draft
+category: container
+summary: Draggable modal sheet that rises from the bottom over a dimmed backdrop.
+purpose: >
+  Hosts secondary flows without leaving the current screen: habit detail (Norm / Notes / History),
+  suggested habits, and similar. Gives depth by tone and shape instead of shadow.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: backdrop
+    description: Full-screen flat dim (no blur) behind the sheet.
+    required: true
+  - part: sheet
+    description: Canvas-colored panel with large rounded top corners.
+    required: true
+  - part: handle
+    description: Short pill at the top edge that signals draggability.
+    required: true
+  - part: content
+    description: Free slot. Scrolls when taller than the sheet.
+    required: true
+props:
+  - name: visible
+    type: boolean
+    required: true
+    description: Controls presentation.
+  - name: onClose
+    type: () => void
+    required: true
+    description: Called after a swipe-down dismiss or a backdrop press.
+  - name: snapPoints
+    type: number[]
+    required: false
+    default: '[0.65, 0.92]'
+    description: 'Resting heights as fractions of the screen height. NOTE: default is an estimate (see open questions).'
+  - name: dismissOnBackdropPress
+    type: boolean
+    required: false
+    default: true
+    description: Whether tapping the backdrop closes the sheet.
+  - name: children
+    type: ReactNode
+    required: true
+    description: Sheet content.
+states:
+  - name: hidden
+    description: Not rendered.
+  - name: presenting
+    description: Spring up while the backdrop fades in.
+  - name: resting
+    description: Settled at a snap point.
+  - name: dragging
+    description: Follows the finger; releases to the nearest snap point or dismisses.
+tokens:
+  - bottom-sheet.bg
+  - bottom-sheet.radius-top
+  - bottom-sheet.padding-x
+  - bottom-sheet.handle.width
+  - bottom-sheet.handle.height
+  - bottom-sheet.handle.radius
+  - bottom-sheet.handle.bg
+  - bottom-sheet.handle.margin-top
+  - bottom-sheet.backdrop
+  - bottom-sheet.duration
+accessibility:
+  role: dialog
+  label: Provide an accessibilityLabel that names the sheet (usually its title).
+  notes:
+    - Set accessibilityViewIsModal so screen readers cannot reach the content behind.
+    - Move focus to the sheet title on open and return it to the trigger on close.
+    - The handle is decorative; expose a "dismiss" accessibility action on the sheet instead.
+    - 'Respect Reduce Motion: replace the spring with a short fade.'
+behavior:
+  - Presents with spring physics; backdrop fades to opacity.backdrop.
+  - Swipe down past a threshold dismisses. Scrolling content hands off to a sheet drag only at scroll offset 0.
+  - 'Avoids the keyboard: when an input inside gains focus the content stays above the keyboard.'
+  - The sheet never carries its own shadow.
+related: [segmented-control, checkbox, habit-card]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5432:2176"
+      name: Norma detail (sheet with Grabber)
+  videos:
+    - plandevida-ios-part1.mp4 / part2.mp4 (detail sheet, suggested habits sheet, keyboard)
+  claude_design:
+    - "Plan de Vida Design System README: Reanimated spring, backdrop opacity about 0.5, rounded-t-2xl"
+  code:
+    - { repo: Bakia/plan-de-vida, path: src/components/bottom-sheet.tsx, verified: false }
+open_questions:
+  - Real SPRING_CONFIG values (damping, stiffness) and snap fractions; the defaults above are estimates.
+  - Exact handle size (36x4 estimated).
+  - 'Backdrop: README says flat dim (opacity about 0.5) but the landing guideline says "black/40 with blur"; confirm flat dim.'
+  - Does the sheet support full-screen (no top radius) at the highest snap point?
+changelog:
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft from reference videos, Figma and the Claude Design export.

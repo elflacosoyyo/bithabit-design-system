@@ -1,0 +1,96 @@
+id: stat-card
+name: StatCard
+version: 0.1.0
+status: draft
+category: data-display
+summary: Compact metric tile with a label, a large value, a caption and an optional change indicator.
+purpose: >
+  Shows one number from the user's practice on the Stats screen (overall compliance, most-completed habit)
+  so progress can be read in a glance and compared with the previous period.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: container
+    description: Rounded alt-surface tile.
+    required: true
+  - part: label
+    description: Small secondary text with an optional leading icon.
+    required: true
+  - part: value
+    description: Large light-weight number in the accent text color.
+    required: true
+  - part: caption
+    description: Secondary line that qualifies the value ("this month").
+    required: false
+  - part: delta
+    description: Change versus the previous period with an arrow and a sign (e.g. -9% vs. last month).
+    required: false
+props:
+  - name: label
+    type: string
+    required: true
+    description: What is measured.
+  - name: icon
+    type: ReactNode
+    required: false
+    description: Optional 16pt stroke icon before the label.
+  - name: value
+    type: string
+    required: true
+    description: Preformatted value, e.g. "87%".
+  - name: caption
+    type: string
+    required: false
+    description: Qualifier under the value.
+  - name: delta
+    type: '{ value: number; label: string }'
+    required: false
+    description: Signed change; sign decides color and arrow direction.
+states:
+  - name: default
+    description: Static display.
+  - name: empty
+    description: Value shows 0 or a dash, caption explains why; never hide the card.
+tokens:
+  - stat-card.bg
+  - stat-card.radius
+  - stat-card.padding
+  - stat-card.gap
+  - stat-card.label
+  - stat-card.label-size
+  - stat-card.value
+  - stat-card.value-size
+  - stat-card.value-weight
+  - stat-card.caption
+  - stat-card.delta-positive
+  - stat-card.delta-negative
+accessibility:
+  role: text (single accessibility element)
+  label: "Read as one sentence: \"{label}, {value} {caption}, {up|down} {n} percent {delta.label}\"."
+  notes:
+    - 'Change direction is never conveyed by color alone: always include an arrow icon and a sign.'
+    - The accent text color has known contrast debt in the Plan de Vida brand (waiver PDV-W1).
+behavior:
+  - Cards are laid out two per row on the Stats screen and share equal width.
+  - Tiles are not interactive in v1.
+content:
+  - Labels are sentence case and short ("Overall compliance").
+  - Deltas read "-9% vs. last month"; no exclamation marks, no praise.
+related: [habit-card]
+sources:
+  videos:
+    - 'plandevida-ios-part1.mp4 (Stats screen: "Overall compliance", "Most completed norm")'
+  claude_design:
+    - "Estadisticas.dc.html exploration (new Stats layout; not in production)"
+  code:
+    - { repo: Bakia/plan-de-vida, path: "src/components/habit-stat-card.tsx (related but different: best-habit card)", verified: false }
+open_questions:
+  - The production Stats screen is not in the Figma file; confirm final structure of the metric tile.
+  - Positive delta colour (success) is assumed; the reference shows only a negative example.
+  - Second tile in the references embeds a mini history strip; decide whether that is a slot or a separate component.
+  - HabitStatCard (best habit, big percentage, progress bar) is a separate component in the backlog.
+changelog:
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft from reference videos and the Claude Design Stats exploration.

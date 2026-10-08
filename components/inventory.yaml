@@ -1,0 +1,306 @@
+# Component inventory: single backlog of every component the design system will cover.
+# status: spec-draft (spec + usage exist) | planned (to be specced) | deferred (out of v1)
+# priority: P0 vertical slice | P1 core app | P2 secondary | P3 later
+# sources: code:<path in Bakia/plan-de-vida, unverified> | figma:<node or component name> | video | claude-design:<file>
+# Figma file: qWMcWuD7X6qnzXxAmRopvf
+components:
+- id: habit-card
+  name: HabitCard
+  category: list
+  status: spec-draft
+  priority: P0
+  sources:
+  - code:src/components/habit-card.tsx
+  - figma:5457:5715
+  - video
+  notes: ''
+- id: checkbox
+  name: Checkbox
+  category: input
+  status: spec-draft
+  priority: P0
+  sources:
+  - figma:5457:5715
+  - video
+  notes: Extracted from HabitCard / FooterAction.
+- id: bottom-sheet
+  name: BottomSheet
+  category: container
+  status: spec-draft
+  priority: P0
+  sources:
+  - code:src/components/bottom-sheet.tsx
+  - figma:5432:2176
+  - video
+  notes: ''
+- id: segmented-control
+  name: SegmentedControl
+  category: navigation
+  status: spec-draft
+  priority: P0
+  sources:
+  - code:src/components/segmented-control.tsx
+  - figma:5432:2176
+  - video
+  notes: ''
+- id: stat-card
+  name: StatCard
+  category: data-display
+  status: spec-draft
+  priority: P0
+  sources:
+  - claude-design:Estadisticas
+  - video
+  notes: ''
+- id: button
+  name: Button
+  category: action
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/buttons.tsx
+  - figma:button / primary, secondary, tertiary, text
+  notes: Code has ButtonPrimary/Outline/Destructive/Text; Figma names primary/secondary/tertiary/text. Unify naming in one spec with variants.
+- id: calendar-day
+  name: CalendarDay
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/calendar-day.tsx
+  - video
+  notes: 'States: empty, done ring with number, today filled circle, streak underline.'
+- id: calendar-month
+  name: CalendarMonth
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - video
+  notes: 'History tab: month grids (not a separate file in code manifest).'
+- id: footer-action
+  name: FooterAction
+  category: action
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/footer-action.tsx
+  - video
+  notes: '''Mark as done today'' / ''Completed today''; contains a Checkbox.'
+- id: header-bar
+  name: HeaderBar
+  category: navigation
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/header-bar.tsx
+  - figma:Header
+  - video
+  notes: Burger, serif title, optional date, trailing action (plus / pencil).
+- id: input
+  name: Input
+  category: input
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/input.tsx
+  - video
+  notes: ''
+- id: list-item
+  name: ListItem
+  category: list
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/list-item.tsx
+  - video
+  notes: Settings and Your Norms rows with chevron.
+- id: progress-bar
+  name: ProgressBar
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/progress-bar.tsx
+  - video
+  notes: Pill radius.
+- id: habit-content
+  name: HabitContent
+  category: content
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/habit-content.tsx
+  - video
+  notes: Reading body (serif) in the Norm tab.
+- id: habit-stat-card
+  name: HabitStatCard
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/habit-stat-card.tsx
+  - video
+  notes: 'Best habit card: badge, big %, progress bar, two figures.'
+- id: splash-screen
+  name: SplashScreen
+  category: content
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/splash-screen.tsx
+  - figma:11:5
+  notes: Uses brand.splash-bg / splash-fg and the logo.
+- id: chat-bubble
+  name: ChatBubble
+  category: content
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/chat-bubble.tsx
+  notes: AI / user / typing variants plus quick-reply chips. Onboarding chat; not in the reference videos.
+- id: progress-ring
+  name: ProgressRing
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - video
+  - claude-design:Estadisticas
+  notes: '''0 of 6'' ring on Stats.'
+- id: streak-badge
+  name: StreakBadge
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - video
+  notes: Accent pill with flame icon.
+- id: weekly-bars
+  name: WeeklyBars
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - video
+  - claude-design:Estadisticas
+  notes: ''
+- id: section-label
+  name: SectionLabel
+  category: content
+  status: planned
+  priority: P1
+  sources:
+  - video
+  notes: Uppercase tracked label (TODAY, THIS WEEK).
+- id: switch
+  name: Switch
+  category: input
+  status: planned
+  priority: P1
+  sources:
+  - video
+  notes: Settings toggle.
+- id: chip-select
+  name: ChipSelect
+  category: input
+  status: planned
+  priority: P2
+  sources:
+  - video
+  notes: Settings chips (Light/Dark/System, EN/ES/PT). Candidate to merge into SegmentedControl (audit D-08).
+- id: info-banner
+  name: InfoBanner
+  category: feedback
+  status: planned
+  priority: P2
+  sources:
+  - video
+  - figma:192:2191
+  notes: Subscription trial notice.
+- id: drawer-menu
+  name: DrawerMenu
+  category: navigation
+  status: planned
+  priority: P1
+  sources:
+  - figma:178:13250
+  - figma:menu / item
+  - video
+  notes: Production navigation is the left drawer (decision D-06).
+- id: form-bar
+  name: FormBar
+  category: navigation
+  status: planned
+  priority: P1
+  sources:
+  - video
+  - figma:199:512
+  notes: Cancel / title / Done bar of modal forms.
+- id: suggested-habit-row
+  name: SuggestedHabitRow
+  category: list
+  status: planned
+  priority: P2
+  sources:
+  - video
+  notes: '''+'' row in the suggestions sheet.'
+- id: radio-card
+  name: RadioCard
+  category: input
+  status: planned
+  priority: P1
+  sources:
+  - figma:5543:4622
+  - figma:Package
+  notes: Paywall plan selector.
+- id: purchase-button
+  name: PurchaseButton
+  category: action
+  status: planned
+  priority: P2
+  sources:
+  - figma:Purchase button
+  notes: Paywall CTA; may be Button variant.
+- id: alert-dialog
+  name: AlertDialog
+  category: feedback
+  status: planned
+  priority: P1
+  sources:
+  - figma:201:2124
+  - figma:5663:4530
+  notes: Purchase success and delete-account confirmation.
+- id: day-picker
+  name: DayPicker
+  category: input
+  status: planned
+  priority: P2
+  sources:
+  - figma:5450:3853
+  - figma:5450:4569
+  notes: Repeat weekly / monthly screens.
+- id: tab-bar
+  name: TabBar
+  category: navigation
+  status: deferred
+  priority: P3
+  sources:
+  - claude-design:Estadisticas
+  notes: Appears only in the Stats exploration; production uses the drawer (D-06).
+- id: watch-complication
+  name: Watch surfaces
+  category: content
+  status: deferred
+  priority: P3
+  sources:
+  - claude-design:Watch
+  notes: Out of v1.
+- id: widget
+  name: Widget surfaces
+  category: content
+  status: deferred
+  priority: P3
+  sources:
+  - claude-design:widget
+  notes: Out of v1.

@@ -1,0 +1,288 @@
+{
+  "designSystem": "0.1.0",
+  "brands": {
+    "bithabit": {
+      "name": "BITHABIT",
+      "status": "default",
+      "tokensHash": "7a1cfb9219887f78",
+      "modes": [
+        "light",
+        "dark"
+      ],
+      "surfaces": [
+        "app"
+      ]
+    },
+    "plandevida": {
+      "name": "Plan de Vida",
+      "status": "active",
+      "tokensHash": "14f412f8ed3a1fd5",
+      "modes": [
+        "light",
+        "dark"
+      ],
+      "surfaces": [
+        "app"
+      ]
+    }
+  },
+  "components": {
+    "bottom-sheet": {
+      "name": "BottomSheet",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "container",
+      "spec": "components/bottom-sheet/bottom-sheet.spec.yaml",
+      "usage": "components/bottom-sheet/bottom-sheet.usage.md",
+      "tokens": [
+        "bottom-sheet.bg",
+        "bottom-sheet.radius-top",
+        "bottom-sheet.padding-x",
+        "bottom-sheet.handle.width",
+        "bottom-sheet.handle.height",
+        "bottom-sheet.handle.radius",
+        "bottom-sheet.handle.bg",
+        "bottom-sheet.handle.margin-top",
+        "bottom-sheet.backdrop",
+        "bottom-sheet.duration"
+      ],
+      "contentHash": "ddfaa8436185d229",
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5432:2176",
+            "name": "Norma detail (sheet with Grabber)"
+          }
+        ],
+        "videos": [
+          "plandevida-ios-part1.mp4 / part2.mp4 (detail sheet, suggested habits sheet, keyboard)"
+        ],
+        "claude_design": [
+          "Plan de Vida Design System README: Reanimated spring, backdrop opacity about 0.5, rounded-t-2xl"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/bottom-sheet.tsx",
+            "verified": false
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft from reference videos, Figma and the Claude Design export."
+          ]
+        }
+      ]
+    },
+    "checkbox": {
+      "name": "Checkbox",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "input",
+      "spec": "components/checkbox/checkbox.spec.yaml",
+      "usage": "components/checkbox/checkbox.usage.md",
+      "tokens": [
+        "checkbox.size",
+        "checkbox.hit-slop",
+        "checkbox.border-width",
+        "checkbox.ring",
+        "checkbox.check",
+        "checkbox.disabled-opacity"
+      ],
+      "contentHash": "596dee23261f657e",
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5457:5715",
+            "name": "Home (completion controls)"
+          }
+        ],
+        "videos": [
+          "plandevida-ios-part1.mp4 / part2.mp4 (ring to check on completion)"
+        ],
+        "claude_design": [
+          "Plan de Vida Design System README: home checkbox uses border-2"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/habit-card.tsx (checkbox is inline today)",
+            "verified": false
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft. New component extracted from HabitCard and FooterAction."
+          ]
+        }
+      ]
+    },
+    "habit-card": {
+      "name": "HabitCard",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "list",
+      "spec": "components/habit-card/habit-card.spec.yaml",
+      "usage": "components/habit-card/habit-card.usage.md",
+      "tokens": [
+        "habit-card.bg",
+        "habit-card.text",
+        "habit-card.font-size",
+        "habit-card.font-weight",
+        "habit-card.padding-x",
+        "habit-card.padding-y",
+        "habit-card.radius-top",
+        "habit-card.radius-bottom",
+        "habit-card.pressed-opacity",
+        "habit-card.strip.height",
+        "habit-card.strip.gap",
+        "habit-card.strip.segment-filled",
+        "habit-card.strip.segment-empty"
+      ],
+      "contentHash": "0cf019b7b6b9f04e",
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5457:5715",
+            "name": "Home (instances of 'card / semana')"
+          }
+        ],
+        "videos": [
+          "plandevida-ios-part1.mp4 (home list, completion, strip fill)",
+          "plandevida-ios-part2.mp4 (strip with 5-day streak)"
+        ],
+        "claude_design": [
+          "Plan de Vida Design System: HabitCard (README: rounded-t-sm, strip is the brand pattern)"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/habit-card.tsx",
+            "verified": false
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft from reference videos, Figma and the Claude Design export."
+          ]
+        }
+      ]
+    },
+    "segmented-control": {
+      "name": "SegmentedControl",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "navigation",
+      "spec": "components/segmented-control/segmented-control.spec.yaml",
+      "usage": "components/segmented-control/segmented-control.usage.md",
+      "tokens": [
+        "segmented-control.track-bg",
+        "segmented-control.track-radius",
+        "segmented-control.track-padding",
+        "segmented-control.thumb-bg",
+        "segmented-control.thumb-radius",
+        "segmented-control.label",
+        "segmented-control.font-size",
+        "segmented-control.font-weight-active",
+        "segmented-control.font-weight-inactive",
+        "segmented-control.segment-padding-y",
+        "segmented-control.disabled-opacity",
+        "segmented-control.duration"
+      ],
+      "contentHash": "5a4b73a1584dbee9",
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5432:2176",
+            "name": "Norma detail (instance 'Segmented control')"
+          }
+        ],
+        "videos": [
+          "plandevida-ios-part1.mp4 / part2.mp4 (Notes/History, Norm/Notes/History)"
+        ],
+        "claude_design": [
+          "Plan de Vida Design System README: pill track and pill thumb"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/segmented-control.tsx",
+            "verified": false
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft from reference videos, Figma and the Claude Design export."
+          ]
+        }
+      ]
+    },
+    "stat-card": {
+      "name": "StatCard",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "data-display",
+      "spec": "components/stat-card/stat-card.spec.yaml",
+      "usage": "components/stat-card/stat-card.usage.md",
+      "tokens": [
+        "stat-card.bg",
+        "stat-card.radius",
+        "stat-card.padding",
+        "stat-card.gap",
+        "stat-card.label",
+        "stat-card.label-size",
+        "stat-card.value",
+        "stat-card.value-size",
+        "stat-card.value-weight",
+        "stat-card.caption",
+        "stat-card.delta-positive",
+        "stat-card.delta-negative"
+      ],
+      "contentHash": "b9835f2c5368a74b",
+      "sources": {
+        "videos": [
+          "plandevida-ios-part1.mp4 (Stats screen: \"Overall compliance\", \"Most completed norm\")"
+        ],
+        "claude_design": [
+          "Estadisticas.dc.html exploration (new Stats layout; not in production)"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/habit-stat-card.tsx (related but different: best-habit card)",
+            "verified": false
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft from reference videos and the Claude Design Stats exploration."
+          ]
+        }
+      ]
+    }
+  }
+}
