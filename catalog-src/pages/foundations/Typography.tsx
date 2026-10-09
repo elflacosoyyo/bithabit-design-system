@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fontFamily, textStyle, useTheme } from '../../src/theme/ThemeProvider';
-import { Code, H1, H2, P, Page, Table } from '../_helpers/ui';
-import { useSample } from '../_helpers/sample';
+import { fontFamily, textStyle, useTheme } from '../../../src/theme/ThemeProvider';
+import { Code, H1, H2, P, Page, Table } from '../../helpers/ui';
+import { useSample } from '../../helpers/sample';
 
 const Typography = () => {
   const { theme, brand, mode } = useTheme();
@@ -46,6 +45,4 @@ const Typography = () => {
   );
 };
 
-const meta = { title: 'Foundations/Typography', component: Typography, parameters: { layout: 'padded' } } satisfies Meta<typeof Typography>;
-export default meta;
-export const Styles: StoryObj<typeof meta> = {};
+export default Typography;

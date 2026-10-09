@@ -1,8 +1,7 @@
 import YAML from 'yaml';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTheme } from '../../src/theme/ThemeProvider';
-import compatRaw from '../../tokens/compat.yaml?raw';
-import { Code, H1, H2, P, Page, Swatch, Table } from '../_helpers/ui';
+import { useTheme } from '../../../src/theme/ThemeProvider';
+import compatRaw from '../../../tokens/compat.yaml?raw';
+import { Code, H1, H2, P, Page, Swatch, Table } from '../../helpers/ui';
 
 interface Compat { colors: Record<string, string>; extras: Record<string, string> }
 const compat = YAML.parse(compatRaw) as Compat;
@@ -37,6 +36,4 @@ const Colors = () => {
   );
 };
 
-const meta = { title: 'Foundations/Colors', component: Colors, parameters: { layout: 'padded' } } satisfies Meta<typeof Colors>;
-export default meta;
-export const Semantic: StoryObj<typeof meta> = {};
+export default Colors;

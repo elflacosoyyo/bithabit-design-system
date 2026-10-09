@@ -36,15 +36,12 @@
     "build": "node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "npm run test && npm run typecheck && npm run validate && npm run build && git diff --exit-code -- dist",
+    "check": "npm run test && npm run typecheck && npm run validate && npm run build && npm run build-catalog && git diff --exit-code -- dist catalog",
     "typecheck": "tsc --noEmit",
-    "prestorybook": "npm run build",
-    "storybook": "storybook dev -p 6006",
-    "prebuild-storybook": "npm run build",
-    "build-storybook": "storybook build -o storybook-static --disable-telemetry",
-    "test:stories": "node scripts/smoke-stories.mjs",
-    "chromatic": "chromatic --exit-zero-on-changes --build-script-name build-storybook",
-    "ds-sync": "node integration/ds-sync/sync.mjs"
+    "ds-sync": "node integration/ds-sync/sync.mjs",
+    "catalog": "vite catalog-src --open",
+    "build-catalog": "node scripts/build-catalog.mjs",
+    "test:catalog": "node scripts/test-catalog.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -56,17 +53,13 @@
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",
     "@fontsource/yrsa": "^5.3.0",
-    "@storybook/addon-a11y": "^10.6.1",
-    "@storybook/react-vite": "^10.6.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "chromatic": "^18.12.0",
     "marked": "^18.1.0",
     "playwright-core": "^1.64.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-native-web": "^0.21.4",
-    "storybook": "^10.6.1",
     "typescript": "^5.9.3",
     "vite": "^8.3.4"
   },

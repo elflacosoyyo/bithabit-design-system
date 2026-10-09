@@ -3,5 +3,4 @@ node_modules/
 *.log
 .env
 .env.*
-storybook-static/
-storybook-snapshots/
+catalog-snapshots/

@@ -9,12 +9,14 @@ Keep a single, validated source of truth for tokens, brands and component contra
 
 ## Commands
 ```bash
-npm run check      # ALWAYS before committing: test + validate + build + dist up-to-date check
+npm run check      # ALWAYS before committing: test + typecheck + validate + build + build-catalog + "dist/ and catalog/ are up to date"
 npm run validate   # schema, token resolution, mode parity, WCAG contrast, spec/inventory consistency
 npm run build      # regenerates dist/ (committed on purpose, so apps can install from GitHub)
-npm run storybook  # visual catalog; also `build-storybook` and `test:stories` (see docs/storybook.md)
+npm run build-catalog  # regenerates catalog/index.html, the single-file visual catalog (committed; also part of `check`)
+npm run test:catalog   # opens catalog/index.html as a file in headless Chromium and exercises every page and interaction
+npm run catalog        # catalog dev server (see docs/catalog.md)
 ```
-Never edit `dist/` by hand. If `dist/` changes, commit it together with the source change that caused it.
+Never edit `dist/` or `catalog/` by hand. If either changes, commit it together with the source change that caused it.
 
 ## Source priority (when sources disagree)
 1. Explicit decisions by the designer (recorded in `audit/decisions.md`).
@@ -46,8 +48,8 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 3. Add component tokens in `tokens/component/<id>.json`, referencing semantic tokens only. List **every** token the component reads under `tokens:` in the spec.
 4. Read the real component in `Bakia/plan-de-vida` and copy facts (props, sizes, behavior) into the spec. Everything still unknown goes in `open_questions`; every difference between the code and what the contract prescribes goes in `code_gaps` (this is what the ds-sync skill will report to developers).
 5. Set the inventory status to `spec-draft`. Bump `version` (semver) and add a `changelog` entry whose top version equals `version`.
-6. Add the reference component in `src/components/` and its stories in `stories/components/` (states, `Interactive` with a `play` function, `AllBrands`, `Spec`). Checklist in `docs/storybook.md`.
-7. `npm run check && npm run build-storybook && npm run test:stories`.
+6. Add the reference component in `src/components/` and its catalog page in `catalog-src/pages/components/` (`Examples` and `AllBrands`; register it in `catalog-src/registry.tsx`). Checklist in `docs/catalog.md`.
+7. `npm run check && npm run test:catalog`.
 
 ### Update a token
 - Change the lowest layer that is correct (a brand override before a base token, a semantic token before a primitive).
@@ -68,16 +70,18 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 ## Component spec status
 `draft` (has open questions) → `stable` (no open questions, verified against code) → `deprecated`. `validate` rejects `stable` with open questions.
 
-## Storybook rules
+## Catalog rules
 - Reference components read tokens through `useTheme()`; never literals. They implement the **contract** (including accessibility roles and hit areas), not the production quirks; differences go in the spec's `code_gaps`.
-- Stories must work in every brand: use `useSample()` for content so each brand shows its own voice, and add the story to `BrandMatrix`.
-- A story that animates needs `parameters.chromatic.delay` so visual snapshots are stable.
+- Pages must work in every brand: use `useSample()` for content so each brand shows its own voice, and show the component in `BrandMatrix`.
+- The catalog must stay one self-contained file: no network requests, no external fonts or scripts (`test:catalog` blocks the network and fails on any request).
+- Interactive examples need a step in `scripts/test-catalog.mjs`. Give each `<Example>` a clear title: tests find it by name.
 
 ## Do not
 - Do not add emojis, shadows, gradients or photography to specs unless the brand's voice/visual rules allow it (see `brands/*/brand.yaml`).
 - Do not invent measurements. If you estimated from a video or screenshot, say so in `open_questions`.
 - Do not commit secrets, tokens or private repo contents. `Bakia/plan-de-vida` is private: reference paths only.
 - Do not push to branches other than the one the session assigned; do not open PRs unless the designer asks.
+- Do not add paid or account-bound services (hosting, visual regression, analytics) without the designer's explicit decision (D-23).
 
 ## Pending information
 See `audit/decisions.md` (status OPEN) and the `open_questions` of each spec.

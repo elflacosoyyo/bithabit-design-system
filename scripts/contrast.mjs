@@ -1,4 +1,4 @@
-// Pure WCAG contrast math (no Node APIs), shared by the validator and the Storybook audit pages.
+// Pure WCAG contrast math (no Node APIs), shared by the validator and the catalog's audit page.
 export function parseHex(h) {
   const m = /^#([0-9a-f]{6})$/i.exec(h ?? '');
   if (!m) return null;

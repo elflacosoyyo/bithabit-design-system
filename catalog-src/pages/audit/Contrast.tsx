@@ -1,15 +1,14 @@
 import YAML from 'yaml';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { BRAND_IDS, MODES, brandName, getTheme } from '../../src/theme/themes';
-import { useTheme } from '../../src/theme/ThemeProvider';
-import { contrast } from '../../scripts/contrast.mjs';
-import pairsRaw from '../../tokens/contrast-pairs.yaml?raw';
-import { Badge, Code, H1, H2, P, Page, Swatch, Table, getPath } from '../_helpers/ui';
+import { BRAND_IDS, MODES, brandName, getTheme } from '../../../src/theme/themes';
+import { useTheme } from '../../../src/theme/ThemeProvider';
+import { contrast } from '../../../scripts/contrast.mjs';
+import pairsRaw from '../../../tokens/contrast-pairs.yaml?raw';
+import { Badge, Code, H1, H2, P, Page, Swatch, Table, getPath } from '../../helpers/ui';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const pairs = (YAML.parse(pairsRaw) as { pairs: Array<{ id: string; fg: string; bg: string; min: number; kind: string }> }).pairs;
-const brandFiles = import.meta.glob('../../brands/*/brand.yaml', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
-const brandMeta = (id: string): any => YAML.parse(brandFiles[`../../brands/${id}/brand.yaml`]);
+const brandFiles = import.meta.glob('../../../brands/*/brand.yaml', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const brandMeta = (id: string): any => YAML.parse(brandFiles[`../../../brands/${id}/brand.yaml`]);
 const waiverFor = (meta: any, pairId: string) =>
   (meta.accessibility?.waivers ?? []).find((w: any) => (w.pair.endsWith('*') ? pairId.startsWith(w.pair.slice(0, -1)) : w.pair === pairId));
 
@@ -51,6 +50,4 @@ const Contrast = () => {
   );
 };
 
-const meta = { title: 'Audit/Contrast', component: Contrast, parameters: { layout: 'padded' } } satisfies Meta<typeof Contrast>;
-export default meta;
-export const Report: StoryObj<typeof meta> = {};
+export default Contrast;

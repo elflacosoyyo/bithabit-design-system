@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { BRAND_IDS, brandName } from '../src/theme/themes';
-import { useTheme } from '../src/theme/ThemeProvider';
-import { Code, H1, H2, Page, P, Table } from './_helpers/ui';
+import { BRAND_IDS, brandName } from '../../src/theme/themes';
+import { useTheme } from '../../src/theme/ThemeProvider';
+import { Code, H1, H2, Page, P, Table } from '../helpers/ui';
 
 const Intro = () => {
   const { brand, mode } = useTheme();
@@ -9,10 +8,10 @@ const Intro = () => {
     <Page maxWidth={860}>
       <H1>BITHABIT Design System</H1>
       <P>
-        One neutral default brand and any number of client brands, each shipped as its own app. This Storybook is the visual catalog and the
+        One neutral default brand and any number of client brands, each shipped as its own app. This catalog is the visual reference and the
         audit tool; the contract that developers and their Claude read lives next to it (<Code>components/*/*.spec.yaml</Code> and <Code>*.usage.md</Code>).
       </P>
-      <P muted>Currently showing <b>{brandName(brand)}</b> in <b>{mode}</b> mode. Use the toolbar above to switch brand and mode; every story follows it.</P>
+      <P muted>Currently showing <b>{brandName(brand)}</b> in <b>{mode}</b> mode. Use the toolbar above to switch brand and mode; every page follows it.</P>
       <H2>How to read this catalog</H2>
       <Table
         head={['Where', 'What for']}
@@ -34,6 +33,4 @@ const Intro = () => {
   );
 };
 
-const meta = { title: 'Overview/Introduction', component: Intro, parameters: { layout: 'padded' } } satisfies Meta<typeof Intro>;
-export default meta;
-export const Introduction: StoryObj<typeof meta> = {};
+export default Intro;

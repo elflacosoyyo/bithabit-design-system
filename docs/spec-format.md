@@ -4,7 +4,7 @@ Each component lives in `components/<id>/` with two files that are always kept t
 
 | File | Reader | Contains |
 |---|---|---|
-| `<id>.spec.yaml` | machines, dev's Claude, Storybook (planned) | Facts: anatomy, props, variants, states, tokens used, accessibility, behavior, sources, open questions, changelog |
+| `<id>.spec.yaml` | machines, dev's Claude, the catalog | Facts: anatomy, props, variants, states, tokens used, accessibility, behavior, sources, open questions, changelog |
 | `<id>.usage.md` | humans and Claude | Judgment: when to use / not to use, do / don't, content rules, implementation notes for React Native, brand notes, contract example |
 
 Validated by `schemas/component.schema.json` and by `npm run validate` (token existence, changelog, inventory consistency).

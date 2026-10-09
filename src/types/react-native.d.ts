@@ -1,5 +1,5 @@
 // Minimal typings for the React Native APIs used by the reference components.
-// Storybook maps 'react-native' to react-native-web (see .storybook/main.ts). We do not install the real
+// The catalog build maps 'react-native' to react-native-web (see scripts/build-catalog.mjs). We do not install the real
 // react-native package here (it drags in Metro and its advisories), so only the surface we use is declared.
 declare module 'react-native' {
   import type * as React from 'react';

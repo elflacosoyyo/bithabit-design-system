@@ -56,7 +56,7 @@ Options: `--app <dir>`, `--ds <dir>`, `--connect <file>`.
 
 ## What it does not do
 - It does not run the app or execute any app code. It reads files with simple patterns, so it relies on the conventions `<Export>Props` for props and a `role`/`accessibilityRole` attribute for accessibility. If a result looks odd, say so and check by hand.
-- It does not compare visuals. Visual regression is Chromatic's job (see `docs/storybook.md`).
+- It does not compare visuals. There is no automated visual regression (decision D-23); review changes in the catalog (`docs/catalog.md`).
 - It does not pick for you. A difference is a suggestion; the team can accept it (`acceptedGaps` with a reason) or schedule it.
 
 ## Versioning rules (for the people who maintain this repo)

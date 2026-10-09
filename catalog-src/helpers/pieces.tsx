@@ -1,4 +1,4 @@
-// Story-only building blocks for patterns that are still in the inventory as "planned" (ChangeIndicator, SegmentBar).
+// Catalog-only building blocks for patterns that are still in the inventory as "planned" (ChangeIndicator, SegmentBar).
 import { Text, View } from 'react-native';
 import { ArrowGlyph } from '../../src/components/Glyphs';
 import { fontFamily, useTheme } from '../../src/theme/ThemeProvider';

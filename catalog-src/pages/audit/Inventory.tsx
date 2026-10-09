@@ -1,8 +1,7 @@
 import YAML from 'yaml';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import inventoryRaw from '../../components/inventory.yaml?raw';
-import { allSpecs } from '../_helpers/SpecView';
-import { Badge, Code, H1, H2, P, Page, Table } from '../_helpers/ui';
+import inventoryRaw from '../../../components/inventory.yaml?raw';
+import { allSpecs } from '../../helpers/SpecView';
+import { Badge, Code, H1, H2, P, Page, Table } from '../../helpers/ui';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const inventory = (YAML.parse(inventoryRaw) as { components: any[] }).components;
@@ -36,6 +35,4 @@ const Inventory = () => {
   );
 };
 
-const meta = { title: 'Audit/Inventory', component: Inventory, parameters: { layout: 'padded' } } satisfies Meta<typeof Inventory>;
-export default meta;
-export const Status: StoryObj<typeof meta> = {};
+export default Inventory;

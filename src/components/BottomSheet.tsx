@@ -12,7 +12,7 @@ export interface BottomSheetProps {
   accessibilityLabel?: string;
   /**
    * Reference-only. 'modal' (default) mirrors production (transparent Modal over the whole screen).
-   * 'inline' fills the nearest positioned parent so Storybook can show several sheets on one page.
+   * 'inline' fills the nearest positioned parent so the catalog can show several sheets on one page.
    */
   presentation?: 'modal' | 'inline';
 }

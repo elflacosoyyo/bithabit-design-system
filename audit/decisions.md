@@ -14,6 +14,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | D-03 | Surface | **`#FAF8F2`** (app). Confirmed by `global.css` | `#FDF5EB` (landing) |
 | D-04 | Splash color | **`#D77D2D`**. Confirmed by `global.css` | `#D4893A` (landing stylesheet) |
 | D-05 | Display serif | **Yrsa** (decided 2026-10-09). Production bundles it (OFL, weights 300–700, iOS and Android) | Kefa III: an Apple system font that cannot be bundled and does not exist on Android |
+| D-23 | Visual catalog | **One self-contained HTML file** (`catalog/index.html`), committed to the repo. No Storybook, no Chromatic. Decided 2026-10-09 to avoid external dependencies and accounts | Storybook (+ Chromatic for hosting and visual regression); Storybook without Chromatic |
 | D-06 | Navigation | **Left drawer** (`expo-router/drawer`, confirmed in code) | Bottom tab bar appears only in the Stats exploration |
 | D-12 | Styling stack | **NativeWind 4.2 + Tailwind 3.4, `darkMode: 'class'`, CSS variables in `global.css`.** The build emits a preset and a CSS file that use the app's existing names (`tokens/compat.yaml`) | n/a |
 | D-16 | Code access | **Granted.** Specs verified against the code | n/a |

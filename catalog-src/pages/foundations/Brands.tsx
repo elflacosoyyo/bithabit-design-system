@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { BRAND_IDS, MODES, brandName, getTheme } from '../../src/theme/themes';
-import { useTheme } from '../../src/theme/ThemeProvider';
-import { Code, H1, P, Page, Swatch } from '../_helpers/ui';
+import { BRAND_IDS, MODES, brandName, getTheme } from '../../../src/theme/themes';
+import { useTheme } from '../../../src/theme/ThemeProvider';
+import { Code, H1, P, Page, Swatch } from '../../helpers/ui';
 
 const kebab = (s: string) => s.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
 const flat = (obj: Record<string, unknown>, prefix: string[] = []): Array<[string, string]> =>
@@ -41,6 +40,4 @@ const Brands = () => {
   );
 };
 
-const meta = { title: 'Foundations/Brands', component: Brands, parameters: { layout: 'padded' } } satisfies Meta<typeof Brands>;
-export default meta;
-export const Comparison: StoryObj<typeof meta> = {};
+export default Brands;

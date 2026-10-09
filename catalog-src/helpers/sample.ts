@@ -1,4 +1,4 @@
-// Sample content per brand, so stories also show each brand's voice (Plan de Vida speaks Spanish and says "normas").
+// Sample content per brand, so examples also show each brand's voice (Plan de Vida speaks Spanish and says "normas").
 import { useTheme } from '../../src/theme/ThemeProvider';
 
 export interface Sample {

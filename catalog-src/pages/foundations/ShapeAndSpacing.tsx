@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useTheme } from '../../src/theme/ThemeProvider';
-import { Code, H1, H2, P, Page, Table } from '../_helpers/ui';
+import { useTheme } from '../../../src/theme/ThemeProvider';
+import { Code, H1, H2, P, Page, Table } from '../../helpers/ui';
 
 const Shape = () => {
   const { theme, brand } = useTheme();
@@ -23,6 +22,4 @@ const Shape = () => {
   );
 };
 
-const meta = { title: 'Foundations/Shape and spacing', component: Shape, parameters: { layout: 'padded' } } satisfies Meta<typeof Shape>;
-export default meta;
-export const Scales: StoryObj<typeof meta> = {};
+export default Shape;

@@ -35,7 +35,11 @@ export const SpecView = ({ id }: { id: string }) => {
   const s = loadSpec(id);
   // The page already shows the component name as its title, so drop the guide's own H1 and the spec-link line.
   const md = usageMd(id).replace(/^# .*\n+/, '').replace(/^> Spec:.*\n+/, '');
-  const html = marked.parse(md, { async: false }) as string;
+  // Links between usage guides ('../checkbox/checkbox.usage.md') become navigation inside the catalog.
+  const html = (marked.parse(md, { async: false }) as string).replace(
+    /href="\.\.\/([a-z-]+)\/\1\.usage\.md"/g,
+    (_, other: string) => `href="#/components/${other}/spec?brand=${brand}&mode=${mode}"`,
+  );
   const tone = s.status === 'stable' ? 'pass' : s.status === 'deprecated' ? 'fail' : 'warn';
   return (
     <Page>
