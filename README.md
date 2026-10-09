@@ -31,6 +31,7 @@ Code Connect: a thin mapping layer that lets developers (and their Claude) keep 
 | `scripts/` | `build.mjs` (tokens → outputs), `validate.mjs` (linter + WCAG contrast) | tooling |
 | `dist/` | **Generated** and committed: theme (JS + d.ts + JSON), CSS variables, a CSS file and Tailwind/NativeWind preset that use the app's existing BitHabit names, `manifest.json` | dev |
 | `audit/decisions.md` | Open and closed design decisions, inconsistencies found in the sources | design |
+| `integration/` | The Code Connect layer: `ds-sync` tool, Claude skill, `connect.yaml` template and examples | dev, dev's Claude |
 | `docs/` | Architecture, spec format and the consumer guide for app developers | everyone |
 | `CLAUDE.md` | How Claude maintains this repo (the maintainer is Claude, guided by the designer) | Claude |
 
@@ -61,7 +62,7 @@ Every brand ships **light** and **dark**. Today:
 | 1 | Three-layer tokens, two brands, build, WCAG validation | done |
 | 2 | Component specs and usage docs | **5 of 49** components, verified against the production code (vertical slice) |
 | 3 | Reference components in React Native + Storybook (RN-web) with brand/mode switcher, all-brands matrices, generated spec pages, contrast audit, smoke + interaction tests | **done** (Chromatic is wired but needs your account, see `docs/storybook.md`) |
-| 4 | Code Connect layer: `connect.yaml` template, `ds-sync` Claude skill, onboarding for dev teams | planned |
+| 4 | Code Connect layer: `connect.yaml` schema and template, `ds-sync` tool and Claude skill, example for Plan de Vida | **done** (see `docs/code-connect.md`) |
 | 5 | Per-brand audit report, versioned releases | planned |
 
 Specs are **draft** until the designer approves the changes listed in each spec's `code_gaps` and closes its `open_questions`. See `audit/decisions.md` for what needs a decision.

@@ -10,11 +10,12 @@
     "url": "git+https://github.com/elflacosoyyo/bithabit-design-system.git"
   },
   "files": [
-    "dist",
-    "components",
     "brands",
-    "schemas",
-    "docs"
+    "components",
+    "dist",
+    "docs",
+    "integration",
+    "schemas"
   ],
   "exports": {
     "./themes/*": {
@@ -28,7 +29,8 @@
     "./brands/*": "./brands/*",
     "./schemas/*": "./schemas/*",
     "./package.json": "./package.json",
-    "./css-compat/*": "./dist/*/bithabit-compat.css"
+    "./css-compat/*": "./dist/*/bithabit-compat.css",
+    "./integration/*": "./integration/*"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -41,7 +43,8 @@
     "prebuild-storybook": "npm run build",
     "build-storybook": "storybook build -o storybook-static --disable-telemetry",
     "test:stories": "node scripts/smoke-stories.mjs",
-    "chromatic": "chromatic --exit-zero-on-changes --build-script-name build-storybook"
+    "chromatic": "chromatic --exit-zero-on-changes --build-script-name build-storybook",
+    "ds-sync": "node integration/ds-sync/sync.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -66,5 +69,8 @@
     "storybook": "^10.6.1",
     "typescript": "^5.9.3",
     "vite": "^8.3.4"
+  },
+  "bin": {
+    "ds-sync": "integration/ds-sync/sync.mjs"
   }
 }

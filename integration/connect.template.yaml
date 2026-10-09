@@ -1,0 +1,29 @@
+# .bithabit/connect.yaml: copy this file into your app repo and fill it in (or run `ds-sync init --write` to draft it).
+# It maps design-system components to YOUR components. The design system never reads your code at runtime,
+# and your app never depends on the design system at runtime. This file is the only link.
+designSystem: "@bakia/bithabit-design-system"
+brand: your-brand-id            # a folder name in the design system's brands/ (for example plandevida)
+styling:
+  globalCss: global.css         # file that defines the --color-* variables; ds-sync compares it with the brand's bithabit-compat.css
+  tailwindConfig: tailwind.config.js
+mappings:
+  habit-card:                   # design-system component id (see `ds-sync list`)
+    component: src/components/habit-card.tsx
+    export: HabitCard           # exported name; ds-sync reads the "<Export>Props" type
+    syncedVersion: 0.2.0        # contract version this component was last aligned with
+    syncedHash: "0000000000000000"  # contentHash from dist/manifest.json at that moment (always quoted: hashes can look like numbers)
+    props:                      # design-system prop -> your prop name, or null when you have no equivalent
+      title: title
+      completed: completed
+      history: history
+      onToggle: onToggle
+      onPress: onPress
+      onLongPress: onLongPress
+      disabled: disabled
+    acceptedGaps:               # differences from the contract that your team decided to keep (they stop being reported)
+      - gap: Pressed state is the TouchableOpacity default
+        reason: Waiting for the designer's decision D-21.
+    notes: Optional free text.
+ignore:                         # design-system components your app intentionally does not use
+  - id: metric-card
+    reason: The Stats screen is not in this release.

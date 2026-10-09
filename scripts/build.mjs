@@ -134,6 +134,8 @@ for (const brand of listBrands()) {
     tokensHash: sha(JSON.stringify(nested)),
     modes: MODES,
     surfaces: Object.keys(meta.surfaces).filter((s) => meta.surfaces[s]),
+    compatCss: `dist/${brand}/bithabit-compat.css`,
+    theme: `dist/${brand}/theme.js`,
   };
 }
 
@@ -147,6 +149,11 @@ for (const s of loadSpecs()) {
     usage: `components/${s.dir}/${s.dir}.usage.md`,
     tokens: s.spec.tokens,
     contentHash: sha(s.raw + s.usage),
+    props: s.spec.props.map((p) => ({ name: p.name, required: p.required })),
+    accessibilityRole: s.spec.accessibility.role,
+    codeGaps: s.spec.code_gaps ?? [],
+    // paths in the production app that the spec was verified against (text after the path is a note)
+    codeSources: (s.spec.sources?.code ?? []).map((c) => ({ repo: c.repo, path: String(c.path).split(' ')[0], verified: c.verified, commit: c.commit })),
     sources: s.spec.sources ?? {},
     changelog: s.spec.changelog.slice(0, 3),
   };

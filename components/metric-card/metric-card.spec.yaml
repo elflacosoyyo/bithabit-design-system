@@ -1,6 +1,6 @@
 id: metric-card
 name: MetricCard
-version: 0.2.0
+version: 0.2.1
 status: draft
 category: data-display
 summary: Fixed-width tile with an icon and title, one large number, a one-line subtitle and an optional footer.
@@ -81,10 +81,10 @@ tokens:
   - metric-card.subtitle-margin-top
   - metric-card.footer-margin-top
 accessibility:
-  role: text (single accessibility element)
+  role: text
   label: "Read as one sentence: \"{title}, {value}, {subtitle}\" plus the change if present."
   notes:
-    - The tile is accessible as one element; make accessibilityLabel required so the footer is read too.
+    - The whole tile is one accessibility element; make accessibilityLabel required so the footer is read too.
     - The accent value color has known contrast debt in Plan de Vida (waiver PDV-W1).
 behavior:
   - Tiles are not interactive.
@@ -120,6 +120,10 @@ open_questions:
   - Should 34pt join the type scale (for example as font.size.stat)? Decision D-18.
   - Is the fixed 172pt width intentional for the two-tile rail?
 changelog:
+  - version: 0.2.1
+    date: "2026-10-09"
+    changes:
+      - Accessibility role is the plain value text; the single-element rule moved to the notes.
   - version: 0.2.0
     date: "2026-10-09"
     changes:

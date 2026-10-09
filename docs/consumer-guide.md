@@ -1,7 +1,5 @@
 # Consumer guide (for app developers and their Claude)
 
-> Status: the Code Connect layer (`connect.yaml` + `ds-sync` skill) is **planned (Phase 4)**. What exists today is everything it will read.
-
 ## Install (private repo)
 ```bash
 npm i github:elflacosoyyo/bithabit-design-system#v0.1.0
@@ -30,18 +28,10 @@ import { light, dark } from '@bakia/bithabit-design-system/themes/plandevida';
 2. `components/<id>/<id>.usage.md`: intent and rules.
 3. `components/<id>/<id>.spec.yaml`: props, states, tokens, accessibility contract.
 
-## How an app maps its components (Phase 4 preview)
-The app keeps its own mapping file, for example `.bithabit/connect.yaml`:
-```yaml
-designSystem: "@bakia/bithabit-design-system"
-brand: plandevida
-mappings:
-  habit-card:
-    component: src/components/habit-card.tsx
-    props: { title: title, completed: completed, streakDays: streak }
-```
-A Claude skill will compare this file with the manifest and **suggest** changes ("HabitCard went from 0.1.0 to 0.2.0: new `disabled` state").
-Suggestions only; nothing is changed without the developer's approval.
+## Keep the app aligned (Code Connect)
+The app keeps its own mapping file, `.bithabit/connect.yaml`, and Claude compares it with the manifest and **suggests** changes
+("HabitCard went from 0.1.0 to 0.2.0: new `disabled` state; your component has no `accessibilityRole`"). Nothing is changed without the developer's approval.
+Setup, commands and the meaning of every finding: `docs/code-connect.md`. Template: `integration/connect.template.yaml`. Example: `integration/examples/plan-de-vida.connect.yaml`.
 
 ## Rules of thumb
 - Prefer a theme token over a literal. If a value you need has no token, ask the design system to add one instead of hardcoding it.

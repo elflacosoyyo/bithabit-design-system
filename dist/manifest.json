@@ -11,7 +11,9 @@
       ],
       "surfaces": [
         "app"
-      ]
+      ],
+      "compatCss": "dist/bithabit/bithabit-compat.css",
+      "theme": "dist/bithabit/theme.js"
     },
     "plandevida": {
       "name": "Plan de Vida",
@@ -23,7 +25,9 @@
       ],
       "surfaces": [
         "app"
-      ]
+      ],
+      "compatCss": "dist/plandevida/bithabit-compat.css",
+      "theme": "dist/plandevida/theme.js"
     }
   },
   "components": {
@@ -51,6 +55,44 @@
         "bottom-sheet.spring-stiffness"
       ],
       "contentHash": "25cb5ea886e57add",
+      "props": [
+        {
+          "name": "isOpen",
+          "required": true
+        },
+        {
+          "name": "onClose",
+          "required": true
+        },
+        {
+          "name": "children",
+          "required": true
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": false
+        }
+      ],
+      "accessibilityRole": "dialog",
+      "codeGaps": [
+        "The backdrop is the foreground color at 0.5 opacity. In dark mode that is cream, not a dim. The contract uses the overlay token (bg.overlay), which already exists in the app but is unused.",
+        "No accessibilityViewIsModal, label or dismiss action; no Reduce Motion handling.",
+        "The drag gesture covers only the handle region, not the whole header."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/bottom-sheet.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/utils/animation-presets.ts",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
       "sources": {
         "figma": [
           {
@@ -116,6 +158,45 @@
         "checkbox.disabled-opacity"
       ],
       "contentHash": "c4b3c9581626c22d",
+      "props": [
+        {
+          "name": "checked",
+          "required": true
+        },
+        {
+          "name": "onChange",
+          "required": true
+        },
+        {
+          "name": "disabled",
+          "required": false
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": true
+        }
+      ],
+      "accessibilityRole": "checkbox",
+      "codeGaps": [
+        "There is no shared Checkbox component; the markup is duplicated in HabitCard and FooterAction.",
+        "The two copies differ in size. HabitCard uses a 24pt box, FooterAction a 32pt box, both with a 24pt glyph.",
+        "hitSlop is 8 in HabitCard (40pt target) and absent in FooterAction (the whole bar is the target).",
+        "No accessibilityRole, label or state on either copy; no disabled styling."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/habit-card.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/footer-action.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
       "sources": {
         "figma": [
           {
@@ -201,6 +282,64 @@
         "habit-card.swipe.return-duration"
       ],
       "contentHash": "4e8144b5b61fdcbd",
+      "props": [
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "completed",
+          "required": true
+        },
+        {
+          "name": "history",
+          "required": true
+        },
+        {
+          "name": "onToggle",
+          "required": true
+        },
+        {
+          "name": "onPress",
+          "required": true
+        },
+        {
+          "name": "onLongPress",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "required": false
+        }
+      ],
+      "accessibilityRole": "button",
+      "codeGaps": [
+        "No accessibilityRole, accessibilityLabel or accessibilityState on the card or the checkbox.",
+        "The checkbox hit area is 40pt (24pt plus hitSlop 8); the contract asks for 48pt (hit slop 12).",
+        "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7), as FooterAction already does.",
+        "Swipe actions have no accessible alternative.",
+        "Swipe labels use text-background on accent and destructive fills. In Plan de Vida light mode that is white on tan (2.0:1), waiver PDV-W6."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/habit-card.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/swipeable-habit-card.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/utils/frequency.ts",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
       "sources": {
         "figma": [
           {
@@ -257,7 +396,7 @@
     },
     "metric-card": {
       "name": "MetricCard",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "status": "draft",
       "category": "data-display",
       "spec": "components/metric-card/metric-card.spec.yaml",
@@ -284,7 +423,64 @@
         "metric-card.subtitle-margin-top",
         "metric-card.footer-margin-top"
       ],
-      "contentHash": "c9d1c729ac7c57c3",
+      "contentHash": "96bd966aeb8a9d60",
+      "props": [
+        {
+          "name": "icon",
+          "required": true
+        },
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "value",
+          "required": true
+        },
+        {
+          "name": "valueTone",
+          "required": true
+        },
+        {
+          "name": "subtitle",
+          "required": true
+        },
+        {
+          "name": "footer",
+          "required": false
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": false
+        }
+      ],
+      "accessibilityRole": "text",
+      "codeGaps": [
+        "The value size (34pt) is a literal in StatNumber; only 20pt and 30pt map to type-scale tokens. 32pt and 54pt are also literals.",
+        "The 172pt width is fixed, so it will not adapt to large text sizes or narrow screens.",
+        "accessibilityLabel is optional.",
+        "The positive ChangeIndicator uses the brand orange (text-splash), which is below 4.5:1 on the cream surface in Plan de Vida light mode (waiver PDV-W7)."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/metric-card.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/stat-number.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/month-metrics.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
       "sources": {
         "videos": [
           "plandevida-ios-part1.mp4 (Stats screen)"
@@ -314,6 +510,13 @@
         ]
       },
       "changelog": [
+        {
+          "version": "0.2.1",
+          "date": "2026-10-09",
+          "changes": [
+            "Accessibility role is the plain value text; the single-element rule moved to the notes."
+          ]
+        },
         {
           "version": "0.2.0",
           "date": "2026-10-09",
@@ -351,6 +554,39 @@
         "segmented-control.font-weight-inactive"
       ],
       "contentHash": "54f7a5c45648a1b6",
+      "props": [
+        {
+          "name": "labels",
+          "required": true
+        },
+        {
+          "name": "selectedIndex",
+          "required": true
+        },
+        {
+          "name": "onSelect",
+          "required": true
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": false
+        }
+      ],
+      "accessibilityRole": "tablist",
+      "codeGaps": [
+        "No accessibilityRole, label or state on the control or its segments.",
+        "Segment height is 36pt, below the 44pt contract target.",
+        "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).",
+        "There is no disabled state."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/segmented-control.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
       "sources": {
         "figma": [
           {

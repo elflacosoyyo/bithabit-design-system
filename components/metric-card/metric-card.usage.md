@@ -1,6 +1,6 @@
 # MetricCard
 
-> Spec: [`metric-card.spec.yaml`](./metric-card.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`metric-card.spec.yaml`](./metric-card.spec.yaml) · v0.2.1 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 A fixed-width tile (172pt) that shows one metric: an icon and a title, one large light-weight number, a one-line

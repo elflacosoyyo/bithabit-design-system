@@ -59,6 +59,12 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 2. Bump `version` in `package.json` (semver: breaking token/prop removal = major, new component/token = minor, fixes = patch).
 3. `npm run build`, commit everything including `dist/`, tag `vX.Y.Z`. Apps install with `npm i github:elflacosoyyo/bithabit-design-system#vX.Y.Z`.
 
+## Code Connect (ds-sync)
+- `dist/manifest.json` is a public interface: apps' `connect.yaml` files depend on component ids and manifest fields. Never rename or remove them without a major version.
+- When you change what the manifest exposes, update `scripts/build.mjs`, `integration/ds-sync/sync.mjs` and `test/ds-sync.test.mjs` together. `npm run validate` checks the connect template and `integration/examples/*.yaml` against `schemas/connect.schema.json`.
+- To refresh the Plan de Vida example after a spec change: `node integration/ds-sync/sync.mjs bump --all --app <path to plan-de-vida> --connect integration/examples/plan-de-vida.connect.yaml`. Never write into the app repo.
+- ds-sync only reads files; it must never edit app code.
+
 ## Component spec status
 `draft` (has open questions) → `stable` (no open questions, verified against code) → `deprecated`. `validate` rejects `stable` with open questions.
 

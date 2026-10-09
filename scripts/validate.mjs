@@ -1,7 +1,7 @@
 // Design-system linter. Exit code 1 on any error. Warnings (waived contrast debt, open questions) never fail the run.
 import Ajv from 'ajv/dist/2020.js';
 import {
-  MODES, listBrands, loadRaw, loadResolved, flatten, readJSON, readYAML, exists, contrast, parseHex, ROOT,
+  MODES, listBrands, loadRaw, loadResolved, flatten, readJSON, readYAML, exists, contrast, parseHex, listFiles, ROOT,
 } from './lib.mjs';
 import { loadSpecs } from './specs.mjs';
 
@@ -141,6 +141,18 @@ for (const c of inv) {
   if (!c.status.startsWith('spec') && hasSpec) err(`[inventory] ${c.id}: has a spec but is marked ${c.status}`);
 }
 for (const id of specIds) if (id && !seen.has(id)) err(`[inventory] spec "${id}" is missing from components/inventory.yaml`);
+
+// ---- 6. Code Connect: template and examples must satisfy the connect schema and point at real components
+const connectSchema = ajv.compile(readJSON('schemas/connect.schema.json'));
+const connectFiles = ['integration/connect.template.yaml', ...listFiles('integration/examples', '.yaml').map((f) => `integration/examples/${f}`)];
+for (const f of connectFiles) {
+  const data = readYAML(f);
+  if (!connectSchema(data)) err(`[connect] ${f}: ${fmt(connectSchema.errors)}`);
+  for (const id of [...Object.keys(data.mappings ?? {}), ...(data.ignore ?? []).map((i) => i.id)]) {
+    if (!specIds.has(id)) err(`[connect] ${f}: "${id}" is not a design-system component`);
+  }
+  if (!brands.includes(data.brand) && !data.brand.startsWith('your-')) err(`[connect] ${f}: unknown brand "${data.brand}"`);
+}
 
 // ---- report
 const failing = rows.filter((r) => !r.ok);
