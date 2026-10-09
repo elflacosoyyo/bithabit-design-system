@@ -61,7 +61,7 @@ Every brand ships **light** and **dark**. Today:
 |---|---|---|
 | 0 | Repo base, conventions, CI, `CLAUDE.md` | done |
 | 1 | Three-layer tokens, two brands, build, WCAG validation | done |
-| 2 | Component specs and usage docs | **5 of 49** components, verified against the production code (vertical slice) |
+| 2 | Component specs and usage docs | **6 of 49** components, verified against the production code (vertical slice) |
 | 3 | Reference components in React Native and the visual catalog as **one self-contained HTML file** (brand/mode switcher, all-brands matrices, generated spec pages, contrast audit, tests that open it as a file). No Storybook, no external services (D-23) | **done** (see `docs/catalog.md`) |
 | 4 | Code Connect layer: `connect.yaml` schema and template, `ds-sync` tool and Claude skill, example for Plan de Vida | **done** (see `docs/code-connect.md`) |
 | 5 | Per-brand audit report, versioned releases | planned |

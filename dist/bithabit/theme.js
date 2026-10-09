@@ -223,6 +223,38 @@ export const light = {
     springDamping: 25,
     springStiffness: 100
   },
+  button: {
+    height: 48,
+    radius: 8,
+    paddingX: 16,
+    gap: 8,
+    iconSize: 18,
+    fontSize: 17,
+    fontWeight: "600",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5,
+    primary: {
+      bg: "#2563EB",
+      label: "#FFFFFF"
+    },
+    outline: {
+      border: "#2563EB",
+      borderWidth: 1.5,
+      label: "#1D4ED8"
+    },
+    destructive: {
+      bg: "#DC2626",
+      label: "#FFFFFF",
+      disabledNeutralBg: "#9CA3AF",
+      disabledNeutralLabel: "#4B5563"
+    },
+    text: {
+      label: "#1D4ED8",
+      destructiveLabel: "#DC2626",
+      destructiveDisabledLabel: "#D1D5DB",
+      linkLabel: "#4B5563"
+    }
+  },
   checkbox: {
     size: 24,
     hitSlop: 12,
@@ -520,6 +552,38 @@ export const dark = {
     velocityThreshold: 500,
     springDamping: 25,
     springStiffness: 100
+  },
+  button: {
+    height: 48,
+    radius: 8,
+    paddingX: 16,
+    gap: 8,
+    iconSize: 18,
+    fontSize: 17,
+    fontWeight: "600",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5,
+    primary: {
+      bg: "#60A5FA",
+      label: "#030712"
+    },
+    outline: {
+      border: "#60A5FA",
+      borderWidth: 1.5,
+      label: "#60A5FA"
+    },
+    destructive: {
+      bg: "#F87171",
+      label: "#030712",
+      disabledNeutralBg: "#4B5563",
+      disabledNeutralLabel: "#9CA3AF"
+    },
+    text: {
+      label: "#60A5FA",
+      destructiveLabel: "#F87171",
+      destructiveDisabledLabel: "#374151",
+      linkLabel: "#9CA3AF"
+    }
   },
   checkbox: {
     size: 24,

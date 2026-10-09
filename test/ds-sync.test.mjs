@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
-  cmpSemver, propsOf, hardcodedColors, accessibilityHints, compareStyling, parseColorVars,
+  cmpSemver, propsOf, propsOfType, inferPropsType, hardcodedColors, accessibilityHints, compareStyling, parseColorVars,
   loadDs, loadConnect, check, init, bump, renderMarkdown, renderConnectYaml,
 } from '../integration/ds-sync/sync.mjs';
 
@@ -165,4 +165,96 @@ test('the CLI runs when started through a symlink (node_modules/.bin, npx ds-syn
   assert.match(out, /alpha\s+v1\.2\.0/);
   const report = execFileSync('node', [link, 'check', '--app', w.appDir, '--ds', w.dsDir], { encoding: 'utf8' });
   assert.match(report, /# ds-sync report/);
+});
+
+// ---------- components the app implements as one component per variant (Button) ----------
+const BUTTONS = [
+  'export type ButtonProps = {', '  label: string;', '  onPress: () => void;', '  disabled?: boolean;', '  loading?: boolean;', '};',
+  'export type ButtonOutlineProps = ButtonProps & {', '  iconName?: string;', '};',
+  'export type ButtonTextProps = ButtonProps & {', "  variant?: 'default' | 'link';", '};',
+  'export const ButtonPrimary = ({ label, onPress, disabled, loading, iconName }: ButtonOutlineProps) => null;',
+  'export const ButtonOutline = ({', '  label,', '  onPress,', '}: ButtonOutlineProps) => null;',
+  'export const ButtonText = ({ label, onPress, variant = "default" }: ButtonTextProps) => null;',
+].join('\n');
+
+function buttonWorld() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-sync-btn-'));
+  const dsDir = path.join(root, 'ds'), appDir = path.join(root, 'app');
+  write(dsDir, 'dist/manifest.json', JSON.stringify({
+    designSystem: '1.0.0', brands: {},
+    components: {
+      button: {
+        name: 'Button', version: '0.1.0', status: 'draft', category: 'action', contentHash: 'hbtn',
+        variants: ['primary', 'outline', 'text', 'text-link'],
+        props: [{ name: 'label', required: true }, { name: 'onPress', required: true }, { name: 'variant', required: false }, { name: 'icon', required: false }, { name: 'disabled', required: false }, { name: 'loading', required: false }],
+        accessibilityRole: 'button', codeGaps: [], codeSources: [{ path: 'src/components/buttons.tsx' }], changelog: [{ version: '0.1.0', date: '2026-01-01', changes: ['first'] }],
+      },
+    },
+  }));
+  write(appDir, 'src/components/buttons.tsx', BUTTONS);
+  return { root, dsDir, appDir, ds: loadDs(dsDir) };
+}
+
+test('propsOfType includes props of the base types it intersects or extends', () => {
+  assert.deepEqual(propsOfType(BUTTONS, 'ButtonOutlineProps').sort(), ['disabled', 'iconName', 'label', 'loading', 'onPress']);
+  assert.deepEqual(propsOfType('interface A { a: string }\ninterface B extends A {\n  b: number;\n}', 'B').sort(), ['a', 'b']);
+  assert.equal(propsOfType('type X = Pick<Y, "a">;', 'X'), null);
+});
+
+test('inferPropsType reads the props type from a (multi-line) component signature', () => {
+  assert.equal(inferPropsType(BUTTONS, 'ButtonPrimary'), 'ButtonOutlineProps');
+  assert.equal(inferPropsType(BUTTONS, 'ButtonOutline'), 'ButtonOutlineProps');
+  assert.equal(inferPropsType(BUTTONS, 'Missing'), null);
+});
+
+test('init maps a component implemented as one export per variant', () => {
+  const w = buttonWorld();
+  const { mappings, unmatched } = init({ appDir: w.appDir, ds: w.ds });
+  assert.deepEqual(unmatched, []);
+  assert.deepEqual(mappings.button.variants, {
+    primary: { export: 'ButtonPrimary' }, outline: { export: 'ButtonOutline' }, text: { export: 'ButtonText' }, 'text-link': { export: 'ButtonText' },
+  });
+  assert.equal(mappings.button.export, undefined);
+  assert.equal(mappings.button.props.icon, 'iconName', 'icon maps to the app iconName');
+  assert.equal(mappings.button.props.variant, 'variant');
+  const yaml = renderConnectYaml({ designSystem: 'x', brand: 'acme', mappings, unmatched });
+  const file = path.join(w.appDir, '.bithabit/connect.yaml');
+  write(w.appDir, '.bithabit/connect.yaml', yaml);
+  assert.equal(loadConnect(file).errors.length, 0, 'the generated file satisfies the schema');
+});
+
+test('check validates every mapped variant and the union of their props', () => {
+  const w = buttonWorld();
+  const { mappings } = init({ appDir: w.appDir, ds: w.ds });
+  const file = path.join(w.appDir, '.bithabit/connect.yaml');
+  write(w.appDir, '.bithabit/connect.yaml', renderConnectYaml({ designSystem: 'x', brand: 'acme', mappings, unmatched: [] }));
+  const ok = check({ appDir: w.appDir, ds: w.ds, connect: loadConnect(file), connectFile: file });
+  assert.equal(ok.summary.errors, 0);
+  assert.ok(!ok.components[0].findings.some((f) => f.code === 'mapped-prop-missing' || f.code === 'export-missing'));
+
+  // a mapped export that does not exist, and a prop that no variant has
+  mappings.button.variants.outline.export = 'ButtonGhost';
+  mappings.button.props.disabled = 'enabled';
+  write(w.appDir, '.bithabit/connect.yaml', renderConnectYaml({ designSystem: 'x', brand: 'acme', mappings, unmatched: [] }));
+  const bad = check({ appDir: w.appDir, ds: w.ds, connect: loadConnect(file), connectFile: file });
+  const codes = bad.components[0].findings.map((f) => f.code);
+  assert.ok(codes.includes('export-missing'));
+  assert.ok(bad.components[0].findings.some((f) => f.code === 'mapped-prop-missing' && /enabled/.test(f.message)));
+  assert.equal(bad.summary.errors, 2);
+});
+
+test('check notes design-system variants that are not mapped', () => {
+  const w = buttonWorld();
+  const { mappings } = init({ appDir: w.appDir, ds: w.ds });
+  delete mappings.button.variants['text-link'];
+  const file = path.join(w.appDir, '.bithabit/connect.yaml');
+  write(w.appDir, '.bithabit/connect.yaml', renderConnectYaml({ designSystem: 'x', brand: 'acme', mappings, unmatched: [] }));
+  const r = check({ appDir: w.appDir, ds: w.ds, connect: loadConnect(file), connectFile: file });
+  assert.ok(r.components[0].findings.some((f) => f.code === 'variant-not-mapped' && /text-link/.test(f.message)));
+});
+
+test('connect schema rejects a variant without an export', () => {
+  const w = buttonWorld();
+  write(w.appDir, '.bithabit/bad.yaml', 'designSystem: x\nbrand: acme\nmappings:\n  button:\n    component: src/components/buttons.tsx\n    syncedVersion: 0.1.0\n    variants:\n      primary: {}\n');
+  assert.ok(loadConnect(path.join(w.appDir, '.bithabit/bad.yaml')).errors.length > 0);
 });

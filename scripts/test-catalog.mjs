@@ -84,6 +84,23 @@ const expectAttr = async (loc, attr, value) => {
 };
 void expectAttr;
 
+await step('button: press, disabled and loading', async () => {
+  await go(page, '/components/button', 'bithabit', 'light');
+  const region = page.getByRole('region', { name: 'Interactive', exact: true });
+  const status = region.locator('p[aria-live]');
+  assert.match(await status.textContent(), /Added 0 times\. Not saved yet\./);
+  await region.getByRole('button', { name: 'Add norm', exact: true }).click();
+  await page.waitForFunction(() => /Added 1 time\./.test(document.querySelector('[aria-label="Interactive"] p[aria-live]')?.textContent ?? ''), null, { timeout: 4000 });
+  const disabled = region.getByRole('button', { name: 'Add norm (disabled)' });
+  assert.equal(await disabled.getAttribute('aria-disabled'), 'true');
+  await disabled.click({ force: true });
+  await page.waitForTimeout(150);
+  assert.match(await status.textContent(), /Added 1 time\./, 'a disabled button must not fire onPress');
+  await region.getByRole('button', { name: 'Save changes' }).click();
+  await page.waitForFunction(() => document.querySelector('[aria-label="Interactive"] [aria-label="Save changes"]')?.getAttribute('aria-busy') === 'true', null, { timeout: 2000 });
+  await page.waitForFunction(() => /Saved\./.test(document.querySelector('[aria-label="Interactive"] p[aria-live]')?.textContent ?? ''), null, { timeout: 4000 });
+  assert.equal(await region.getByRole('button', { name: 'Save changes' }).getAttribute('aria-busy'), 'false');
+});
 await step('habit card: complete a habit', async () => {
   await go(page, '/components/habit-card', 'plandevida', 'light');
   const list = page.getByRole('region', { name: 'Interactive list' });

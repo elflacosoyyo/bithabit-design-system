@@ -1,4 +1,6 @@
 // Design-system linter. Exit code 1 on any error. Warnings (waived contrast debt, open questions) never fail the run.
+import fs from 'node:fs';
+import path from 'node:path';
 import Ajv from 'ajv/dist/2020.js';
 import {
   MODES, listBrands, loadRaw, loadResolved, flatten, readJSON, readYAML, exists, contrast, parseHex, listFiles, ROOT,
@@ -141,6 +143,23 @@ for (const c of inv) {
   if (!c.status.startsWith('spec') && hasSpec) err(`[inventory] ${c.id}: has a spec but is marked ${c.status}`);
 }
 for (const id of specIds) if (id && !seen.has(id)) err(`[inventory] spec "${id}" is missing from components/inventory.yaml`);
+
+// ---- 5b. YAML trap: in a plain (unquoted) scalar, " #" starts a comment and silently cuts the text
+const yamlFiles = [
+  ...specs.map((x) => `components/${x.dir}/${x.dir}.spec.yaml`), 'components/inventory.yaml',
+  ...brands.map((b) => `brands/${b}/brand.yaml`), 'integration/connect.template.yaml',
+];
+for (const f of yamlFiles) {
+  let block = null; // indentation of the current block scalar (| or >), whose content may contain '#'
+  fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n').forEach((line, i) => {
+    const indent = line.length - line.trimStart().length;
+    if (block !== null) { if (line.trim() === '' || indent > block) return; block = null; }
+    if (/^\s*#/.test(line)) return;
+    if (/:\s*[|>][+-]?\s*$/.test(line)) { block = indent; return; }
+    const value = /^\s*(?:- )?(?:[\w.-]+:\s+)?(.+)$/.exec(line)?.[1] ?? '';
+    if (!/^["'[{]/.test(value) && /\s#\S/.test(value)) err(`[yaml] ${f}:${i + 1}: " #" in an unquoted value starts a comment and cuts the text; put the value in quotes`);
+  });
+}
 
 // ---- 6. Code Connect: template and examples must satisfy the connect schema and point at real components
 const connectSchema = ajv.compile(readJSON('schemas/connect.schema.json'));

@@ -22,6 +22,32 @@ mappings:
       children: children
       accessibilityLabel: null
     acceptedGaps: []
+  button:
+    component: src/components/buttons.tsx
+    variants:
+      primary:
+        export: ButtonPrimary
+      outline:
+        export: ButtonOutline
+      destructive:
+        export: ButtonDestructive
+      text:
+        export: ButtonText
+      text-destructive:
+        export: ButtonText
+      text-link:
+        export: ButtonText
+    syncedVersion: 0.1.0
+    syncedHash: "27d0743c2197c3c1"
+    props:
+      label: label
+      onPress: onPress
+      variant: variant
+      icon: iconName
+      disabled: disabled
+      loading: loading
+      disabledVariant: disabledVariant
+    acceptedGaps: []
   habit-card:
     component: src/components/habit-card.tsx
     export: HabitCard

@@ -68,12 +68,12 @@ accessibility:
     - id: PDV-W4
       pair: text.secondary-on-input
       reason: Muted text (#717182) on the input fill (#F3F3F5) is 4.32:1 in light mode, just under AA. Inherited from production.
-      recommendation: Darken text.secondary slightly (about #6B6B7B) or lighten bg.input.
+      recommendation: "Darken text.secondary slightly (about #6B6B7B) or lighten bg.input."
       status: needs-design-decision
     - id: PDV-W5
       pair: text.destructive-on-*
       reason: Destructive text (#D16161) on white or cream is 3.5 to 3.75:1 ("Delete norm", delete-account confirmation). Inherited from production.
-      recommendation: Use a darker red for TEXT (about #B83F3F) and keep #D16161 for fills and icons.
+      recommendation: "Use a darker red for TEXT (about #B83F3F) and keep #D16161 for fills and icons."
       status: needs-design-decision
     - id: PDV-W6
       pair: text.on-accent-on-*

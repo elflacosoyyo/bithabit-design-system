@@ -44,14 +44,17 @@ export function loadConnect(file) {
 }
 
 // ---------- static reading of app files (facts only; nothing is executed) ----------
-/** Names of the top-level properties of `type <Name>Props = {...}` or `interface <Name>Props {...}`. Returns null if not found. */
-export function propsOf(source, exportName) {
-  const re = new RegExp(`(?:type|interface)\\s+${exportName}Props\\b[^{;]*\\{`);
-  const m = re.exec(source);
+/** Names of the top-level props of a props type, including those of base types it extends or intersects (same file). Null if not found. */
+export function propsOfType(source, typeName, seen = new Set()) {
+  if (seen.has(typeName)) return null;
+  seen.add(typeName);
+  const m = new RegExp(`(?:type|interface)\\s+${typeName}\\b([^{;]*)\\{`).exec(source);
   if (!m) return null;
+  const names = [];
+  // Base types named in the header: "= ButtonProps & {" or "extends BaseProps {"
+  for (const base of m[1].matchAll(/\b([A-Z]\w*)\b/g)) names.push(...(propsOfType(source, base[1], seen) ?? [])); // utility types (Omit, Pick...) have no declaration here and are skipped
   let depth = 1;
   let i = m.index + m[0].length;
-  const names = [];
   let lineStart = i;
   let lineDepth = depth; // brace depth where the current line starts: a prop that opens an object type still belongs to depth 1
   for (; i < source.length && depth > 0; i++) {
@@ -66,8 +69,17 @@ export function propsOf(source, exportName) {
       lineDepth = depth;
     }
   }
-  return names;
+  return [...new Set(names)];
 }
+/** Props of `<Export>Props`. */
+export const propsOf = (source, exportName) => propsOfType(source, `${exportName}Props`);
+/** The props type named in a component signature: `export const Foo = ({ a, b }: SomeProps) =>`. */
+export function inferPropsType(source, exportName) {
+  const m = new RegExp(`export\\s+const\\s+${exportName}\\s*=\\s*\\(\\s*\\{[\\s\\S]*?\\}\\s*:\\s*(\\w+)\\s*\\)`).exec(source);
+  return m ? m[1] : null;
+}
+export const hasExport = (source, name) => new RegExp(`export\\s+(?:const|function|default function)\\s+${name}\\b`).test(source);
+const pascal = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' ')).replace(/(^|[^:])\/\/.*$/gm, '$1');
 
@@ -148,18 +160,34 @@ export function check({ appDir, ds, connect, connectFile }) {
       add('warn', 'content-changed', `The spec or usage guide changed without a version bump (hash ${map.syncedHash} to ${c.contentHash}). Read it again.`);
     }
 
-    // 2. Props
-    const exportName = map.export ?? c.name;
-    const appProps = propsOf(source, exportName);
+    // 2. Props (one export, or several exports when the app implements the component as variants)
     const propMap = map.props ?? {};
+    let appProps = null;
+    let propsLabel = `${map.export ?? c.name}Props`;
+    if (map.variants) {
+      const union = new Set();
+      let readable = false;
+      for (const [variant, v] of Object.entries(map.variants)) {
+        if (!(c.variants ?? []).includes(variant)) add('warn', 'variant-unknown', `connect.yaml maps variant "${variant}", which the design system does not define for ${c.name}.`);
+        if (!hasExport(source, v.export)) { add('error', 'export-missing', `${map.component} does not export "${v.export}" (variant "${variant}").`); continue; }
+        const names = propsOfType(source, v.propsType ?? inferPropsType(source, v.export) ?? `${v.export}Props`);
+        if (names) { readable = true; names.forEach((n) => union.add(n)); } else add('info', 'props-unreadable', `Could not read the props type of ${v.export}; its prop checks were skipped.`);
+      }
+      for (const dsVariant of c.variants ?? []) if (!(dsVariant in map.variants)) add('info', 'variant-not-mapped', `Design-system variant "${dsVariant}" is not mapped to an app export.`);
+      appProps = readable ? [...union] : null;
+      propsLabel = 'the mapped components\' props';
+    } else {
+      const exportName = map.export ?? c.name;
+      appProps = propsOf(source, exportName) ?? propsOfType(source, inferPropsType(source, exportName) ?? '');
+    }
     if (!appProps) {
-      add('info', 'props-unreadable', `Could not read a "${exportName}Props" type in ${map.component}; prop checks skipped.`);
+      if (!map.variants) add('info', 'props-unreadable', `Could not read the props type of ${map.export ?? c.name} in ${map.component}; prop checks skipped.`);
     } else {
       for (const p of c.props) {
         if (!(p.name in propMap)) { add(p.required ? 'warn' : 'info', 'prop-not-mapped', `Design-system prop "${p.name}"${p.required ? ' (required)' : ''} is not in connect.yaml. Map it to an app prop or to null.`); continue; }
         const appName = propMap[p.name];
         if (appName === null) { if (p.required) add('warn', 'required-prop-absent', `Required design-system prop "${p.name}" has no equivalent in the app.`); continue; }
-        if (!appProps.includes(appName)) add('error', 'mapped-prop-missing', `connect.yaml maps "${p.name}" to "${appName}" but ${exportName}Props has no such prop.`);
+        if (!appProps.includes(appName)) add('error', 'mapped-prop-missing', `connect.yaml maps "${p.name}" to "${appName}" but ${propsLabel} has no such prop.`);
       }
       const mapped = new Set(Object.values(propMap).filter(Boolean));
       const appOnly = appProps.filter((n) => !mapped.has(n));
@@ -225,20 +253,29 @@ export function init({ appDir, ds }) {
     const found = candidates.find((p) => /\.(tsx?|jsx?)$/.test(p) && fs.existsSync(path.join(appDir, p)));
     if (!found) { unmatched.push(id); continue; }
     const source = read(path.join(appDir, found));
-    const hasExport = new RegExp(`export\\s+(?:const|function|default function)\\s+${c.name}\\b`).test(source);
-    // The file exists but does not export this component: it is inline markup (or lives elsewhere), so there is nothing to map yet.
-    if (!hasExport) { unmatched.push(`${id} (looks inline in ${found}; a standalone component is suggested)`); continue; }
-    const appProps = propsOf(source, c.name);
-    const props = {};
-    for (const p of c.props) props[p.name] = appProps ? (appProps.includes(p.name) ? p.name : null) : p.name; // identity when the props type cannot be read: review it
-    mappings[id] = {
-      component: found,
-      export: c.name,
-      syncedVersion: c.version,
-      syncedHash: c.contentHash,
-      props,
-      acceptedGaps: [],
+    const mapProps = (appProps) => {
+      const props = {};
+      for (const p of c.props) props[p.name] = appProps ? (appProps.includes(p.name) ? p.name : appProps.includes(`${p.name}Name`) ? `${p.name}Name` : null) : p.name; // identity when unreadable: review it
+      return props;
     };
+    if (hasExport(source, c.name)) {
+      mappings[id] = { component: found, export: c.name, syncedVersion: c.version, syncedHash: c.contentHash, props: mapProps(propsOf(source, c.name)), acceptedGaps: [] };
+      continue;
+    }
+    // Not exported under its own name: the app may implement it as one component per variant (Button -> ButtonPrimary, ButtonOutline...).
+    const variants = {};
+    for (const v of c.variants ?? []) {
+      const exp = `${c.name}${pascal(v.split('-')[0])}`;
+      if (hasExport(source, exp)) variants[v] = { export: exp };
+    }
+    if (Object.keys(variants).length) {
+      const union = new Set();
+      for (const { export: exp } of Object.values(variants)) (propsOfType(source, inferPropsType(source, exp) ?? `${exp}Props`) ?? []).forEach((n) => union.add(n));
+      mappings[id] = { component: found, variants, syncedVersion: c.version, syncedHash: c.contentHash, props: mapProps([...union]), acceptedGaps: [] };
+      continue;
+    }
+    // The file exists but exports nothing that matches: inline markup (or it lives elsewhere), so there is nothing to map yet.
+    unmatched.push(`${id} (looks inline in ${found}; a standalone component is suggested)`);
   }
   return { mappings, unmatched };
 }

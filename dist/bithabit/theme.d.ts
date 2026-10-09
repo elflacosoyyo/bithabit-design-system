@@ -219,6 +219,38 @@ export interface Theme {
     springDamping: number;
     springStiffness: number;
   };
+  button: {
+    height: number;
+    radius: number;
+    paddingX: number;
+    gap: number;
+    iconSize: number;
+    fontSize: number;
+    fontWeight: string;
+    pressedOpacity: number;
+    disabledOpacity: number;
+    primary: {
+      bg: string;
+      label: string;
+    };
+    outline: {
+      border: string;
+      borderWidth: number;
+      label: string;
+    };
+    destructive: {
+      bg: string;
+      label: string;
+      disabledNeutralBg: string;
+      disabledNeutralLabel: string;
+    };
+    text: {
+      label: string;
+      destructiveLabel: string;
+      destructiveDisabledLabel: string;
+      linkLabel: string;
+    };
+  };
   checkbox: {
     size: number;
     hitSlop: number;

@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "d79cbdb7447cb086",
+      "tokensHash": "86262c712bb550cc",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "b1fdafcb2e67cb73",
+      "tokensHash": "53762811a61ef80c",
       "modes": [
         "light",
         "dark"
@@ -73,6 +73,7 @@
           "required": false
         }
       ],
+      "variants": [],
       "accessibilityRole": "dialog",
       "codeGaps": [
         "The backdrop is the foreground color at 0.5 opacity. In dark mode that is cream, not a dim. The contract uses the overlay token (bg.overlay), which already exists in the app but is unused.",
@@ -141,6 +142,144 @@
         }
       ]
     },
+    "button": {
+      "name": "Button",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "action",
+      "spec": "components/button/button.spec.yaml",
+      "usage": "components/button/button.usage.md",
+      "tokens": [
+        "button.height",
+        "button.radius",
+        "button.padding-x",
+        "button.gap",
+        "button.icon-size",
+        "button.font-size",
+        "button.font-weight",
+        "button.pressed-opacity",
+        "button.disabled-opacity",
+        "button.primary.bg",
+        "button.primary.label",
+        "button.outline.border",
+        "button.outline.border-width",
+        "button.outline.label",
+        "button.destructive.bg",
+        "button.destructive.label",
+        "button.destructive.disabled-neutral-bg",
+        "button.destructive.disabled-neutral-label",
+        "button.text.label",
+        "button.text.destructive-label",
+        "button.text.destructive-disabled-label",
+        "button.text.link-label"
+      ],
+      "contentHash": "27d0743c2197c3c1",
+      "props": [
+        {
+          "name": "label",
+          "required": true
+        },
+        {
+          "name": "onPress",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "required": false
+        },
+        {
+          "name": "icon",
+          "required": false
+        },
+        {
+          "name": "disabled",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "required": false
+        },
+        {
+          "name": "disabledVariant",
+          "required": false
+        }
+      ],
+      "variants": [
+        "primary",
+        "outline",
+        "destructive",
+        "text",
+        "text-destructive",
+        "text-link"
+      ],
+      "accessibilityRole": "button",
+      "codeGaps": [
+        "Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.",
+        "No accessibilityRole=\"button\" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.",
+        "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).",
+        "loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.",
+        "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF.",
+        "Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).",
+        "In Plan de Vida light mode the label is white on tan (2.0:1) for primary and white on red (about 3.8:1) for destructive (waiver PDV-W6), and the outline and text labels are tan on white (waiver PDV-W1)."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/buttons.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/demo/button-gallery-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5464:6425",
+            "name": "button / text (components also named button / primary, secondary, tertiary)"
+          },
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "5464:6422",
+            "name": "button / tertiary (105 by 44)"
+          }
+        ],
+        "videos": [
+          "plandevida-ios-part1.mp4 / part2.mp4 (Add norm, Delete norm, Cancel)"
+        ],
+        "claude_design": [
+          "Plan de Vida Design System README: 4 button variants, disabled is opacity 0.5, outline border 1.5px"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/buttons.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/demo/button-gallery-screen.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial spec, verified against Bakia/plan-de-vida at cdfea70. One Button contract with six variants covering the four production components."
+          ]
+        }
+      ]
+    },
     "checkbox": {
       "name": "Checkbox",
       "version": "0.2.0",
@@ -176,6 +315,7 @@
           "required": true
         }
       ],
+      "variants": [],
       "accessibilityRole": "checkbox",
       "codeGaps": [
         "There is no shared Checkbox component; the markup is duplicated in HabitCard and FooterAction.",
@@ -311,6 +451,10 @@
           "name": "disabled",
           "required": false
         }
+      ],
+      "variants": [
+        "static",
+        "swipeable"
       ],
       "accessibilityRole": "button",
       "codeGaps": [
@@ -454,6 +598,7 @@
           "required": false
         }
       ],
+      "variants": [],
       "accessibilityRole": "text",
       "codeGaps": [
         "The value size (34pt) is a literal in StatNumber; only 20pt and 30pt map to type-scale tokens. 32pt and 54pt are also literals.",
@@ -572,6 +717,7 @@
           "required": false
         }
       ],
+      "variants": [],
       "accessibilityRole": "tablist",
       "codeGaps": [
         "No accessibilityRole, label or state on the control or its segments.",

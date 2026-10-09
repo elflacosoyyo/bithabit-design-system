@@ -56,12 +56,12 @@ components:
 - id: button
   name: Button
   category: action
-  status: planned
+  status: spec-draft
   priority: P1
   sources:
   - code:src/components/buttons.tsx
   - figma:button / primary, secondary, tertiary, text
-  notes: 'Code: ButtonPrimary, ButtonOutline, ButtonDestructive (disabledVariant faded|neutral), ButtonText (default|destructive|link). Figma names primary/secondary/tertiary/text.'
+  notes: One contract with six variants covering ButtonPrimary, ButtonOutline, ButtonDestructive and ButtonText (D-24 for the variant names).
 - id: calendar-day
   name: CalendarDay
   category: data-display

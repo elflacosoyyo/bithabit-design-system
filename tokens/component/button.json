@@ -1,0 +1,100 @@
+{
+  "button": {
+    "height": {
+      "$value": "{spacing.2xl}",
+      "$type": "dimension"
+    },
+    "radius": {
+      "$value": "{radius.md}",
+      "$type": "dimension"
+    },
+    "padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "gap": {
+      "$value": "{spacing.sm}",
+      "$type": "dimension"
+    },
+    "icon-size": {
+      "$value": "18px",
+      "$type": "dimension"
+    },
+    "font-size": {
+      "$value": "{font.size.body}",
+      "$type": "dimension"
+    },
+    "font-weight": {
+      "$value": "{font.weight.semibold}",
+      "$type": "fontWeight"
+    },
+    "pressed-opacity": {
+      "$value": "{opacity.pressed}",
+      "$type": "number"
+    },
+    "disabled-opacity": {
+      "$value": "{opacity.disabled}",
+      "$type": "number"
+    },
+    "primary": {
+      "bg": {
+        "$value": "{color.accent.default}",
+        "$type": "color"
+      },
+      "label": {
+        "$value": "{color.text.on-accent}",
+        "$type": "color"
+      }
+    },
+    "outline": {
+      "border": {
+        "$value": "{color.accent.default}",
+        "$type": "color"
+      },
+      "border-width": {
+        "$value": "{border-width.medium}",
+        "$type": "dimension"
+      },
+      "label": {
+        "$value": "{color.text.accent}",
+        "$type": "color"
+      }
+    },
+    "destructive": {
+      "bg": {
+        "$value": "{color.status.destructive}",
+        "$type": "color"
+      },
+      "label": {
+        "$value": "{color.text.on-accent}",
+        "$type": "color"
+      },
+      "disabled-neutral-bg": {
+        "$value": "{color.disabled.default}",
+        "$type": "color"
+      },
+      "disabled-neutral-label": {
+        "$value": "{color.text.secondary}",
+        "$type": "color"
+      }
+    },
+    "text": {
+      "label": {
+        "$value": "{color.text.accent}",
+        "$type": "color"
+      },
+      "destructive-label": {
+        "$value": "{color.text.destructive}",
+        "$type": "color"
+      },
+      "destructive-disabled-label": {
+        "$value": "{color.disabled.subtle}",
+        "$type": "color"
+      },
+      "link-label": {
+        "$value": "{color.text.secondary}",
+        "$type": "color"
+      }
+    }
+  }
+}

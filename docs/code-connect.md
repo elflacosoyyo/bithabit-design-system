@@ -35,7 +35,7 @@ Then ask Claude: *"Run ds-sync and tell me what to update."* An example for Plan
 | Command | Purpose |
 |---|---|
 | `ds-sync check [--json] [--strict]` | Report. `--strict` exits 1 only on **errors** (missing file, mapped prop that does not exist, invalid connect file), so it can run in the app's CI without blocking on suggestions |
-| `ds-sync init [--write] [--force] [--brand <id>]` | Drafts the mapping by matching the app's files with the components' known paths and export names. Components that look inline (the file exists but does not export the component) are listed as unmatched instead of being mapped wrongly |
+| `ds-sync init [--write] [--force] [--brand <id>]` | Drafts the mapping by matching the app's files with the components' known paths and export names. If the app implements one design-system component as several (Button as `ButtonPrimary`, `ButtonOutline`...), it writes a `variants` mapping. Components that look inline (the file exists but exports nothing that matches) are listed as unmatched instead of being mapped wrongly |
 | `ds-sync bump <id...> \| --all` | After aligning a component, records the current version and hash. Keeps the file's comments |
 | `ds-sync list` | Components in the installed design system |
 Options: `--app <dir>`, `--ds <dir>`, `--connect <file>`.
@@ -48,6 +48,7 @@ Options: `--app <dir>`, `--ds <dir>`, `--connect <file>`.
 | Spec or usage changed without a version bump | `content-changed` | warn |
 | `connect.yaml` maps a prop the app component does not have | `mapped-prop-missing` | error |
 | Contract prop not in the mapping / required prop with no equivalent | `prop-not-mapped`, `required-prop-absent` | info or warn |
+| A mapped variant whose export does not exist / a variant the design system does not define / a design-system variant that is not mapped | `export-missing`, `variant-unknown`, `variant-not-mapped` | error, warn, info |
 | Hard-coded colors (hex, `rgb()`, `bg-white`...) instead of tokens; **only line numbers are reported** | `hardcoded-color` | warn |
 | Contract's accessibility role or label not found in the file | `a11y-*-missing` | warn |
 | The component's `code_gaps` from the spec, minus those in `acceptedGaps` | listed per component | info |
@@ -55,7 +56,7 @@ Options: `--app <dir>`, `--ds <dir>`, `--connect <file>`.
 | `global.css` color variables vs the brand's `bithabit-compat.css` | styling section | warn |
 
 ## What it does not do
-- It does not run the app or execute any app code. It reads files with simple patterns, so it relies on the conventions `<Export>Props` for props and a `role`/`accessibilityRole` attribute for accessibility. If a result looks odd, say so and check by hand.
+- It does not run the app or execute any app code. It reads files with simple patterns: props come from the `<Export>Props` type (or the type named in the component signature), including base types it extends or intersects in the same file; accessibility is detected from a `role`/`accessibilityRole` attribute. If a result looks odd, say so and check by hand.
 - It does not compare visuals. There is no automated visual regression (decision D-23); review changes in the catalog (`docs/catalog.md`).
 - It does not pick for you. A difference is a suggestion; the team can accept it (`acceptedGaps` with a reason) or schedule it.
 

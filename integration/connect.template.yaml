@@ -24,6 +24,25 @@ mappings:
       - gap: Pressed state is the TouchableOpacity default
         reason: Waiting for the designer's decision D-21.
     notes: Optional free text.
+  button:                       # a component the app implements as ONE COMPONENT PER VARIANT uses `variants` instead of `export`
+    component: src/components/buttons.tsx
+    variants:                   # design-system variant -> the app's export
+      primary: { export: ButtonPrimary }
+      outline: { export: ButtonOutline }
+      destructive: { export: ButtonDestructive }
+      text: { export: ButtonText }
+      text-destructive: { export: ButtonText }
+      text-link: { export: ButtonText }
+    syncedVersion: 0.1.0
+    syncedHash: "0000000000000000"
+    props:
+      label: label
+      onPress: onPress
+      variant: variant
+      icon: iconName            # different name (and type) in the app: fine, just map it
+      disabled: disabled
+      loading: loading
+      disabledVariant: disabledVariant
 ignore:                         # design-system components your app intentionally does not use
   - id: metric-card
     reason: The Stats screen is not in this release.

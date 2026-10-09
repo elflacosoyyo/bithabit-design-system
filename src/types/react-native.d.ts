@@ -12,6 +12,7 @@ declare module 'react-native' {
   export const Text: React.ComponentType<Record<string, Any>>;
   export const Pressable: React.ComponentType<Record<string, Any>>;
   export const Modal: React.ComponentType<Record<string, Any>>;
+  export const ActivityIndicator: React.ComponentType<Record<string, Any>>;
   export const Platform: { OS: 'ios' | 'android' | 'web'; select<T>(spec: Record<string, T>): T };
   export const StyleSheet: { absoluteFill: ViewStyle; absoluteFillObject: ViewStyle; create<T>(styles: T): T; hairlineWidth: number };
   export function useWindowDimensions(): { width: number; height: number; scale: number; fontScale: number };

@@ -6,6 +6,7 @@ import ShapeAndSpacing from './pages/foundations/ShapeAndSpacing';
 import Brands from './pages/foundations/Brands';
 import Contrast from './pages/audit/Contrast';
 import Inventory from './pages/audit/Inventory';
+import * as Button from './pages/components/Button';
 import * as HabitCard from './pages/components/HabitCard';
 import * as Checkbox from './pages/components/Checkbox';
 import * as BottomSheet from './pages/components/BottomSheet';
@@ -18,6 +19,7 @@ export interface Route extends NavItem { render: () => ReactNode; component?: st
 
 interface ComponentPage { Examples: () => ReactNode; AllBrands: () => ReactNode }
 const COMPONENTS: Array<{ id: string; page: ComponentPage }> = [
+  { id: 'button', page: Button },
   { id: 'habit-card', page: HabitCard },
   { id: 'checkbox', page: Checkbox },
   { id: 'bottom-sheet', page: BottomSheet },

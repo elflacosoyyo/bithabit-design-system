@@ -223,6 +223,38 @@ export const light = {
     springDamping: 25,
     springStiffness: 100
   },
+  button: {
+    height: 48,
+    radius: 8,
+    paddingX: 16,
+    gap: 8,
+    iconSize: 18,
+    fontSize: 17,
+    fontWeight: "600",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5,
+    primary: {
+      bg: "#eda96d",
+      label: "#FFFFFF"
+    },
+    outline: {
+      border: "#eda96d",
+      borderWidth: 1.5,
+      label: "#eda96d"
+    },
+    destructive: {
+      bg: "#d16161",
+      label: "#FFFFFF",
+      disabledNeutralBg: "#a0a5a8",
+      disabledNeutralLabel: "#717182"
+    },
+    text: {
+      label: "#eda96d",
+      destructiveLabel: "#d16161",
+      destructiveDisabledLabel: "#d1d1d6",
+      linkLabel: "#717182"
+    }
+  },
   checkbox: {
     size: 24,
     hitSlop: 12,
@@ -520,6 +552,38 @@ export const dark = {
     velocityThreshold: 500,
     springDamping: 25,
     springStiffness: 100
+  },
+  button: {
+    height: 48,
+    radius: 8,
+    paddingX: 16,
+    gap: 8,
+    iconSize: 18,
+    fontSize: 17,
+    fontWeight: "600",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5,
+    primary: {
+      bg: "#eda96d",
+      label: "#131210"
+    },
+    outline: {
+      border: "#eda96d",
+      borderWidth: 1.5,
+      label: "#eda96d"
+    },
+    destructive: {
+      bg: "#e07575",
+      label: "#131210",
+      disabledNeutralBg: "#5b5f61",
+      disabledNeutralLabel: "#9b9893"
+    },
+    text: {
+      label: "#eda96d",
+      destructiveLabel: "#e07575",
+      destructiveDisabledLabel: "#45423d",
+      linkLabel: "#9b9893"
+    }
   },
   checkbox: {
     size: 24,

@@ -1,0 +1,160 @@
+id: button
+name: Button
+version: 0.1.0
+status: draft
+category: action
+summary: Full-width, 48pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
+purpose: >
+  The one way to trigger an action in the product: continue, sign in with Apple or Google, add a norm,
+  log out, delete. The variant states how important and how risky the action is; the container, size, type and
+  disabled behavior stay the same so every action reads as part of one family.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: container
+    description: 48pt-high row, radius md, horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
+    required: true
+  - part: icon
+    description: Optional leading icon, 18pt, same color as the label. Allowed on primary, outline and destructive.
+    required: false
+  - part: label
+    description: Sentence-case action, sans, 17pt, semibold. Text variants may be underlined.
+    required: true
+  - part: spinner
+    description: Replaces the icon and the label while loading, in the label color.
+    required: false
+props:
+  - name: label
+    type: string
+    required: true
+    description: The action, in sentence case ("Add norm", "Continue"). Starts with a verb.
+  - name: onPress
+    type: () => void
+    required: true
+    description: Called on press. Never called while disabled or loading.
+  - name: variant
+    type: "'primary' | 'outline' | 'destructive' | 'text' | 'text-destructive' | 'text-link'"
+    required: false
+    default: primary
+    description: Visual weight and risk of the action. See Variants.
+  - name: icon
+    type: ReactNode
+    required: false
+    description: Optional leading 18pt icon (production passes an icon name such as "trash-2"). Not available on the text variants.
+  - name: disabled
+    type: boolean
+    required: false
+    default: false
+    description: Blocks presses and applies the variant's disabled treatment.
+  - name: loading
+    type: boolean
+    required: false
+    default: false
+    description: Shows a spinner instead of the content, blocks presses and marks the button busy.
+  - name: disabledVariant
+    type: "'faded' | 'neutral'"
+    required: false
+    default: faded
+    description: Destructive only. faded dims the destructive fill; neutral switches to the neutral disabled fill with a muted label.
+variants:
+  - name: primary
+    description: The main action of a screen. Accent fill, label on the accent. One per screen.
+  - name: outline
+    description: Secondary action, or the main action of a screen that already has a heavier element. Accent border and accent label.
+  - name: destructive
+    description: Deletes or removes data. Destructive fill. Usually with a trash icon.
+  - name: text
+    description: Low-emphasis action ("Cancel", "Sign in" under a primary). Accent label, no container.
+  - name: text-destructive
+    description: Low-emphasis destructive action ("Delete account"). Destructive label, underlined.
+  - name: text-link
+    description: Navigates to something outside the flow ("Manage subscriptions"). Muted label, underlined.
+states:
+  - name: default
+    description: The variant at rest.
+  - name: pressed
+    description: The whole button dims while a finger is down (contract is opacity.pressed).
+  - name: disabled
+    description: Primary, outline, destructive (faded) and text dim to opacity.disabled. Destructive neutral uses the neutral disabled fill. Text-destructive keeps full opacity and uses the subtle disabled label color.
+  - name: loading
+    description: Spinner replaces the content; the button is dimmed, not pressable and announced as busy. Available on every variant.
+tokens:
+  - button.height
+  - button.radius
+  - button.padding-x
+  - button.gap
+  - button.icon-size
+  - button.font-size
+  - button.font-weight
+  - button.pressed-opacity
+  - button.disabled-opacity
+  - button.primary.bg
+  - button.primary.label
+  - button.outline.border
+  - button.outline.border-width
+  - button.outline.label
+  - button.destructive.bg
+  - button.destructive.label
+  - button.destructive.disabled-neutral-bg
+  - button.destructive.disabled-neutral-label
+  - button.text.label
+  - button.text.destructive-label
+  - button.text.destructive-disabled-label
+  - button.text.link-label
+accessibility:
+  role: button
+  label: The visible label. Add an accessibilityLabel only when the label alone is ambiguous out of context.
+  touch_target: 48pt high on every variant, including text; primary, outline and destructive are full width.
+  notes:
+    - Expose disabled (accessibilityState.disabled) and, while loading, busy (accessibilityState.busy).
+    - A disabled or loading button must not move focus away or fire onPress.
+    - Contrast depends on the brand. Label on the accent fill and accent-colored labels (outline and text) are the contrast-sensitive combinations; Plan de Vida light mode has waivers for them (PDV-W1, PDV-W6).
+    - The destructive and link text variants are underlined so they are not told apart by color alone.
+behavior:
+  - Presses are blocked while disabled or loading; the button keeps its place and size.
+  - Loading replaces icon and label with a spinner in the label color; the container does not change size.
+  - One primary button per screen. Pair it with an outline or text button for the alternative.
+  - Destructive actions that cannot be undone ask for confirmation (an alert or a sheet); the button itself never confirms.
+content:
+  - Labels are sentence case, start with a verb and name the result ("Delete selected (3)", not "OK").
+  - No exclamation marks and no emoji.
+related: [bottom-sheet]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5464:6425"
+      name: "button / text (components also named button / primary, secondary, tertiary)"
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5464:6422"
+      name: button / tertiary (105 by 44)
+  videos:
+    - plandevida-ios-part1.mp4 / part2.mp4 (Add norm, Delete norm, Cancel)
+  claude_design:
+    - "Plan de Vida Design System README: 4 button variants, disabled is opacity 0.5, outline border 1.5px"
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/buttons.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/demo/button-gallery-screen.tsx
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.
+  - No accessibilityRole="button" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.
+  - Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).
+  - loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.
+  - "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF."
+  - Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).
+  - In Plan de Vida light mode the label is white on tan (2.0:1) for primary and white on red (about 3.8:1) for destructive (waiver PDV-W6), and the outline and text labels are tan on white (waiver PDV-W1).
+open_questions:
+  - Figma names the variants primary / secondary / tertiary / text but the code names them primary / outline / destructive / text. Which names are canonical? Decision D-24.
+  - Is the Figma "button / tertiary" (105 by 44, a compact size) a real variant, or an old explore? The code has nothing compact.
+  - Should loading be supported on destructive and text variants (the contract assumes yes)?
+  - Should the neutral disabled look (used by the delete-account confirm) become the single disabled look for destructive?
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial spec, verified against Bakia/plan-de-vida at cdfea70. One Button contract with six variants covering the four production components.

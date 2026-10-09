@@ -150,6 +150,7 @@ for (const s of loadSpecs()) {
     tokens: s.spec.tokens,
     contentHash: sha(s.raw + s.usage),
     props: s.spec.props.map((p) => ({ name: p.name, required: p.required })),
+    variants: (s.spec.variants ?? []).map((v) => v.name),
     accessibilityRole: s.spec.accessibility.role,
     codeGaps: s.spec.code_gaps ?? [],
     // paths in the production app that the spec was verified against (text after the path is a note)

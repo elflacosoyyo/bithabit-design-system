@@ -4,46 +4,114 @@
   "title": "BITHABIT connect file",
   "description": "Lives in each app repo (.bithabit/connect.yaml). Maps design-system components to the app's own components so ds-sync can suggest updates. The design system never reads app code at runtime and the app never depends on the design system at runtime.",
   "type": "object",
-  "required": ["designSystem", "brand", "mappings"],
+  "required": [
+    "designSystem",
+    "brand",
+    "mappings"
+  ],
   "additionalProperties": false,
   "properties": {
-    "designSystem": { "type": "string", "description": "npm name of the design-system package." },
-    "brand": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "designSystem": {
+      "type": "string",
+      "description": "npm name of the design-system package."
+    },
+    "brand": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
     "styling": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "globalCss": { "type": "string", "description": "Path of the CSS file that defines the --color-* variables." },
-        "tailwindConfig": { "type": "string" }
+        "globalCss": {
+          "type": "string",
+          "description": "Path of the CSS file that defines the --color-* variables."
+        },
+        "tailwindConfig": {
+          "type": "string"
+        }
       }
     },
     "mappings": {
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["component", "syncedVersion"],
+        "required": [
+          "component",
+          "syncedVersion"
+        ],
         "additionalProperties": false,
         "properties": {
-          "component": { "type": "string", "description": "Path of the app component file, relative to the app root." },
-          "export": { "type": "string", "description": "Exported name in that file." },
-          "syncedVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Spec version the app component was last aligned with." },
-          "syncedHash": { "type": "string", "description": "contentHash from the manifest at that time; detects spec edits that forgot a version bump." },
+          "component": {
+            "type": "string",
+            "description": "Path of the app component file, relative to the app root."
+          },
+          "export": {
+            "type": "string",
+            "description": "Exported name in that file. Use either export or variants."
+          },
+          "syncedVersion": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$",
+            "description": "Spec version the app component was last aligned with."
+          },
+          "syncedHash": {
+            "type": "string",
+            "description": "contentHash from the manifest at that time; detects spec edits that forgot a version bump."
+          },
           "props": {
             "type": "object",
             "description": "Design-system prop name -> the app's prop name, or null when the app does not have it.",
-            "additionalProperties": { "type": ["string", "null"] }
+            "additionalProperties": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
           },
           "acceptedGaps": {
             "type": "array",
             "description": "Differences from the contract the team decided to keep. They stop being reported.",
             "items": {
               "type": "object",
-              "required": ["gap", "reason"],
+              "required": [
+                "gap",
+                "reason"
+              ],
               "additionalProperties": false,
-              "properties": { "gap": { "type": "string" }, "reason": { "type": "string" } }
+              "properties": {
+                "gap": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              }
             }
           },
-          "notes": { "type": "string" }
+          "notes": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "object",
+            "description": "For a design-system component that the app implements as several components (for example Button as ButtonPrimary, ButtonOutline...): design-system variant name -> the app's export.",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "export"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "export": {
+                  "type": "string"
+                },
+                "propsType": {
+                  "type": "string",
+                  "description": "Name of the props type when it cannot be inferred from the component signature."
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -52,9 +120,19 @@
       "description": "Design-system components the app intentionally does not use.",
       "items": {
         "type": "object",
-        "required": ["id", "reason"],
+        "required": [
+          "id",
+          "reason"
+        ],
         "additionalProperties": false,
-        "properties": { "id": { "type": "string" }, "reason": { "type": "string" } }
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
       }
     }
   }
