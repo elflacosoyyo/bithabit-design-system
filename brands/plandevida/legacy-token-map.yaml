@@ -1,27 +1,14 @@
-# Maps the CSS variable names used today by Bakia/plan-de-vida (and the landing) to design-system token paths.
-# status: mapped | ambiguous | gap | out-of-scope. Used later by the ds-sync skill to propose renames.
-colors:
-  - { legacy: --color-accent,           token: color.accent.default,       status: mapped }
-  - { legacy: --color-foreground-app,   token: color.text.primary,         status: mapped }
-  - { legacy: --color-background,       token: color.bg.canvas,            status: mapped }
-  - { legacy: --color-surface,          token: color.bg.surface,           status: mapped }
-  - { legacy: --color-surface-alt,      token: color.bg.surface-alt,       status: mapped }
-  - { legacy: --color-muted,            token: color.text.secondary,       status: mapped }
-  - { legacy: --color-destructive,      token: color.status.destructive,   status: mapped, note: "Use color.text.destructive for text" }
-  - { legacy: --color-input-bg,         token: color.bg.input,             status: mapped }
-  - { legacy: --color-border,           token: color.border.default,       status: mapped }
-  - { legacy: --color-overlay,          token: color.bg.overlay,           status: mapped }
-  - { legacy: --color-splash,           token: color.brand.splash-bg,      status: mapped }
-  - { legacy: --color-card,             token: color.bg.canvas,            status: ambiguous, note: "White in light but equals surface in dark; decide whether cards use canvas or surface" }
-  - { legacy: --color-today,            token: null,                       status: gap, note: "Will become a CalendarDay component token" }
-  - { legacy: --color-splash-dark,      token: null,                       status: gap, note: "Marketing hover state; no app usage found" }
-  - { legacy: --color-surface-splash,   token: null,                       status: gap }
-  - { legacy: --color-foreground,       token: null,                       status: out-of-scope, note: "Landing ink (#1a1a1a)" }
-  - { legacy: --color-surface-landing,  token: null,                       status: out-of-scope, note: "Landing surface (#fdf5eb)" }
-scales:
-  - { legacy: "--spacing-{2xs..2xl}",   token: "spacing.{2xs..2xl}",    status: mapped }
-  - { legacy: "--radius-{none..pill}",  token: "radius.{none..pill}",   status: mapped, note: "--radius-sm/md/lg in the landing are computed from --radius; the app values are used" }
-  - { legacy: "--text-{xs..4xl}",       token: "font.size.{xs..4xl}",   status: mapped }
-  - { legacy: "--fw-*",                 token: "font.weight.*",         status: mapped }
-  - { legacy: "--tracking-*",           token: "font.tracking.*",       status: mapped }
-  - { legacy: "--shadow-*",             token: null,                    status: out-of-scope, note: "Marketing only; the app has no shadows" }
+# SUPERSEDED for colors by tokens/compat.yaml (BitHabit names, generated into dist/<brand>/bithabit-compat.css and the Tailwind preset).
+# This file only records what has NO equivalent yet, for the landing site and marketing tokens.
+out_of_scope:
+  - { legacy: --color-foreground (landing),   note: "Landing ink #1a1a1a; the app ink #030213 is the canonical value" }
+  - { legacy: --color-surface-landing,        note: "Landing surface #fdf5eb; not used by the app" }
+  - { legacy: --color-splash-dark,            note: "Marketing hover state #c47d33; no app usage found" }
+  - { legacy: "--shadow-*",                   note: "Marketing only; the app has no shadows" }
+  - { legacy: "--radius-sm/md/lg (landing)",  note: "Computed from --radius in the landing; the app scale (4/8/12) is canonical" }
+mapped_one_to_one:
+  - "--spacing-{2xs..2xl}  -> spacing.{2xs..2xl}"
+  - "--radius-{none..pill} -> radius.{none..pill}"
+  - "--text-{xs..4xl}      -> font.size.{xs..4xl}"
+  - "--fw-*                -> font.weight.*"
+  - "--tracking-*          -> font.tracking.*"

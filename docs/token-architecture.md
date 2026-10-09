@@ -20,7 +20,7 @@ Rules: components reference only semantic/component tokens; component color toke
 the field exists so tokens can later diverge per surface without restructuring.
 
 ## Typography
-- `font.family.sans` (single family) and `font.family.display.{ios,android,web}` (the display face can differ per platform: Kefa III exists only on Apple devices).
+- `font.family.sans` (single family) and `font.family.display.{ios,android,web}` (the display face can differ per platform; Plan de Vida uses the bundled Yrsa on all three).
 - Composite text styles live under `typography.*`. In them, `fontFamily` is a **role** (`sans` or `display`); consumers resolve it with `font.family.<role>[.platform]`. This is a deliberate small deviation from DTCG so one style works on every platform.
 
 ## Outputs (`dist/<brand>/`)
@@ -28,10 +28,11 @@ the field exists so tokens can later diverge per surface without restructuring.
 |---|---|
 | `theme.js`, `theme.d.ts`, `theme.json` | `light` and `dark` theme objects. Dimensions are unitless numbers (React Native). Raw primitive colors are **not** exported on purpose |
 | `tokens.css` | CSS variables `--bh-*`. Light is `:root`; dark is `.dark` or `[data-theme="dark"]` (only values that differ) |
-| `tailwind.preset.cjs` | Tailwind/NativeWind preset. Colors use the CSS variables so dark mode follows `tokens.css` |
+| `bithabit-compat.css` | The app's own `--color-*` variables (`:root` and `.dark:root`), generated from the tokens. Drop-in for the color block of `global.css`. Verified identical to `Bakia/plan-de-vida` |
+| `tailwind.preset.cjs` | Tailwind/NativeWind preset using the **BitHabit names** the app already uses (`foreground`, `background`, `surface`, `muted`, `border`...) plus extra roles (`accent-text`, `on-accent`, `destructive-text`, `positive`...). Colors read CSS variables, so dark mode follows `.dark` |
 | `../manifest.json` | Components (version, status, tokens, content hash, sources), brands (token hash) |
 
-> NativeWind support is unverified until we can read the app's `tailwind.config.js` (see `audit/decisions.md` D-12).
+> The app uses NativeWind 4 and Tailwind 3.4 with `darkMode: 'class'` (decision D-12, verified in code). Public names are defined in `tokens/compat.yaml` (D-19).
 
 ## Why a custom build script instead of Style Dictionary
 We need per-brand, per-mode resolution, composite tokens and a manifest. A ~150-line, dependency-light resolver (`scripts/lib.mjs`)

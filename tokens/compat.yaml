@@ -1,0 +1,32 @@
+# BitHabit platform naming: the names used today by Bakia/plan-de-vida (global.css CSS variables and tailwind.config.js colors).
+# Left side: the legacy / Tailwind color key. Right side: the design-system token it maps to.
+# The build emits dist/<brand>/bithabit-compat.css (same --color-* variable names as the app) and a Tailwind preset that uses these keys,
+# so an app can adopt the design system without renaming a single class.
+colors:
+  foreground: color.text.primary
+  background: color.bg.canvas
+  surface: color.bg.surface
+  surface-alt: color.bg.surface-alt
+  surface-splash: color.brand.splash-fg
+  splash: color.brand.splash-bg
+  accent: color.accent.default
+  muted: color.text.secondary
+  destructive: color.status.destructive
+  today: color.calendar.today
+  border: color.border.default
+  card: color.bg.card
+  input-bg: color.bg.input
+  overlay: color.bg.overlay
+  disabled: color.disabled.default
+  disabled-subtle: color.disabled.subtle
+# Design-system roles that the app does not have yet. Exposed as extra Tailwind colors via --bh-* variables.
+extras:
+  accent-pressed: color.accent.pressed
+  accent-subtle: color.accent.subtle
+  accent-text: color.text.accent
+  on-accent: color.text.on-accent
+  destructive-text: color.text.destructive
+  positive: color.status.positive
+  focus: color.border.focus
+  line-strong: color.border.strong
+  on-today: color.calendar.on-today

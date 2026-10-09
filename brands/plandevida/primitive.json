@@ -72,20 +72,35 @@
       "overlay": {
         "$value": "rgba(3, 2, 19, 0.5)",
         "$type": "color"
+      },
+      "disabled": {
+        "$value": "#a0a5a8",
+        "$type": "color"
+      },
+      "disabled-subtle": {
+        "$value": "#d1d1d6",
+        "$type": "color"
+      },
+      "disabled-dark": {
+        "$value": "#5b5f61",
+        "$type": "color"
+      },
+      "disabled-subtle-dark": {
+        "$value": "#45423d",
+        "$type": "color"
+      },
+      "white": {
+        "$value": "#ffffff",
+        "$type": "color"
       }
     }
   },
   "font": {
     "family": {
-      "kefa-iii": {
-        "$value": "Kefa III",
+      "yrsa": {
+        "$value": "Yrsa",
         "$type": "fontFamily",
-        "$description": "Apple system serif (iOS only). Not redistributable."
-      },
-      "crimson-pro": {
-        "$value": "Crimson Pro",
-        "$type": "fontFamily",
-        "$description": "Open-license serif used where Kefa III is unavailable (Android, web, Storybook)."
+        "$description": "Bundled serif (OFL). Production display face on iOS and Android."
       }
     }
   }

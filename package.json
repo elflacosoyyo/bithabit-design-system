@@ -27,7 +27,8 @@
     "./components/*": "./components/*",
     "./brands/*": "./brands/*",
     "./schemas/*": "./schemas/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./css-compat/*": "./dist/*/bithabit-compat.css"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

@@ -1,0 +1,131 @@
+id: metric-card
+name: MetricCard
+version: 0.2.0
+status: draft
+category: data-display
+summary: Fixed-width tile with an icon and title, one large number, a one-line subtitle and an optional footer.
+purpose: >
+  Shows one metric on the Stats screen (overall compliance, most-completed habit) so progress can be read in a glance.
+  The comparison with the previous period is not part of the card: it is a ChangeIndicator passed through the footer slot.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: container
+    description: 172pt-wide, non-shrinking tile on the surface color, radius lg, padding md. Meant to live in a horizontal rail.
+    required: true
+  - part: header
+    description: Row with an icon (16pt) and the title (xs, medium, text.primary), 4pt apart, 16pt above the value.
+    required: true
+  - part: value
+    description: Large light-weight number (34pt, tracking -1.5). Color comes from valueTone.
+    required: true
+  - part: subtitle
+    description: One line, xs, text.secondary, 4pt under the value.
+    required: true
+  - part: footer
+    description: Optional slot 8pt under the subtitle. Used for a ChangeIndicator or a SegmentBar.
+    required: false
+props:
+  - name: icon
+    type: ReactNode
+    required: true
+    description: 16pt stroke icon shown before the title.
+  - name: title
+    type: string
+    required: true
+    description: What is measured.
+  - name: value
+    type: string | number
+    required: true
+    description: The figure, already formatted ("87%", 28).
+  - name: valueTone
+    type: "'accent' | 'foreground' | 'muted'"
+    required: true
+    description: Color role of the value. Use accent for a live number, muted for an empty one.
+  - name: subtitle
+    type: string
+    required: true
+    description: Qualifier under the value ("this month"). Truncated to one line.
+  - name: footer
+    type: ReactNode
+    required: false
+    description: Optional trailing content.
+  - name: accessibilityLabel
+    type: string
+    required: false
+    description: Full sentence for screen readers. The contract makes it required.
+states:
+  - name: default
+    description: Static display.
+  - name: empty
+    description: Value is 0 with valueTone muted; the card is never hidden.
+tokens:
+  - metric-card.bg
+  - metric-card.radius
+  - metric-card.padding
+  - metric-card.width
+  - metric-card.header-gap
+  - metric-card.header-margin-bottom
+  - metric-card.title
+  - metric-card.title-size
+  - metric-card.title-weight
+  - metric-card.icon-size
+  - metric-card.value-size
+  - metric-card.value-weight
+  - metric-card.value-tracking
+  - metric-card.value-accent
+  - metric-card.value-foreground
+  - metric-card.value-muted
+  - metric-card.subtitle
+  - metric-card.subtitle-size
+  - metric-card.subtitle-margin-top
+  - metric-card.footer-margin-top
+accessibility:
+  role: text (single accessibility element)
+  label: "Read as one sentence: \"{title}, {value}, {subtitle}\" plus the change if present."
+  notes:
+    - The tile is accessible as one element; make accessibilityLabel required so the footer is read too.
+    - The accent value color has known contrast debt in Plan de Vida (waiver PDV-W1).
+behavior:
+  - Tiles are not interactive.
+  - Two tiles are shown side by side in a horizontal rail; the rail fades and slides in on mount unless Reduce Motion is on.
+content:
+  - Titles are sentence case and short ("Overall compliance").
+  - ChangeIndicator text reads "+6% vs. last month" or "-9% vs. last month", with an arrow icon; no praise or scolding.
+related: [habit-card]
+sources:
+  videos:
+    - plandevida-ios-part1.mp4 (Stats screen)
+  claude_design:
+    - "Estadisticas.dc.html exploration (new Stats layout; not in production)"
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/metric-card.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/stat-number.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/month-metrics.tsx (ChangeIndicator, footer usage)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The value size (34pt) is a literal in StatNumber; only 20pt and 30pt map to type-scale tokens. 32pt and 54pt are also literals.
+  - The 172pt width is fixed, so it will not adapt to large text sizes or narrow screens.
+  - accessibilityLabel is optional.
+  - The positive ChangeIndicator uses the brand orange (text-splash), which is below 4.5:1 on the cream surface in Plan de Vida light mode (waiver PDV-W7).
+open_questions:
+  - Should 34pt join the type scale (for example as font.size.stat)? Decision D-18.
+  - Is the fixed 172pt width intentional for the two-tile rail?
+changelog:
+  - version: 0.2.0
+    date: "2026-10-09"
+    changes:
+      - Renamed from stat-card to match MetricCard in Bakia/plan-de-vida and verified against cdfea70.
+      - Real props (icon, title, value, valueTone, subtitle, footer). The delta is a ChangeIndicator in the footer, not a prop.
+  - version: 0.1.0
+    date: "2026-10-08"
+    changes:
+      - Initial draft as stat-card from reference videos and the Claude Design Stats exploration.

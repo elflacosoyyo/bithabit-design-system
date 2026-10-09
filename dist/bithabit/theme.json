@@ -36,7 +36,8 @@
     "motion": {
       "duration": {
         "fast": 150,
-        "base": 250,
+        "short": 200,
+        "base": 300,
         "slow": 400
       }
     },
@@ -166,7 +167,8 @@
         "surface": "#F9FAFB",
         "surfaceAlt": "#F3F4F6",
         "input": "#F3F4F6",
-        "overlay": "rgba(17, 24, 39, 0.5)"
+        "overlay": "rgba(17, 24, 39, 0.5)",
+        "card": "#FFFFFF"
       },
       "text": {
         "primary": "#111827",
@@ -175,6 +177,10 @@
         "accent": "#1D4ED8",
         "onAccent": "#FFFFFF",
         "destructive": "#DC2626"
+      },
+      "disabled": {
+        "default": "#9CA3AF",
+        "subtle": "#D1D5DB"
       },
       "border": {
         "default": "rgba(0, 0, 0, 0.1)",
@@ -188,26 +194,34 @@
       },
       "status": {
         "destructive": "#DC2626",
-        "success": "#16A34A"
+        "positive": "#15803D"
       },
       "brand": {
         "splashBg": "#2563EB",
         "splashFg": "#FFFFFF"
+      },
+      "calendar": {
+        "today": "#374151",
+        "onToday": "#FFFFFF"
       }
     },
     "bottomSheet": {
       "bg": "#FFFFFF",
       "radiusTop": 32,
-      "paddingX": 16,
       "handle": {
-        "width": 36,
+        "width": 40,
         "height": 4,
         "radius": 100,
-        "bg": "#6B7280",
-        "marginTop": 8
+        "bg": "#4B5563",
+        "paddingY": 8
       },
       "backdrop": "rgba(17, 24, 39, 0.5)",
-      "duration": 250
+      "backdropOpacity": 0.5,
+      "duration": 300,
+      "dragThreshold": 100,
+      "velocityThreshold": 500,
+      "springDamping": 25,
+      "springStiffness": 100
     },
     "checkbox": {
       "size": 24,
@@ -215,26 +229,67 @@
       "borderWidth": 2,
       "ring": "#111827",
       "check": "#111827",
+      "checkSize": 24,
       "disabledOpacity": 0.5
     },
     "habitCard": {
       "bg": "#F9FAFB",
+      "wrapperBg": "#FFFFFF",
       "text": "#111827",
       "fontSize": 14,
       "fontWeight": "300",
+      "letterSpacing": 0.35,
       "paddingX": 16,
       "paddingY": 16,
+      "listPaddingX": 16,
+      "listPaddingY": 4,
       "radiusTop": 4,
       "radiusBottom": 0,
       "pressedOpacity": 0.7,
       "strip": {
-        "height": 3,
-        "gap": 4,
+        "height": 4,
+        "gap": 2,
+        "segments": 7,
         "segmentFilled": "#2563EB",
         "segmentEmpty": "#F3F4F6"
+      },
+      "swipe": {
+        "toggleBg": "#2563EB",
+        "deleteBg": "#DC2626",
+        "label": "#FFFFFF",
+        "labelSize": 17,
+        "labelWeight": "600",
+        "threshold": 80,
+        "velocityThreshold": 500,
+        "revealWidth": 100,
+        "snapDuration": 150,
+        "returnDuration": 200
       }
     },
+    "metricCard": {
+      "bg": "#F9FAFB",
+      "radius": 12,
+      "padding": 16,
+      "width": 172,
+      "headerGap": 4,
+      "headerMarginBottom": 16,
+      "title": "#111827",
+      "titleSize": 12,
+      "titleWeight": "500",
+      "iconSize": 16,
+      "valueSize": 34,
+      "valueWeight": "300",
+      "valueTracking": -1.5,
+      "valueAccent": "#1D4ED8",
+      "valueForeground": "#111827",
+      "valueMuted": "#4B5563",
+      "subtitle": "#4B5563",
+      "subtitleSize": 12,
+      "subtitleMarginTop": 4,
+      "footerMarginTop": 8
+    },
     "segmentedControl": {
+      "height": 36,
       "trackBg": "#F3F4F6",
       "trackRadius": 100,
       "trackPadding": 2,
@@ -242,25 +297,8 @@
       "thumbRadius": 100,
       "label": "#111827",
       "fontSize": 14,
-      "fontWeightActive": "500",
-      "fontWeightInactive": "400",
-      "segmentPaddingY": 8,
-      "disabledOpacity": 0.5,
-      "duration": 150
-    },
-    "statCard": {
-      "bg": "#F9FAFB",
-      "radius": 12,
-      "padding": 16,
-      "gap": 4,
-      "label": "#4B5563",
-      "labelSize": 12,
-      "value": "#1D4ED8",
-      "valueSize": 30,
-      "valueWeight": "300",
-      "caption": "#4B5563",
-      "deltaPositive": "#16A34A",
-      "deltaNegative": "#DC2626"
+      "fontWeightActive": "600",
+      "fontWeightInactive": "500"
     }
   },
   "dark": {
@@ -296,7 +334,8 @@
     "motion": {
       "duration": {
         "fast": 150,
-        "base": 250,
+        "short": 200,
+        "base": 300,
         "slow": 400
       }
     },
@@ -426,7 +465,8 @@
         "surface": "#111827",
         "surfaceAlt": "#1F2937",
         "input": "#1F2937",
-        "overlay": "rgba(17, 24, 39, 0.5)"
+        "overlay": "rgba(17, 24, 39, 0.5)",
+        "card": "#111827"
       },
       "text": {
         "primary": "#F9FAFB",
@@ -435,6 +475,10 @@
         "accent": "#60A5FA",
         "onAccent": "#030712",
         "destructive": "#F87171"
+      },
+      "disabled": {
+        "default": "#4B5563",
+        "subtle": "#374151"
       },
       "border": {
         "default": "rgba(255, 255, 255, 0.1)",
@@ -448,26 +492,34 @@
       },
       "status": {
         "destructive": "#F87171",
-        "success": "#4ADE80"
+        "positive": "#4ADE80"
       },
       "brand": {
         "splashBg": "#030712",
         "splashFg": "#FFFFFF"
+      },
+      "calendar": {
+        "today": "#374151",
+        "onToday": "#FFFFFF"
       }
     },
     "bottomSheet": {
       "bg": "#030712",
       "radiusTop": 32,
-      "paddingX": 16,
       "handle": {
-        "width": 36,
+        "width": 40,
         "height": 4,
         "radius": 100,
-        "bg": "#6B7280",
-        "marginTop": 8
+        "bg": "#9CA3AF",
+        "paddingY": 8
       },
       "backdrop": "rgba(17, 24, 39, 0.5)",
-      "duration": 250
+      "backdropOpacity": 0.5,
+      "duration": 300,
+      "dragThreshold": 100,
+      "velocityThreshold": 500,
+      "springDamping": 25,
+      "springStiffness": 100
     },
     "checkbox": {
       "size": 24,
@@ -475,26 +527,67 @@
       "borderWidth": 2,
       "ring": "#F9FAFB",
       "check": "#F9FAFB",
+      "checkSize": 24,
       "disabledOpacity": 0.5
     },
     "habitCard": {
       "bg": "#111827",
+      "wrapperBg": "#030712",
       "text": "#F9FAFB",
       "fontSize": 14,
       "fontWeight": "300",
+      "letterSpacing": 0.35,
       "paddingX": 16,
       "paddingY": 16,
+      "listPaddingX": 16,
+      "listPaddingY": 4,
       "radiusTop": 4,
       "radiusBottom": 0,
       "pressedOpacity": 0.7,
       "strip": {
-        "height": 3,
-        "gap": 4,
+        "height": 4,
+        "gap": 2,
+        "segments": 7,
         "segmentFilled": "#60A5FA",
         "segmentEmpty": "#1F2937"
+      },
+      "swipe": {
+        "toggleBg": "#60A5FA",
+        "deleteBg": "#F87171",
+        "label": "#030712",
+        "labelSize": 17,
+        "labelWeight": "600",
+        "threshold": 80,
+        "velocityThreshold": 500,
+        "revealWidth": 100,
+        "snapDuration": 150,
+        "returnDuration": 200
       }
     },
+    "metricCard": {
+      "bg": "#111827",
+      "radius": 12,
+      "padding": 16,
+      "width": 172,
+      "headerGap": 4,
+      "headerMarginBottom": 16,
+      "title": "#F9FAFB",
+      "titleSize": 12,
+      "titleWeight": "500",
+      "iconSize": 16,
+      "valueSize": 34,
+      "valueWeight": "300",
+      "valueTracking": -1.5,
+      "valueAccent": "#60A5FA",
+      "valueForeground": "#F9FAFB",
+      "valueMuted": "#9CA3AF",
+      "subtitle": "#9CA3AF",
+      "subtitleSize": 12,
+      "subtitleMarginTop": 4,
+      "footerMarginTop": 8
+    },
     "segmentedControl": {
+      "height": 36,
       "trackBg": "#1F2937",
       "trackRadius": 100,
       "trackPadding": 2,
@@ -502,25 +595,8 @@
       "thumbRadius": 100,
       "label": "#F9FAFB",
       "fontSize": 14,
-      "fontWeightActive": "500",
-      "fontWeightInactive": "400",
-      "segmentPaddingY": 8,
-      "disabledOpacity": 0.5,
-      "duration": 150
-    },
-    "statCard": {
-      "bg": "#111827",
-      "radius": 12,
-      "padding": 16,
-      "gap": 4,
-      "label": "#9CA3AF",
-      "labelSize": 12,
-      "value": "#60A5FA",
-      "valueSize": 30,
-      "valueWeight": "300",
-      "caption": "#9CA3AF",
-      "deltaPositive": "#4ADE80",
-      "deltaNegative": "#F87171"
+      "fontWeightActive": "600",
+      "fontWeightInactive": "500"
     }
   }
 }

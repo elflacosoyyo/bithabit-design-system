@@ -1,55 +1,58 @@
 # Decisions and audit log
 
-Status: **CLOSED** (decided by the designer) · **PROPOSED** (made by the maintainer, needs approval) · **OPEN** (needs a decision).
+Status: **CLOSED** (decided by the designer or settled by the code) · **PROPOSED** (maintainer proposal, needs approval) · **OPEN** (needs a decision).
 Source priority: designer decision > production code > Figma > Claude Design export > reference videos.
+Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 
 ## Closed
 
 | ID | Topic | Decision | Alternatives seen |
 |---|---|---|---|
-| D-01 | Accent color (Plan de Vida) | **`#EDA96D`** (code value) | Videos show about `#EB9E62`; likely a color-profile shift in the screen recording |
-| D-02 | Ink / text (Plan de Vida) | **`#030213`** (app) | `#1A1A1A` (landing) |
-| D-03 | Surface (Plan de Vida) | **`#FAF8F2`** (app) | `#FDF5EB` (landing) |
-| D-04 | Splash color | **`#D77D2D`** | `#D4893A` (landing stylesheet) |
-| D-05a | Display serif | **Kefa III** | Georgia (app fallback), Crimson Pro (Claude Design substitute) |
-| D-06 | Navigation | **Left drawer (production)** | Bottom tab bar appears only in the Stats exploration; deferred |
 | D-00 | Scope of customization v1 | **Visual only** (tokens, fonts, logo, icons) | Component variants per brand: later |
+| D-01 | Accent color (Plan de Vida) | **`#EDA96D`**. Confirmed by `global.css` | Videos show about `#EB9E62`, a color-profile shift in the recording |
+| D-02 | Ink / text | **`#030213`** (app). Confirmed by `global.css` | `#1A1A1A` (landing) |
+| D-03 | Surface | **`#FAF8F2`** (app). Confirmed by `global.css` | `#FDF5EB` (landing) |
+| D-04 | Splash color | **`#D77D2D`**. Confirmed by `global.css` | `#D4893A` (landing stylesheet) |
+| D-06 | Navigation | **Left drawer** (`expo-router/drawer`, confirmed in code) | Bottom tab bar appears only in the Stats exploration |
+| D-12 | Styling stack | **NativeWind 4.2 + Tailwind 3.4, `darkMode: 'class'`, CSS variables in `global.css`.** The build emits a preset and a CSS file that use the app's existing names (`tokens/compat.yaml`) | n/a |
+| D-16 | Code access | **Granted.** Specs verified against the code | n/a |
+| D-19 | Token names | BitHabit names (`foreground`, `background`, `surface`, `muted`...) stay the **public Tailwind/CSS names**. Design-system roles (`color.text.primary`...) are the source and are mapped in `tokens/compat.yaml`. Generated values match the app's `global.css` 1:1 (32 variables, 0 differences) | Renaming classes in the app |
 
-## Proposed (maintainer decision, pending approval)
+## Needs the designer: OPEN
 
-| ID | Topic | Proposal |
-|---|---|---|
-| D-05b | Serif where Kefa III is unavailable | Android/web/Storybook use **Crimson Pro**. iOS uses Kefa III. Needs the exact PostScript name for RN |
-| D-07 | Photography | Allowed only on marketing/conversion surfaces (paywall, onboarding), never inside the product. The Claude Design README says "no photography in the brand", but the Figma paywall uses a photo |
-| D-09 | BITHABIT default identity | Neutral grays + white + blue (`#2563EB` light / `#60A5FA` dark). Tailwind-compatible values. Mark is a placeholder |
-| D-11 | Token naming | New names (`color.bg.surface`) replace the app's legacy CSS names. Mapping in `brands/plandevida/legacy-token-map.yaml` |
-
-## Open
-
-| ID | Topic | Why it matters | Recommendation |
+| ID | Topic | What the code says | Recommendation |
 |---|---|---|---|
-| D-08 | **Selector duplication**: Settings uses chips (Light/Dark/System, EN/ES/PT); the habit detail uses a pill SegmentedControl | Two patterns for the same job | Standardize on SegmentedControl; keep chips only if a design reason exists |
-| D-10 | **Accessibility debt in Plan de Vida light mode** (waivers PDV-W1, W4, W5) | See below | Add text-only variants (darker tan, darker red) via `color.text.accent` / `color.text.destructive` without touching fills |
-| D-12 | NativeWind in the app | Determines whether the Tailwind preset is useful as built | Verify in `Bakia/plan-de-vida/tailwind.config.js` once access exists |
-| D-13 | Light-mode canvas | Videos measure `#F6F5F7` (canvas) and `#EFEDE8` (surface); code says `#FFFFFF` and `#FAF8F2`. Probably iOS grouped-background in Settings, but unverified | Confirm on device or in code |
-| D-14 | `text.disabled` in Plan de Vida | Inherits the cool gray from BITHABIT in a warm brand | Add a warm disabled tone to the brand |
-| D-15 | Navigation for Watch / widget | Explorations exist but are out of v1 | Spec after the app surface is stable |
-| D-16 | Code access | `Bakia/plan-de-vida` is not readable from this environment, so every component is `draft` | Grant access or provide the component files |
+| **D-05** | **Display serif** | **Production bundles Yrsa** (OFL, weights 300–700, iOS and Android, `app.config.ts` + `tailwind.config.js`). You chose Kefa III earlier, before this was known. Kefa III is an Apple system font: it cannot be bundled and does not exist on Android | **Keep Yrsa** (already shipped, free, same look on both platforms). The tokens mirror production until you decide; switching is a 3-line change in `brands/plandevida/typography.json` |
+| D-08 | Selector duplication | Settings uses chips (Light/Dark/System, EN/ES/PT); habit detail uses the pill SegmentedControl | Standardize on SegmentedControl; keep chips only if there is a design reason |
+| D-10 | Accessibility debt in light mode | See the contrast table below (W1, W4, W5, W6, W7) | Add text-only variants (darker tan, darker red, ink on tan fills) through `color.text.*` without touching fills |
+| D-17 | Checkbox size | `HabitCard` uses a 24pt box, `FooterAction` a 32pt box (same 24pt glyph) | One size. Proposal: 24pt with a bigger hit area |
+| D-18 | Stat number sizes | `StatNumber` uses 20/30 (type-scale tokens) and 32/34/54 (literals) | Add `font.size.stat` tokens for 32/34/54 or round to the scale |
+| D-20 | Bottom sheet backdrop | Code uses the foreground color at 0.5 opacity, so it is **cream in dark mode**. A `--color-overlay` token exists but is unused | Use `bg.overlay` in both modes |
+| D-21 | Pressed feedback | `TouchableOpacity` default (0.2) in HabitCard and SegmentedControl; 0.7 in FooterAction | One value: `opacity.pressed` = 0.7 |
+| D-22 | Accessibility props | HabitCard, Checkbox, BottomSheet and SegmentedControl have no role/label/state; MetricCard has an optional label; ButtonDestructive sets `disabled` state | Add the roles and labels listed in each spec's `code_gaps` |
+| D-07 | Photography | The Figma paywall uses a photo; the Claude Design README says "no photography in the brand" | Allow it only on marketing/conversion surfaces (paywall, onboarding) |
+| D-09 | BITHABIT default identity | Not defined anywhere | Neutral grays + white + blue (`#2563EB` light / `#60A5FA` dark); mark is a placeholder |
+| D-13 | Light-mode canvas in recordings | Code defines `#FFFFFF`; the recording shows `#F6F5F7` on some screens | Unexplained; tokens mirror the code. Check on a device |
+| D-15 | Watch / widget | Explorations exist, not specified | After the app surface is stable |
 
-## Contrast audit (WCAG 2.2 AA), Plan de Vida light mode
-Computed by `npm run validate` from the brand's own values. BITHABIT passes every check in both modes; Plan de Vida dark passes except the logotype pair.
+## Contrast audit (WCAG 2.2 AA)
+Computed by `npm run validate` from each brand's own values. BITHABIT passes every check in both modes. Plan de Vida dark passes except the logotype pair.
 
-| Waiver | Pair | Ratio | Needed | Status |
+| Waiver | Pair (Plan de Vida, light) | Ratio | Needed | Status |
 |---|---|---|---|---|
-| PDV-W1 | Tan text on white / cream (`text.accent`) | 2.00 / 1.88 | 4.5 | needs decision (outline buttons, "Back" link, stat values) |
-| PDV-W2 | Tan fill on white / cream / alt (streak strip, rings) | 2.00 / 1.88 / 1.71 | 3.0 | accepted: decorative, check glyph carries state |
-| PDV-W3 | Splash mark on splash color | 2.61 | 3.0 | accepted: logotype exemption (SC 1.4.3) |
+| PDV-W1 | Tan text on white / cream (outline buttons, "Back", metric values) | 2.00 / 1.88 | 4.5 | needs decision |
+| PDV-W2 | Tan fill on white / cream / alt (history strip, rings) | 2.00 / 1.88 / 1.71 | 3.0 | accepted: decorative, the check glyph carries state |
+| PDV-W3 | Splash mark on splash color | about 2.6 | 3.0 | accepted: logotype exemption |
 | PDV-W4 | Muted text on input fill | 4.32 | 4.5 | needs decision |
-| PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | needs decision ("Delete norm", delete account) |
+| PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | needs decision |
+| PDV-W6 | **White label on tan fill and on destructive fill** (ButtonPrimary, ButtonDestructive, swipe actions; production uses `text-background`) | 2.00 / about 3.8 | 4.5 | needs decision. Ink `#030213` on tan is about 9:1 |
+| PDV-W7 | Brand-orange positive change on cream | about 3 | 4.5 | needs decision |
 
-## Inconsistencies found in the sources
-- Two neutral backgrounds in light mode (cool `#F6F5F7` vs warm cream `#FAF8F2`).
-- Two selector patterns (D-08).
-- Accent differs between code and recordings (D-01, resolved).
-- Ink `#030213` (app) vs `#1A1A1A` (landing); surface `#FAF8F2` vs `#FDF5EB` (resolved to the app).
-- Primary-button label color is unknown (white on tan would be about 2:1; the spec assumes dark ink on accent). Verify.
+## Findings from reading the production code
+- `HabitCard.history` is the completion of the **last 7 days** (not a streak), oldest first, today last.
+- `BottomSheet` has no snap points, no keyboard handling and opens with timing, not a spring.
+- `SegmentedControl` API is `labels` / `selectedIndex` / `onSelect`; the thumb does not slide.
+- The `MetricCard` delta is a separate `ChangeIndicator`, inline in `month-metrics.tsx`; positive uses the brand orange.
+- Hard-coded values that bypass tokens: `text-white` on the calendar "today" circle, `#FFFFFF` icon color in ButtonDestructive, stat font sizes 32/34/54.
+- The Claude Design export listed 19 components; the code has about 45 component files (inventory updated).
+- Primary-button label color is `text-background` (white in light mode, near-black in dark mode).

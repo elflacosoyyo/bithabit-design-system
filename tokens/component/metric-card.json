@@ -1,0 +1,84 @@
+{
+  "metric-card": {
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "radius": {
+      "$value": "{radius.lg}",
+      "$type": "dimension"
+    },
+    "padding": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "width": {
+      "$value": "172px",
+      "$type": "dimension"
+    },
+    "header-gap": {
+      "$value": "{spacing.xs}",
+      "$type": "dimension"
+    },
+    "header-margin-bottom": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "title": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "title-size": {
+      "$value": "{font.size.xs}",
+      "$type": "dimension"
+    },
+    "title-weight": {
+      "$value": "{font.weight.medium}",
+      "$type": "fontWeight"
+    },
+    "icon-size": {
+      "$value": "16px",
+      "$type": "dimension"
+    },
+    "value-size": {
+      "$value": "34px",
+      "$type": "dimension"
+    },
+    "value-weight": {
+      "$value": "{font.weight.light}",
+      "$type": "fontWeight"
+    },
+    "value-tracking": {
+      "$value": "{font.tracking.heading}",
+      "$type": "dimension"
+    },
+    "value-accent": {
+      "$value": "{color.text.accent}",
+      "$type": "color"
+    },
+    "value-foreground": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "value-muted": {
+      "$value": "{color.text.secondary}",
+      "$type": "color"
+    },
+    "subtitle": {
+      "$value": "{color.text.secondary}",
+      "$type": "color"
+    },
+    "subtitle-size": {
+      "$value": "{font.size.xs}",
+      "$type": "dimension"
+    },
+    "subtitle-margin-top": {
+      "$value": "{spacing.xs}",
+      "$type": "dimension"
+    },
+    "footer-margin-top": {
+      "$value": "{spacing.sm}",
+      "$type": "dimension"
+    }
+  }
+}

@@ -20,6 +20,10 @@
       "overlay": {
         "$value": "{color.pdv.overlay}",
         "$type": "color"
+      },
+      "card": {
+        "$value": "{color.pdv.night-surface}",
+        "$type": "color"
       }
     },
     "text": {
@@ -36,7 +40,7 @@
         "$type": "color"
       },
       "on-accent": {
-        "$value": "{color.pdv.ink}",
+        "$value": "{color.pdv.night}",
         "$type": "color"
       },
       "destructive": {
@@ -68,6 +72,10 @@
       "destructive": {
         "$value": "{color.pdv.red-dark}",
         "$type": "color"
+      },
+      "positive": {
+        "$value": "{color.pdv.splash}",
+        "$type": "color"
       }
     },
     "brand": {
@@ -76,7 +84,23 @@
         "$type": "color"
       },
       "splash-fg": {
-        "$value": "{color.pdv.cream-100}",
+        "$value": "{color.pdv.cream-50}",
+        "$type": "color"
+      }
+    },
+    "disabled": {
+      "default": {
+        "$value": "{color.pdv.disabled-dark}",
+        "$type": "color"
+      },
+      "subtle": {
+        "$value": "{color.pdv.disabled-subtle-dark}",
+        "$type": "color"
+      }
+    },
+    "calendar": {
+      "today": {
+        "$value": "{color.pdv.today}",
         "$type": "color"
       }
     }

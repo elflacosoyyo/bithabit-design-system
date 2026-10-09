@@ -11,8 +11,10 @@ pairs:
   - { id: text.accent-on-canvas,        fg: color.text.accent,     bg: color.bg.canvas,       min: 4.5, kind: text }
   - { id: text.accent-on-surface,       fg: color.text.accent,     bg: color.bg.surface,      min: 4.5, kind: text }
   - { id: text.on-accent-on-accent,     fg: color.text.on-accent,  bg: color.accent.default,  min: 4.5, kind: text }
+  - { id: text.on-accent-on-destructive, fg: color.text.on-accent,  bg: color.status.destructive, min: 4.5, kind: text }
   - { id: text.destructive-on-canvas,   fg: color.text.destructive, bg: color.bg.canvas,      min: 4.5, kind: text }
   - { id: text.destructive-on-surface,  fg: color.text.destructive, bg: color.bg.surface,     min: 4.5, kind: text }
+  - { id: text.positive-on-surface,     fg: color.status.positive, bg: color.bg.surface,     min: 4.5, kind: text }
   - { id: accent-fill-on-canvas,        fg: color.accent.default,  bg: color.bg.canvas,       min: 3.0, kind: ui }
   - { id: accent-fill-on-surface,       fg: color.accent.default,  bg: color.bg.surface,      min: 3.0, kind: ui }
   - { id: accent-fill-on-surface-alt,   fg: color.accent.default,  bg: color.bg.surface-alt,  min: 3.0, kind: ui }

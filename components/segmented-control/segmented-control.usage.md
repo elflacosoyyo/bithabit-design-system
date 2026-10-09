@@ -1,9 +1,9 @@
 # SegmentedControl
 
-> Spec: [`segmented-control.spec.yaml`](./segmented-control.spec.yaml) · v0.1.0 · **draft**
+> Spec: [`segmented-control.spec.yaml`](./segmented-control.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
-A pill-shaped control with a sliding thumb that switches between two to four views or values.
+A pill-shaped control that switches between two or three views of the same content. The selected segment gets a canvas-colored pill; the swap is instant (no sliding).
 
 ## When to use
 - Switching content inside the same entity (Notes / History in the habit detail).
@@ -16,7 +16,7 @@ A pill-shaped control with a sliding thumb that switches between two to four vie
 
 ## Do
 - Use single-noun, sentence-case labels.
-- Set `semantics="radio"` when it chooses a setting; keep the default `tabs` when it switches views.
+- Pass the labels and the selected index; `onSelect` returns the pressed index.
 - Keep the control full-width inside its container.
 
 ## Don't
@@ -25,19 +25,18 @@ A pill-shaped control with a sliding thumb that switches between two to four vie
 - Don't change the height of the content area when switching if it can be avoided.
 
 ## Implementation notes (React Native)
-- Track is a `View` with `borderRadius: theme.segmentedControl.trackRadius` and `padding: theme.segmentedControl.trackPadding`.
-- The thumb is an absolutely positioned animated `View`; measure segments once with `onLayout`.
-- Selected label uses `fontWeight: theme.segmentedControl.fontWeightActive`.
+- Production: a 36pt-high row (`h-9`), `rounded-pill`, `bg-input-bg`, 2pt padding; each segment is a `TouchableOpacity` whose inner view gets `bg-background` when active.
+- Selected label is semibold, unselected medium, both `text-sm text-foreground`.
+- Add `accessibilityRole="tab"` and `accessibilityState={{ selected }}` to each segment and a `tablist` role to the track (missing today).
 
 ## Brand notes
-Track uses `bg.surface-alt` and thumb uses `bg.canvas`; both flip automatically in dark mode.
+Track uses `bg.input` and thumb uses `bg.canvas`; both flip automatically in dark mode.
 
 ## Contract example
 ```tsx
 <SegmentedControl
-  accessibilityLabel="Habit detail view"
-  options={[{ value: 'notes', label: 'Notes' }, { value: 'history', label: 'History' }]}
-  value={tab}
-  onChange={setTab}
+  labels={[t('habitDetail.notes'), t('habitDetail.history')]}
+  selectedIndex={tabIndex}
+  onSelect={setTabIndex}
 />
 ```

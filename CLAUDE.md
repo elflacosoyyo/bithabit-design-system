@@ -17,7 +17,7 @@ Never edit `dist/` by hand. If `dist/` changes, commit it together with the sour
 
 ## Source priority (when sources disagree)
 1. Explicit decisions by the designer (recorded in `audit/decisions.md`).
-2. Production code in `Bakia/plan-de-vida` (not accessible yet; everything derived from other sources is `verified: false`).
+2. Production code in `Bakia/plan-de-vida` (read-only; clone it shallow when you need it). Record the commit you read in `sources.code[].commit` and set `verified: true` only for files you actually read. Never copy its code or secrets into this repo: facts and paths only.
 3. The Figma file (`qWMcWuD7X6qnzXxAmRopvf`, a copy; may be outdated; use as reference).
 4. Claude Design export ("Plan de Vida Design System") and the reference videos.
 Record every conflict you resolve in `audit/decisions.md`. Never silently pick a value.
@@ -29,6 +29,7 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 - A brand cannot introduce a semantic token the base does not have; add it to the base first (`validate` enforces this).
 - Colors in contrast-checked roles must be 6-digit hex. Alpha colors (`rgba(...)`) are allowed only for border/overlay.
 - Naming: kebab-case paths (`color.bg.surface-alt`); outputs camelCase for JS (`surfaceAlt`) and `--bh-*` for CSS.
+- BitHabit names (`foreground`, `background`, `surface`, `muted`...) are the **public** Tailwind/CSS names used by the app. They are mapped to design-system tokens in `tokens/compat.yaml`; keep that file in sync and never rename a public name without a major version.
 
 ## Workflows
 
@@ -42,7 +43,7 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 1. Add it to `components/inventory.yaml` first (status `planned`).
 2. Create `components/<id>/<id>.spec.yaml` and `<id>.usage.md` (copy `habit-card/`). Use **block-style YAML**; quote any string that contains `: `.
 3. Add component tokens in `tokens/component/<id>.json`, referencing semantic tokens only. List **every** token the component reads under `tokens:` in the spec.
-4. Everything you could not verify goes in `open_questions`. Set `sources.code[].verified: false` until you have read the real code.
+4. Read the real component in `Bakia/plan-de-vida` and copy facts (props, sizes, behavior) into the spec. Everything still unknown goes in `open_questions`; every difference between the code and what the contract prescribes goes in `code_gaps` (this is what the ds-sync skill will report to developers).
 5. Set the inventory status to `spec-draft`. Bump `version` (semver) and add a `changelog` entry whose top version equals `version`.
 6. `npm run check`.
 

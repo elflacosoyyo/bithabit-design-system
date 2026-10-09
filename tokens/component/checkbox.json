@@ -1,7 +1,7 @@
 {
   "checkbox": {
     "size": {
-      "$value": "24px",
+      "$value": "{spacing.lg}",
       "$type": "dimension"
     },
     "hit-slop": {
@@ -19,6 +19,10 @@
     "check": {
       "$value": "{color.text.primary}",
       "$type": "color"
+    },
+    "check-size": {
+      "$value": "{spacing.lg}",
+      "$type": "dimension"
     },
     "disabled-opacity": {
       "$value": "{opacity.disabled}",

@@ -1,6 +1,6 @@
 # Checkbox
 
-> Spec: [`checkbox.spec.yaml`](./checkbox.spec.yaml) · v0.1.0 · **draft**
+> Spec: [`checkbox.spec.yaml`](./checkbox.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 The circular control used to mark a habit done for today. Unchecked it is a ring; checked it becomes a bare
@@ -26,12 +26,11 @@ check glyph (the ring disappears). It is deliberately quiet: no fill, no color a
 - Don't animate with bounce or scale.
 
 ## Implementation notes (React Native)
-- `Pressable` with `hitSlop={theme.checkbox.hitSlop}`; ring is a `View` with `borderWidth: theme.checkbox.borderWidth`, `borderRadius: size / 2`.
-- Check glyph: Feather `check` at the checkbox size, stroke in `theme.checkbox.check`.
-- Disabled: `opacity: theme.checkbox.disabledOpacity` and `disabled` on the `Pressable`.
+- Today it is inline markup: a 24pt box that is a ring (`border-2 border-foreground`, `rounded-full`) when unchecked, and a Feather `check` (24pt, `text-foreground`) when checked. `HabitCard` and `FooterAction` each have a copy; the footer copy uses a 32pt box.
+- Extracting it into one component with the tokens in `checkbox.*` removes that drift. Use `hitSlop` of `checkbox.hit-slop` (12) for a 48pt target; production uses 8.
 
 ## Brand notes
-Ring and check use `text.primary`, so they adapt automatically to every brand and to dark mode.
+Ring and check use `text.primary` (`foreground` in BitHabit names), so they adapt automatically to every brand and to dark mode.
 
 ## Contract example
 ```tsx

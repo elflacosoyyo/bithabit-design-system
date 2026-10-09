@@ -36,7 +36,8 @@ export const light = {
   motion: {
     duration: {
       fast: 150,
-      base: 250,
+      short: 200,
+      base: 300,
       slow: 400
     }
   },
@@ -88,9 +89,9 @@ export const light = {
     family: {
       sans: "Inter",
       display: {
-        ios: "Kefa III",
-        android: "Crimson Pro",
-        web: "Crimson Pro"
+        ios: "Yrsa",
+        android: "Yrsa",
+        web: "Yrsa"
       }
     }
   },
@@ -166,15 +167,20 @@ export const light = {
       surface: "#faf8f2",
       surfaceAlt: "#efede6",
       input: "#f3f3f5",
-      overlay: "rgba(3, 2, 19, 0.5)"
+      overlay: "rgba(3, 2, 19, 0.5)",
+      card: "#FFFFFF"
     },
     text: {
       primary: "#030213",
       secondary: "#717182",
-      disabled: "#9CA3AF",
+      disabled: "#a0a5a8",
       accent: "#eda96d",
-      onAccent: "#030213",
+      onAccent: "#FFFFFF",
       destructive: "#d16161"
+    },
+    disabled: {
+      default: "#a0a5a8",
+      subtle: "#d1d1d6"
     },
     border: {
       default: "rgba(0, 0, 0, 0.1)",
@@ -188,26 +194,34 @@ export const light = {
     },
     status: {
       destructive: "#d16161",
-      success: "#16A34A"
+      positive: "#d77d2d"
     },
     brand: {
       splashBg: "#d77d2d",
-      splashFg: "#efede6"
+      splashFg: "#faf8f2"
+    },
+    calendar: {
+      today: "#3f4244",
+      onToday: "#FFFFFF"
     }
   },
   bottomSheet: {
     bg: "#FFFFFF",
     radiusTop: 32,
-    paddingX: 16,
     handle: {
-      width: 36,
+      width: 40,
       height: 4,
       radius: 100,
-      bg: "#6B7280",
-      marginTop: 8
+      bg: "#717182",
+      paddingY: 8
     },
     backdrop: "rgba(3, 2, 19, 0.5)",
-    duration: 250
+    backdropOpacity: 0.5,
+    duration: 300,
+    dragThreshold: 100,
+    velocityThreshold: 500,
+    springDamping: 25,
+    springStiffness: 100
   },
   checkbox: {
     size: 24,
@@ -215,52 +229,76 @@ export const light = {
     borderWidth: 2,
     ring: "#030213",
     check: "#030213",
+    checkSize: 24,
     disabledOpacity: 0.5
   },
   habitCard: {
     bg: "#faf8f2",
+    wrapperBg: "#FFFFFF",
     text: "#030213",
     fontSize: 14,
     fontWeight: "300",
+    letterSpacing: 0.35,
     paddingX: 16,
     paddingY: 16,
+    listPaddingX: 16,
+    listPaddingY: 4,
     radiusTop: 4,
     radiusBottom: 0,
     pressedOpacity: 0.7,
     strip: {
-      height: 3,
-      gap: 4,
+      height: 4,
+      gap: 2,
+      segments: 7,
       segmentFilled: "#eda96d",
       segmentEmpty: "#efede6"
+    },
+    swipe: {
+      toggleBg: "#eda96d",
+      deleteBg: "#d16161",
+      label: "#FFFFFF",
+      labelSize: 17,
+      labelWeight: "600",
+      threshold: 80,
+      velocityThreshold: 500,
+      revealWidth: 100,
+      snapDuration: 150,
+      returnDuration: 200
     }
   },
+  metricCard: {
+    bg: "#faf8f2",
+    radius: 12,
+    padding: 16,
+    width: 172,
+    headerGap: 4,
+    headerMarginBottom: 16,
+    title: "#030213",
+    titleSize: 12,
+    titleWeight: "500",
+    iconSize: 16,
+    valueSize: 34,
+    valueWeight: "300",
+    valueTracking: -1.5,
+    valueAccent: "#eda96d",
+    valueForeground: "#030213",
+    valueMuted: "#717182",
+    subtitle: "#717182",
+    subtitleSize: 12,
+    subtitleMarginTop: 4,
+    footerMarginTop: 8
+  },
   segmentedControl: {
-    trackBg: "#efede6",
+    height: 36,
+    trackBg: "#f3f3f5",
     trackRadius: 100,
     trackPadding: 2,
     thumbBg: "#FFFFFF",
     thumbRadius: 100,
     label: "#030213",
     fontSize: 14,
-    fontWeightActive: "500",
-    fontWeightInactive: "400",
-    segmentPaddingY: 8,
-    disabledOpacity: 0.5,
-    duration: 150
-  },
-  statCard: {
-    bg: "#faf8f2",
-    radius: 12,
-    padding: 16,
-    gap: 4,
-    label: "#717182",
-    labelSize: 12,
-    value: "#eda96d",
-    valueSize: 30,
-    valueWeight: "300",
-    caption: "#717182",
-    deltaPositive: "#16A34A",
-    deltaNegative: "#d16161"
+    fontWeightActive: "600",
+    fontWeightInactive: "500"
   }
 };
 export const dark = {
@@ -296,7 +334,8 @@ export const dark = {
   motion: {
     duration: {
       fast: 150,
-      base: 250,
+      short: 200,
+      base: 300,
       slow: 400
     }
   },
@@ -348,9 +387,9 @@ export const dark = {
     family: {
       sans: "Inter",
       display: {
-        ios: "Kefa III",
-        android: "Crimson Pro",
-        web: "Crimson Pro"
+        ios: "Yrsa",
+        android: "Yrsa",
+        web: "Yrsa"
       }
     }
   },
@@ -426,15 +465,20 @@ export const dark = {
       surface: "#1e1c19",
       surfaceAlt: "#2a2722",
       input: "#2a2722",
-      overlay: "rgba(3, 2, 19, 0.5)"
+      overlay: "rgba(3, 2, 19, 0.5)",
+      card: "#1e1c19"
     },
     text: {
       primary: "#f5f2ec",
       secondary: "#9b9893",
-      disabled: "#4B5563",
+      disabled: "#5b5f61",
       accent: "#eda96d",
-      onAccent: "#030213",
+      onAccent: "#131210",
       destructive: "#e07575"
+    },
+    disabled: {
+      default: "#5b5f61",
+      subtle: "#45423d"
     },
     border: {
       default: "rgba(255, 255, 255, 0.1)",
@@ -448,26 +492,34 @@ export const dark = {
     },
     status: {
       destructive: "#e07575",
-      success: "#4ADE80"
+      positive: "#d77d2d"
     },
     brand: {
       splashBg: "#d77d2d",
-      splashFg: "#efede6"
+      splashFg: "#faf8f2"
+    },
+    calendar: {
+      today: "#3f4244",
+      onToday: "#FFFFFF"
     }
   },
   bottomSheet: {
     bg: "#131210",
     radiusTop: 32,
-    paddingX: 16,
     handle: {
-      width: 36,
+      width: 40,
       height: 4,
       radius: 100,
-      bg: "#6B7280",
-      marginTop: 8
+      bg: "#9b9893",
+      paddingY: 8
     },
     backdrop: "rgba(3, 2, 19, 0.5)",
-    duration: 250
+    backdropOpacity: 0.5,
+    duration: 300,
+    dragThreshold: 100,
+    velocityThreshold: 500,
+    springDamping: 25,
+    springStiffness: 100
   },
   checkbox: {
     size: 24,
@@ -475,26 +527,67 @@ export const dark = {
     borderWidth: 2,
     ring: "#f5f2ec",
     check: "#f5f2ec",
+    checkSize: 24,
     disabledOpacity: 0.5
   },
   habitCard: {
     bg: "#1e1c19",
+    wrapperBg: "#131210",
     text: "#f5f2ec",
     fontSize: 14,
     fontWeight: "300",
+    letterSpacing: 0.35,
     paddingX: 16,
     paddingY: 16,
+    listPaddingX: 16,
+    listPaddingY: 4,
     radiusTop: 4,
     radiusBottom: 0,
     pressedOpacity: 0.7,
     strip: {
-      height: 3,
-      gap: 4,
+      height: 4,
+      gap: 2,
+      segments: 7,
       segmentFilled: "#eda96d",
       segmentEmpty: "#2a2722"
+    },
+    swipe: {
+      toggleBg: "#eda96d",
+      deleteBg: "#e07575",
+      label: "#131210",
+      labelSize: 17,
+      labelWeight: "600",
+      threshold: 80,
+      velocityThreshold: 500,
+      revealWidth: 100,
+      snapDuration: 150,
+      returnDuration: 200
     }
   },
+  metricCard: {
+    bg: "#1e1c19",
+    radius: 12,
+    padding: 16,
+    width: 172,
+    headerGap: 4,
+    headerMarginBottom: 16,
+    title: "#f5f2ec",
+    titleSize: 12,
+    titleWeight: "500",
+    iconSize: 16,
+    valueSize: 34,
+    valueWeight: "300",
+    valueTracking: -1.5,
+    valueAccent: "#eda96d",
+    valueForeground: "#f5f2ec",
+    valueMuted: "#9b9893",
+    subtitle: "#9b9893",
+    subtitleSize: 12,
+    subtitleMarginTop: 4,
+    footerMarginTop: 8
+  },
   segmentedControl: {
+    height: 36,
     trackBg: "#2a2722",
     trackRadius: 100,
     trackPadding: 2,
@@ -502,25 +595,8 @@ export const dark = {
     thumbRadius: 100,
     label: "#f5f2ec",
     fontSize: 14,
-    fontWeightActive: "500",
-    fontWeightInactive: "400",
-    segmentPaddingY: 8,
-    disabledOpacity: 0.5,
-    duration: 150
-  },
-  statCard: {
-    bg: "#1e1c19",
-    radius: 12,
-    padding: 16,
-    gap: 4,
-    label: "#9b9893",
-    labelSize: 12,
-    value: "#eda96d",
-    valueSize: 30,
-    valueWeight: "300",
-    caption: "#9b9893",
-    deltaPositive: "#4ADE80",
-    deltaNegative: "#e07575"
+    fontWeightActive: "600",
+    fontWeightInactive: "500"
   }
 };
 export const themes = { light, dark };

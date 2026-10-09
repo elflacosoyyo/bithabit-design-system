@@ -66,6 +66,14 @@ for (const b of brands) {
   }
 }
 
+// ---- 2b. Compat naming targets exist
+const compat = readYAML('tokens/compat.yaml');
+for (const [name, target] of [...Object.entries(compat.colors), ...Object.entries(compat.extras)]) {
+  for (const b of brands) for (const m of MODES) {
+    if (resolved[`${b}/${m}`] && !resolved[`${b}/${m}`].has(target)) err(`[compat] "${name}" maps to missing token "${target}" for ${b}/${m}`);
+  }
+}
+
 // ---- 3. Contrast
 const waived = (brandMeta, id) => (brandMeta.accessibility?.waivers ?? []).find((w) =>
   w.pair.endsWith('*') ? id.startsWith(w.pair.slice(0, -1)) : w.pair === id);

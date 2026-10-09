@@ -8,17 +8,13 @@
       "$value": "{radius.2xl}",
       "$type": "dimension"
     },
-    "padding-x": {
-      "$value": "{spacing.md}",
-      "$type": "dimension"
-    },
     "handle": {
       "width": {
-        "$value": "36px",
+        "$value": "40px",
         "$type": "dimension"
       },
       "height": {
-        "$value": "4px",
+        "$value": "{spacing.xs}",
         "$type": "dimension"
       },
       "radius": {
@@ -26,10 +22,10 @@
         "$type": "dimension"
       },
       "bg": {
-        "$value": "{color.border.strong}",
+        "$value": "{color.text.secondary}",
         "$type": "color"
       },
-      "margin-top": {
+      "padding-y": {
         "$value": "{spacing.sm}",
         "$type": "dimension"
       }
@@ -38,9 +34,29 @@
       "$value": "{color.bg.overlay}",
       "$type": "color"
     },
+    "backdrop-opacity": {
+      "$value": "{opacity.backdrop}",
+      "$type": "number"
+    },
     "duration": {
       "$value": "{motion.duration.base}",
       "$type": "duration"
+    },
+    "drag-threshold": {
+      "$value": "100px",
+      "$type": "dimension"
+    },
+    "velocity-threshold": {
+      "$value": 500,
+      "$type": "number"
+    },
+    "spring-damping": {
+      "$value": 25,
+      "$type": "number"
+    },
+    "spring-stiffness": {
+      "$value": 100,
+      "$type": "number"
     }
   }
 }

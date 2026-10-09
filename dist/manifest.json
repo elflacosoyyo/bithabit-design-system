@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "7a1cfb9219887f78",
+      "tokensHash": "d79cbdb7447cb086",
       "modes": [
         "light",
         "dark"
@@ -16,7 +16,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "14f412f8ed3a1fd5",
+      "tokensHash": "b1fdafcb2e67cb73",
       "modes": [
         "light",
         "dark"
@@ -29,7 +29,7 @@
   "components": {
     "bottom-sheet": {
       "name": "BottomSheet",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "draft",
       "category": "container",
       "spec": "components/bottom-sheet/bottom-sheet.spec.yaml",
@@ -37,16 +37,20 @@
       "tokens": [
         "bottom-sheet.bg",
         "bottom-sheet.radius-top",
-        "bottom-sheet.padding-x",
         "bottom-sheet.handle.width",
         "bottom-sheet.handle.height",
         "bottom-sheet.handle.radius",
         "bottom-sheet.handle.bg",
-        "bottom-sheet.handle.margin-top",
+        "bottom-sheet.handle.padding-y",
         "bottom-sheet.backdrop",
-        "bottom-sheet.duration"
+        "bottom-sheet.backdrop-opacity",
+        "bottom-sheet.duration",
+        "bottom-sheet.drag-threshold",
+        "bottom-sheet.velocity-threshold",
+        "bottom-sheet.spring-damping",
+        "bottom-sheet.spring-stiffness"
       ],
-      "contentHash": "ddfaa8436185d229",
+      "contentHash": "25cb5ea886e57add",
       "sources": {
         "figma": [
           {
@@ -59,17 +63,33 @@
           "plandevida-ios-part1.mp4 / part2.mp4 (detail sheet, suggested habits sheet, keyboard)"
         ],
         "claude_design": [
-          "Plan de Vida Design System README: Reanimated spring, backdrop opacity about 0.5, rounded-t-2xl"
+          "Plan de Vida Design System README (Reanimated spring, backdrop opacity about 0.5, rounded-t-2xl)"
         ],
         "code": [
           {
             "repo": "Bakia/plan-de-vida",
             "path": "src/components/bottom-sheet.tsx",
-            "verified": false
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/utils/animation-presets.ts",
+            "commit": "cdfea70",
+            "verified": true
           }
         ]
       },
       "changelog": [
+        {
+          "version": "0.2.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Verified against Bakia/plan-de-vida at cdfea70. Removed snap points, keyboard avoidance and dismissOnBackdropPress (not in the component).",
+            "Handle is 40pt by 4pt in text.secondary. Open and close are timing animations of 300ms; spring is only used to snap back.",
+            "Added code_gaps (backdrop color, accessibility)."
+          ]
+        },
         {
           "version": "0.1.0",
           "date": "2026-10-08",
@@ -81,7 +101,7 @@
     },
     "checkbox": {
       "name": "Checkbox",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "draft",
       "category": "input",
       "spec": "components/checkbox/checkbox.spec.yaml",
@@ -92,9 +112,10 @@
         "checkbox.border-width",
         "checkbox.ring",
         "checkbox.check",
+        "checkbox.check-size",
         "checkbox.disabled-opacity"
       ],
-      "contentHash": "596dee23261f657e",
+      "contentHash": "c4b3c9581626c22d",
       "sources": {
         "figma": [
           {
@@ -112,12 +133,27 @@
         "code": [
           {
             "repo": "Bakia/plan-de-vida",
-            "path": "src/components/habit-card.tsx (checkbox is inline today)",
-            "verified": false
+            "path": "src/components/habit-card.tsx (inline checkbox, 24pt box)",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/footer-action.tsx (inline checkbox, 32pt box)",
+            "commit": "cdfea70",
+            "verified": true
           }
         ]
       },
       "changelog": [
+        {
+          "version": "0.2.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Verified against Bakia/plan-de-vida at cdfea70. Documented the two inline copies and their size mismatch.",
+            "Contract hit slop is 12 (48pt target); production uses 8 (see code_gaps)."
+          ]
+        },
         {
           "version": "0.1.0",
           "date": "2026-10-08",
@@ -129,27 +165,42 @@
     },
     "habit-card": {
       "name": "HabitCard",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "draft",
       "category": "list",
       "spec": "components/habit-card/habit-card.spec.yaml",
       "usage": "components/habit-card/habit-card.usage.md",
       "tokens": [
         "habit-card.bg",
+        "habit-card.wrapper-bg",
         "habit-card.text",
         "habit-card.font-size",
         "habit-card.font-weight",
+        "habit-card.letter-spacing",
         "habit-card.padding-x",
         "habit-card.padding-y",
+        "habit-card.list-padding-x",
+        "habit-card.list-padding-y",
         "habit-card.radius-top",
         "habit-card.radius-bottom",
         "habit-card.pressed-opacity",
         "habit-card.strip.height",
         "habit-card.strip.gap",
+        "habit-card.strip.segments",
         "habit-card.strip.segment-filled",
-        "habit-card.strip.segment-empty"
+        "habit-card.strip.segment-empty",
+        "habit-card.swipe.toggle-bg",
+        "habit-card.swipe.delete-bg",
+        "habit-card.swipe.label",
+        "habit-card.swipe.label-size",
+        "habit-card.swipe.label-weight",
+        "habit-card.swipe.threshold",
+        "habit-card.swipe.velocity-threshold",
+        "habit-card.swipe.reveal-width",
+        "habit-card.swipe.snap-duration",
+        "habit-card.swipe.return-duration"
       ],
-      "contentHash": "0cf019b7b6b9f04e",
+      "contentHash": "be27198122a6e998",
       "sources": {
         "figma": [
           {
@@ -160,20 +211,41 @@
         ],
         "videos": [
           "plandevida-ios-part1.mp4 (home list, completion, strip fill)",
-          "plandevida-ios-part2.mp4 (strip with 5-day streak)"
+          "plandevida-ios-part2.mp4 (strip, detail sheet)"
         ],
         "claude_design": [
-          "Plan de Vida Design System: HabitCard (README: rounded-t-sm, strip is the brand pattern)"
+          "Plan de Vida Design System README (HabitCard: rounded-t-sm, history strip is the brand pattern)"
         ],
         "code": [
           {
             "repo": "Bakia/plan-de-vida",
             "path": "src/components/habit-card.tsx",
-            "verified": false
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/swipeable-habit-card.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/utils/frequency.ts (getHabitHistory)",
+            "commit": "cdfea70",
+            "verified": true
           }
         ]
       },
       "changelog": [
+        {
+          "version": "0.2.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Verified against Bakia/plan-de-vida at cdfea70. history is boolean[] of the last 7 days (not a streak); strip is 4pt high with a 2pt gap; swipe behavior documented.",
+            "Added code_gaps (accessibility, hit area, pressed opacity)."
+          ]
+        },
         {
           "version": "0.1.0",
           "date": "2026-10-08",
@@ -183,14 +255,91 @@
         }
       ]
     },
+    "metric-card": {
+      "name": "MetricCard",
+      "version": "0.2.0",
+      "status": "draft",
+      "category": "data-display",
+      "spec": "components/metric-card/metric-card.spec.yaml",
+      "usage": "components/metric-card/metric-card.usage.md",
+      "tokens": [
+        "metric-card.bg",
+        "metric-card.radius",
+        "metric-card.padding",
+        "metric-card.width",
+        "metric-card.header-gap",
+        "metric-card.header-margin-bottom",
+        "metric-card.title",
+        "metric-card.title-size",
+        "metric-card.title-weight",
+        "metric-card.icon-size",
+        "metric-card.value-size",
+        "metric-card.value-weight",
+        "metric-card.value-tracking",
+        "metric-card.value-accent",
+        "metric-card.value-foreground",
+        "metric-card.value-muted",
+        "metric-card.subtitle",
+        "metric-card.subtitle-size",
+        "metric-card.subtitle-margin-top",
+        "metric-card.footer-margin-top"
+      ],
+      "contentHash": "c9d1c729ac7c57c3",
+      "sources": {
+        "videos": [
+          "plandevida-ios-part1.mp4 (Stats screen)"
+        ],
+        "claude_design": [
+          "Estadisticas.dc.html exploration (new Stats layout; not in production)"
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/metric-card.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/stat-number.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/month-metrics.tsx (ChangeIndicator, footer usage)",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.2.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Renamed from stat-card to match MetricCard in Bakia/plan-de-vida and verified against cdfea70.",
+            "Real props (icon, title, value, valueTone, subtitle, footer). The delta is a ChangeIndicator in the footer, not a prop."
+          ]
+        },
+        {
+          "version": "0.1.0",
+          "date": "2026-10-08",
+          "changes": [
+            "Initial draft as stat-card from reference videos and the Claude Design Stats exploration."
+          ]
+        }
+      ]
+    },
     "segmented-control": {
       "name": "SegmentedControl",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "draft",
       "category": "navigation",
       "spec": "components/segmented-control/segmented-control.spec.yaml",
       "usage": "components/segmented-control/segmented-control.usage.md",
       "tokens": [
+        "segmented-control.height",
         "segmented-control.track-bg",
         "segmented-control.track-radius",
         "segmented-control.track-padding",
@@ -199,12 +348,9 @@
         "segmented-control.label",
         "segmented-control.font-size",
         "segmented-control.font-weight-active",
-        "segmented-control.font-weight-inactive",
-        "segmented-control.segment-padding-y",
-        "segmented-control.disabled-opacity",
-        "segmented-control.duration"
+        "segmented-control.font-weight-inactive"
       ],
-      "contentHash": "5a4b73a1584dbee9",
+      "contentHash": "54f7a5c45648a1b6",
       "sources": {
         "figma": [
           {
@@ -217,69 +363,31 @@
           "plandevida-ios-part1.mp4 / part2.mp4 (Notes/History, Norm/Notes/History)"
         ],
         "claude_design": [
-          "Plan de Vida Design System README: pill track and pill thumb"
+          "Plan de Vida Design System README (pill track and pill thumb)"
         ],
         "code": [
           {
             "repo": "Bakia/plan-de-vida",
             "path": "src/components/segmented-control.tsx",
-            "verified": false
+            "commit": "cdfea70",
+            "verified": true
           }
         ]
       },
       "changelog": [
+        {
+          "version": "0.2.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Verified against Bakia/plan-de-vida at cdfea70. API is labels, selectedIndex and onSelect. Track uses the input background, not surface-alt.",
+            "Removed the sliding thumb, disabled state, semantics prop and transition duration (not in the component)."
+          ]
+        },
         {
           "version": "0.1.0",
           "date": "2026-10-08",
           "changes": [
             "Initial draft from reference videos, Figma and the Claude Design export."
-          ]
-        }
-      ]
-    },
-    "stat-card": {
-      "name": "StatCard",
-      "version": "0.1.0",
-      "status": "draft",
-      "category": "data-display",
-      "spec": "components/stat-card/stat-card.spec.yaml",
-      "usage": "components/stat-card/stat-card.usage.md",
-      "tokens": [
-        "stat-card.bg",
-        "stat-card.radius",
-        "stat-card.padding",
-        "stat-card.gap",
-        "stat-card.label",
-        "stat-card.label-size",
-        "stat-card.value",
-        "stat-card.value-size",
-        "stat-card.value-weight",
-        "stat-card.caption",
-        "stat-card.delta-positive",
-        "stat-card.delta-negative"
-      ],
-      "contentHash": "b9835f2c5368a74b",
-      "sources": {
-        "videos": [
-          "plandevida-ios-part1.mp4 (Stats screen: \"Overall compliance\", \"Most completed norm\")"
-        ],
-        "claude_design": [
-          "Estadisticas.dc.html exploration (new Stats layout; not in production)"
-        ],
-        "code": [
-          {
-            "repo": "Bakia/plan-de-vida",
-            "path": "src/components/habit-stat-card.tsx (related but different: best-habit card)",
-            "verified": false
-          }
-        ]
-      },
-      "changelog": [
-        {
-          "version": "0.1.0",
-          "date": "2026-10-08",
-          "changes": [
-            "Initial draft from reference videos and the Claude Design Stats exploration."
           ]
         }
       ]

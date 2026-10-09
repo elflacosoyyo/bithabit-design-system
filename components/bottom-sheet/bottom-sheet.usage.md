@@ -1,10 +1,10 @@
 # BottomSheet
 
-> Spec: [`bottom-sheet.spec.yaml`](./bottom-sheet.spec.yaml) · v0.1.0 · **draft**
+> Spec: [`bottom-sheet.spec.yaml`](./bottom-sheet.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
-A modal panel that slides up from the bottom, dims what is behind it and can be dragged between resting heights
-or dismissed by swiping down. It is the product's main way to show detail without navigating.
+A modal panel that slides up from the bottom, dims what is behind it and can be dragged down to dismiss.
+It is content-sized (there are no snap points) and is the product's main way to show detail without navigating.
 
 ## When to use
 - Habit detail with tabs (Norm / Notes / History).
@@ -19,7 +19,8 @@ or dismissed by swiping down. It is the product's main way to show detail withou
 ## Do
 - Give the sheet a visible title or an `accessibilityLabel`.
 - Put primary actions in a footer inside the sheet (e.g. "Mark as done today").
-- Keep content scrollable; the sheet height is not a layout constraint.
+- Keep content scrollable inside the content slot; the sheet height follows its content.
+- The sheet does not avoid the keyboard. The content that owns an input must handle it.
 
 ## Don't
 - Don't add a shadow; the dim backdrop and the large radius provide the lift.
@@ -28,17 +29,17 @@ or dismissed by swiping down. It is the product's main way to show detail withou
 - Don't make dismiss-by-backdrop unavailable without a visible close affordance.
 
 ## Implementation notes (React Native)
-- Reanimated spring for the translation and a timing animation for the backdrop opacity (`opacity.backdrop`).
-- Gesture Handler pan on the sheet; hand off to the inner `ScrollView` only at offset 0.
-- Use `KeyboardAvoidingView` behavior so inputs inside stay visible.
-- Honor Reduce Motion (`AccessibilityInfo.isReduceMotionEnabled`) with a fade instead of a spring.
+- Production renders in a transparent `Modal`. Open and close are Reanimated timing animations of 300ms (`bottom-sheet.duration`); the spring (damping 25, stiffness 100) is only used when a drag is released without dismissing.
+- The pan gesture is attached to the handle region. Dismiss when dragged past 100pt or released faster than 500pt/s.
+- Backdrop: the contract uses `bg.overlay`. Production currently uses the foreground color at 0.5 opacity, which turns cream in dark mode (see `code_gaps`).
+- Honor Reduce Motion (`AccessibilityInfo.isReduceMotionEnabled`) with a fade instead of a slide.
 
 ## Brand notes
-Colors come from `bg.canvas` (sheet) and `bg.overlay` (backdrop). Brands can change both without code changes.
+Colors come from `bg.canvas` (sheet), `text.secondary` (handle) and `bg.overlay` (backdrop). Brands can change them without code changes.
 
 ## Contract example
 ```tsx
-<BottomSheet visible={open} onClose={() => setOpen(false)} accessibilityLabel={habit.title}>
+<BottomSheet isOpen={open} onClose={() => setOpen(false)} accessibilityLabel={habit.title}>
   <HabitDetail habit={habit} />
 </BottomSheet>
 ```

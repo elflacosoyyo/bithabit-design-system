@@ -1,26 +1,29 @@
 id: habit-card
 name: HabitCard
-version: 0.1.0
+version: 0.2.0
 status: draft
 category: list
-summary: Tappable row for one habit with a done-today checkbox and a streak strip underneath.
+summary: Tappable row for one habit with a done-today checkbox and a seven-day history strip underneath.
 purpose: >
   Hero component of the Today screen. Lets the user see today's habits at a glance, complete them
-  with one tap and open a habit's detail. The streak strip is the signature visual pattern of the product.
+  with one tap and open a habit's detail. The history strip is the signature visual pattern of the product.
 platforms: [react-native]
 surfaces: [app]
 anatomy:
-  - part: surface
-    description: Filled rectangle. Top corners rounded (radius-top), bottom corners square so it blends into the strip.
+  - part: wrapper
+    description: Canvas-colored container, top corners rounded (radius-top), clipping its children.
+    required: true
+  - part: row
+    description: Surface-colored row with horizontal and vertical padding md. Holds the title and the checkbox.
     required: true
   - part: title
-    description: Single-line habit name, sans light.
+    description: Habit name, sans, light weight, small size, slightly tracked. Takes the remaining width.
     required: true
   - part: checkbox
     description: Trailing Checkbox that toggles completion for today.
     required: true
-  - part: streak-strip
-    description: Row of 7 equal segments below the card. Filled segments count the current consecutive streak, right-aligned (today is the rightmost segment).
+  - part: history-strip
+    description: Row of equal-width segments under the row, one per day, oldest first and today last. A done day is accent, otherwise surface-alt.
     required: true
 props:
   - name: title
@@ -31,11 +34,10 @@ props:
     type: boolean
     required: true
     description: Whether the habit is done today.
-  - name: streakDays
-    type: number
-    required: false
-    default: 0
-    description: Current consecutive-day streak. Clamped to 0..7 for display.
+  - name: history
+    type: boolean[]
+    required: true
+    description: Completion of the last N days, oldest first, today last. The Home screen passes 7 (one flex segment per entry).
   - name: onToggle
     type: () => void
     required: true
@@ -43,69 +45,115 @@ props:
   - name: onPress
     type: () => void
     required: true
-    description: Called when the row (outside the checkbox) is pressed; opens the habit detail.
+    description: Called when the row outside the checkbox is pressed. Opens the habit detail.
+  - name: onLongPress
+    type: () => void
+    required: false
+    description: Optional. The list uses it to start drag-to-reorder.
   - name: disabled
     type: boolean
     required: false
     default: false
-    description: Dims the card and blocks both callbacks.
+    description: Blocks both callbacks. The list sets it on every card while a drag is active.
+variants:
+  - name: static
+    description: HabitCard alone.
+  - name: swipeable
+    description: SwipeableHabitCard wraps the card (px md, py xs on canvas). Swipe right toggles today, swipe left asks to delete.
 states:
   - name: default
     description: Habit not completed today. Checkbox shows the ring.
   - name: completed
-    description: Checkbox shows the check glyph; today's strip segment is filled.
+    description: Checkbox shows the check glyph. Today's strip segment is accent.
   - name: pressed
-    description: Whole card at opacity.pressed while a finger is down.
+    description: Whole card dims while a finger is down (contract is opacity.pressed).
   - name: disabled
-    description: Whole card at opacity.disabled.
+    description: Interaction blocked; no visual change in the current implementation.
 tokens:
   - habit-card.bg
+  - habit-card.wrapper-bg
   - habit-card.text
   - habit-card.font-size
   - habit-card.font-weight
+  - habit-card.letter-spacing
   - habit-card.padding-x
   - habit-card.padding-y
+  - habit-card.list-padding-x
+  - habit-card.list-padding-y
   - habit-card.radius-top
   - habit-card.radius-bottom
   - habit-card.pressed-opacity
   - habit-card.strip.height
   - habit-card.strip.gap
+  - habit-card.strip.segments
   - habit-card.strip.segment-filled
   - habit-card.strip.segment-empty
+  - habit-card.swipe.toggle-bg
+  - habit-card.swipe.delete-bg
+  - habit-card.swipe.label
+  - habit-card.swipe.label-size
+  - habit-card.swipe.label-weight
+  - habit-card.swipe.threshold
+  - habit-card.swipe.velocity-threshold
+  - habit-card.swipe.reveal-width
+  - habit-card.swipe.snap-duration
+  - habit-card.swipe.return-duration
 accessibility:
   role: button
   label: "{title}, completed today | {title}, not completed today"
-  touch_target: Row at least 48pt tall. The checkbox keeps its own 48pt hit area (see Checkbox).
+  touch_target: Row at least 48pt tall. The checkbox needs a 48pt hit area (see Checkbox).
   notes:
-    - The strip is decorative. Hide it from assistive tech and expose the streak as accessibilityValue ("5 day streak").
-    - The checkbox is a separate accessibility element with role checkbox; do not merge it into the row element.
-    - Completion must never be conveyed by the strip colour alone; the check glyph carries it.
+    - The strip is decorative. Hide it from assistive tech and expose the count as accessibilityValue ("5 of 7 days").
+    - The checkbox is its own accessibility element with role checkbox; do not merge it into the row.
+    - Swipe actions must have an accessible alternative (custom accessibility actions "Mark as done" and "Delete").
+    - Completion is never conveyed by the strip colour alone; the check glyph carries it.
 behavior:
-  - Pressing the row opens the habit detail (BottomSheet). Pressing the checkbox toggles today only.
-  - The card is part of a vertical list; rows have no gap, each card sits directly above the next card's strip.
-  - Title is one line; long titles truncate with an ellipsis.
+  - Pressing the row opens the habit detail (BottomSheet). Pressing the checkbox toggles today only, with a light haptic.
+  - Swipe right past 80pt (or velocity 500) marks done or undoes, with a medium haptic. The row snaps to 100pt in 150ms and returns in 200ms.
+  - Swipe left past the same threshold asks for confirmation (native alert) before deleting.
+  - Long press starts drag-to-reorder (medium haptic); the other cards are disabled while dragging.
+  - In a list each card sits on a canvas wrapper with horizontal padding md and vertical padding xs.
 content:
-  - Titles are user-owned. Do not force casing; seed habits are sentence case.
-related: [checkbox, bottom-sheet, stat-card]
+  - Titles are user-owned, sentence case in the seed data (in Spanish, "Minuto heroico", "Evangelio del día").
+related: [checkbox, bottom-sheet, metric-card]
 sources:
   figma:
     - file: qWMcWuD7X6qnzXxAmRopvf
       node: "5457:5715"
-      name: Home (instances of 'card / semana')
+      name: "Home (instances of 'card / semana')"
   videos:
     - plandevida-ios-part1.mp4 (home list, completion, strip fill)
-    - plandevida-ios-part2.mp4 (strip with 5-day streak)
+    - plandevida-ios-part2.mp4 (strip, detail sheet)
   claude_design:
-    - "Plan de Vida Design System: HabitCard (README: rounded-t-sm, strip is the brand pattern)"
+    - "Plan de Vida Design System README (HabitCard: rounded-t-sm, history strip is the brand pattern)"
   code:
-    - { repo: Bakia/plan-de-vida, path: src/components/habit-card.tsx, verified: false }
+    - repo: Bakia/plan-de-vida
+      path: src/components/habit-card.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/swipeable-habit-card.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/utils/frequency.ts (getHabitHistory)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - No accessibilityRole, accessibilityLabel or accessibilityState on the card or the checkbox.
+  - The checkbox hit area is 40pt (24pt plus hitSlop 8); the contract asks for 48pt (hit slop 12).
+  - Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7), as FooterAction already does.
+  - Swipe actions have no accessible alternative.
+  - Swipe labels use text-background on accent and destructive fills. In Plan de Vida light mode that is white on tan (2.0:1), waiver PDV-W6.
 open_questions:
-  - Confirm in code that the strip always has 7 segments and is right-aligned (inferred from video).
-  - Does the strip count today only after completion? (video shows 1 segment right after completing today).
-  - Row height and padding are estimated from video; measure against code.
-  - Is there swipe-to-delete or drag-to-reorder on this card? (README mentions gesture-handler swipe-to-delete.)
-  - Truncation rule for long titles (ellipsis vs wrap).
+  - Should long titles truncate to one line? Today the title has no numberOfLines and wraps, growing the row.
+  - Should the disabled state (set during a drag) have a visual treatment?
 changelog:
+  - version: 0.2.0
+    date: "2026-10-09"
+    changes:
+      - Verified against Bakia/plan-de-vida at cdfea70. history is boolean[] of the last 7 days (not a streak); strip is 4pt high with a 2pt gap; swipe behavior documented.
+      - Added code_gaps (accessibility, hit area, pressed opacity).
   - version: 0.1.0
     date: "2026-10-08"
     changes:

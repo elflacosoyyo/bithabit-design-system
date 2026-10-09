@@ -1,7 +1,7 @@
 # Component inventory: single backlog of every component the design system will cover.
 # status: spec-draft (spec + usage exist) | planned (to be specced) | deferred (out of v1)
 # priority: P0 vertical slice | P1 core app | P2 secondary | P3 later
-# sources: code:<path in Bakia/plan-de-vida, unverified> | figma:<node or component name> | video | claude-design:<file>
+# sources: code:<path in Bakia/plan-de-vida @ cdfea70> | figma:<node or component name> | video | claude-design:<file>
 # Figma file: qWMcWuD7X6qnzXxAmRopvf
 components:
 - id: habit-card
@@ -11,18 +11,20 @@ components:
   priority: P0
   sources:
   - code:src/components/habit-card.tsx
+  - code:src/components/swipeable-habit-card.tsx
   - figma:5457:5715
   - video
-  notes: ''
+  notes: Swipeable variant (swipe right = toggle, left = delete) is documented inside the spec.
 - id: checkbox
   name: Checkbox
   category: input
   status: spec-draft
   priority: P0
   sources:
+  - code:src/components/habit-card.tsx (inline)
+  - code:src/components/footer-action.tsx (inline)
   - figma:5457:5715
-  - video
-  notes: Extracted from HabitCard / FooterAction.
+  notes: 'Extracted: two inline copies with different box sizes (24 vs 32).'
 - id: bottom-sheet
   name: BottomSheet
   category: container
@@ -32,7 +34,6 @@ components:
   - code:src/components/bottom-sheet.tsx
   - figma:5432:2176
   - video
-  notes: ''
 - id: segmented-control
   name: SegmentedControl
   category: navigation
@@ -42,16 +43,16 @@ components:
   - code:src/components/segmented-control.tsx
   - figma:5432:2176
   - video
-  notes: ''
-- id: stat-card
-  name: StatCard
+- id: metric-card
+  name: MetricCard
   category: data-display
   status: spec-draft
   priority: P0
   sources:
+  - code:src/components/metric-card.tsx
+  - code:src/components/stat-number.tsx
   - claude-design:Estadisticas
   - video
-  notes: ''
 - id: button
   name: Button
   category: action
@@ -60,7 +61,7 @@ components:
   sources:
   - code:src/components/buttons.tsx
   - figma:button / primary, secondary, tertiary, text
-  notes: Code has ButtonPrimary/Outline/Destructive/Text; Figma names primary/secondary/tertiary/text. Unify naming in one spec with variants.
+  notes: 'Code: ButtonPrimary, ButtonOutline, ButtonDestructive (disabledVariant faded|neutral), ButtonText (default|destructive|link). Figma names primary/secondary/tertiary/text.'
 - id: calendar-day
   name: CalendarDay
   category: data-display
@@ -69,15 +70,7 @@ components:
   sources:
   - code:src/components/calendar-day.tsx
   - video
-  notes: 'States: empty, done ring with number, today filled circle, streak underline.'
-- id: calendar-month
-  name: CalendarMonth
-  category: data-display
-  status: planned
-  priority: P1
-  sources:
-  - video
-  notes: 'History tab: month grids (not a separate file in code manifest).'
+  notes: Uses a hard-coded text-white on the today circle (token gap).
 - id: footer-action
   name: FooterAction
   category: action
@@ -86,7 +79,7 @@ components:
   sources:
   - code:src/components/footer-action.tsx
   - video
-  notes: '''Mark as done today'' / ''Completed today''; contains a Checkbox.'
+  notes: '''Mark as done today'' bar, 48pt high; contains the 32pt Checkbox copy.'
 - id: header-bar
   name: HeaderBar
   category: navigation
@@ -96,7 +89,22 @@ components:
   - code:src/components/header-bar.tsx
   - figma:Header
   - video
-  notes: Burger, serif title, optional date, trailing action (plus / pencil).
+  notes: Serif title with optional subtitle (date).
+- id: back-header
+  name: BackHeader
+  category: navigation
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/back-header.tsx
+  - figma:back
+- id: inline-header
+  name: InlineHeader
+  category: navigation
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/inline-header.tsx
 - id: input
   name: Input
   category: input
@@ -105,7 +113,6 @@ components:
   sources:
   - code:src/components/input.tsx
   - video
-  notes: ''
 - id: list-item
   name: ListItem
   category: list
@@ -123,7 +130,125 @@ components:
   sources:
   - code:src/components/progress-bar.tsx
   - video
-  notes: Pill radius.
+  notes: Pill radius, optional animation.
+- id: segment-bar
+  name: SegmentBar
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/segment-bar.tsx
+  notes: Row of filled/empty segments (height 16, gap 3, radius 2). Used inside MetricCard footers.
+- id: stat-number
+  name: StatNumber
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/stat-number.tsx
+  notes: Sizes 20/30 map to tokens; 32/34/54 are literals (decision D-18).
+- id: circular-progress
+  name: CircularProgress
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/circular-progress.tsx
+  - video
+  notes: '''0 of 6'' ring on Stats.'
+- id: today-progress
+  name: TodayProgress
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/today-progress.tsx
+  - video
+  notes: Ring + 'Buen progreso' + pending pill. Composition.
+- id: badge
+  name: Badge
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/badge.tsx
+  - video
+  notes: Label, optional icon, size sm|md. Streak banner and 'Tu mejor norma'.
+- id: soft-pill
+  name: SoftPill
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/soft-pill.tsx
+  - video
+  notes: '''6 pending'' pill.'
+- id: section-label
+  name: SectionLabel
+  category: content
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/section-label.tsx
+  - video
+  notes: Uppercase tracked label (TODAY, THIS WEEK).
+- id: divider-header
+  name: DividerHeader
+  category: content
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/divider-header.tsx
+- id: horizontal-rail
+  name: HorizontalRail
+  category: list
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/horizontal-rail.tsx
+  notes: Horizontal scroller for MetricCards.
+- id: change-indicator
+  name: ChangeIndicator
+  category: data-display
+  status: planned
+  priority: P1
+  sources:
+  - code:src/components/month-metrics.tsx (inline)
+  notes: Arrow + '+6% vs. last month'. Positive uses the brand orange, negative destructive. Inline today.
+- id: most-consistent-card
+  name: MostConsistentCard
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/most-consistent-card.tsx
+  - video
+  notes: '''Tu mejor norma'': badge, big percentage, progress bar, two figures.'
+- id: habit-streak-card
+  name: HabitStreakCard
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/habit-streak-card.tsx
+  - code:src/components/habit-streaks.tsx
+- id: weekly-bar-chart
+  name: WeeklyBarChart
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/weekly-bar-chart.tsx
+  - video
+  - claude-design:Estadisticas
+- id: all-time-total
+  name: AllTimeTotal
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/all-time-total.tsx
+  - video
 - id: habit-content
   name: HabitContent
   category: content
@@ -133,74 +258,34 @@ components:
   - code:src/components/habit-content.tsx
   - video
   notes: Reading body (serif) in the Norm tab.
-- id: habit-stat-card
-  name: HabitStatCard
-  category: data-display
-  status: planned
-  priority: P2
-  sources:
-  - code:src/components/habit-stat-card.tsx
-  - video
-  notes: 'Best habit card: badge, big %, progress bar, two figures.'
-- id: splash-screen
-  name: SplashScreen
-  category: content
-  status: planned
-  priority: P2
-  sources:
-  - code:src/components/splash-screen.tsx
-  - figma:11:5
-  notes: Uses brand.splash-bg / splash-fg and the logo.
-- id: chat-bubble
-  name: ChatBubble
-  category: content
-  status: planned
-  priority: P2
-  sources:
-  - code:src/components/chat-bubble.tsx
-  notes: AI / user / typing variants plus quick-reply chips. Onboarding chat; not in the reference videos.
-- id: progress-ring
-  name: ProgressRing
-  category: data-display
+- id: drawer-menu
+  name: DrawerMenu
+  category: navigation
   status: planned
   priority: P1
   sources:
+  - code:src/components/drawer-content.tsx
+  - figma:178:13250
+  - figma:menu / item
   - video
-  - claude-design:Estadisticas
-  notes: '''0 of 6'' ring on Stats.'
-- id: streak-badge
-  name: StreakBadge
-  category: data-display
-  status: planned
-  priority: P1
-  sources:
-  - video
-  notes: Accent pill with flame icon.
-- id: weekly-bars
-  name: WeeklyBars
-  category: data-display
-  status: planned
-  priority: P2
-  sources:
-  - video
-  - claude-design:Estadisticas
-  notes: ''
-- id: section-label
-  name: SectionLabel
-  category: content
-  status: planned
-  priority: P1
-  sources:
-  - video
-  notes: Uppercase tracked label (TODAY, THIS WEEK).
-- id: switch
-  name: Switch
+  notes: Production navigation is the left drawer (decision D-06).
+- id: notification-toggle
+  name: NotificationToggle
   category: input
   status: planned
   priority: P1
   sources:
+  - code:src/components/settings/notification-toggle.tsx
   - video
-  notes: Settings toggle.
+  notes: Switch row.
+- id: reminder-time-picker
+  name: ReminderTimePicker
+  category: input
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/settings/reminder-time-picker.tsx
+  - video
 - id: chip-select
   name: ChipSelect
   category: input
@@ -209,42 +294,64 @@ components:
   sources:
   - video
   notes: Settings chips (Light/Dark/System, EN/ES/PT). Candidate to merge into SegmentedControl (audit D-08).
-- id: info-banner
-  name: InfoBanner
-  category: feedback
+- id: splash-screen
+  name: SplashScreen
+  category: content
   status: planned
   priority: P2
   sources:
-  - video
-  - figma:192:2191
-  notes: Subscription trial notice.
-- id: drawer-menu
-  name: DrawerMenu
-  category: navigation
+  - code:src/components/splash-screen.tsx
+  - figma:11:5
+  notes: Lottie logo on splash color, serif app name in splash-fg, fades out in 400ms.
+- id: chat-bubble
+  name: ChatBubble
+  category: content
   status: planned
-  priority: P1
+  priority: P2
   sources:
-  - figma:178:13250
-  - figma:menu / item
-  - video
-  notes: Production navigation is the left drawer (decision D-06).
-- id: form-bar
-  name: FormBar
-  category: navigation
+  - code:src/components/chat-bubble.tsx
+  - code:src/components/chat-input.tsx
+  - code:src/components/quick-reply-buttons.tsx
+  notes: 'Onboarding chat: AI / user / typing, quick replies, input.'
+- id: auth-form
+  name: AuthForm
+  category: input
   status: planned
-  priority: P1
+  priority: P2
   sources:
-  - video
-  - figma:199:512
-  notes: Cancel / title / Done bar of modal forms.
-- id: suggested-habit-row
-  name: SuggestedHabitRow
+  - code:src/components/auth-form.tsx
+  - code:src/components/auth-form-credentials.tsx
+  - code:src/components/auth-form-sso-buttons.tsx
+  - code:src/components/auth-form-inline-link.tsx
+  - code:src/components/auth-form-reset-password.tsx
+  - figma:5663:4530
+  notes: Login and signup family.
+- id: account-item
+  name: AccountItem
   category: list
   status: planned
   priority: P2
   sources:
-  - video
-  notes: '''+'' row in the suggestions sheet.'
+  - code:src/components/my-account-item.tsx
+  - code:src/components/contact-us-item.tsx
+  - figma:5697:5039
+- id: delete-account-sheet
+  name: DeleteAccountSheet
+  category: container
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/delete-account-sheet.tsx
+  - figma:5663:4530
+  notes: Composition on top of BottomSheet with a destructive confirm.
+- id: month-metrics
+  name: MonthMetrics
+  category: data-display
+  status: planned
+  priority: P2
+  sources:
+  - code:src/components/month-metrics.tsx
+  notes: 'Pattern: SectionLabel + rail of MetricCards.'
 - id: radio-card
   name: RadioCard
   category: input
@@ -261,7 +368,7 @@ components:
   priority: P2
   sources:
   - figma:Purchase button
-  notes: Paywall CTA; may be Button variant.
+  notes: Paywall CTA; may be a Button variant.
 - id: alert-dialog
   name: AlertDialog
   category: feedback
@@ -270,7 +377,8 @@ components:
   sources:
   - figma:201:2124
   - figma:5663:4530
-  notes: Purchase success and delete-account confirmation.
+  - code:Alert.alert (native) in swipeable-habit-card.tsx
+  notes: Native alerts today.
 - id: day-picker
   name: DayPicker
   category: input
@@ -280,6 +388,32 @@ components:
   - figma:5450:3853
   - figma:5450:4569
   notes: Repeat weekly / monthly screens.
+- id: info-banner
+  name: InfoBanner
+  category: feedback
+  status: planned
+  priority: P2
+  sources:
+  - figma:192:2191
+  - video
+  notes: Subscription trial notice.
+- id: form-bar
+  name: FormBar
+  category: navigation
+  status: planned
+  priority: P1
+  sources:
+  - figma:199:512
+  - video
+  notes: Cancel / title / Done bar of modal forms.
+- id: suggested-habit-row
+  name: SuggestedHabitRow
+  category: list
+  status: planned
+  priority: P2
+  sources:
+  - video
+  notes: '''+'' row in the suggestions sheet.'
 - id: tab-bar
   name: TabBar
   category: navigation
@@ -287,7 +421,7 @@ components:
   priority: P3
   sources:
   - claude-design:Estadisticas
-  notes: Appears only in the Stats exploration; production uses the drawer (D-06).
+  notes: Only in the Stats exploration; production uses the drawer (D-06).
 - id: watch-complication
   name: Watch surfaces
   category: content

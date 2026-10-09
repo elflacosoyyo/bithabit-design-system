@@ -17,17 +17,18 @@ fonts:
     family: Inter
     source: Google Fonts (OFL)
   display:
-    ios: Kefa III
-    android: Crimson Pro
-    web: Crimson Pro
+    ios: Yrsa
+    android: Yrsa
+    web: Yrsa
     notes: >
-      Kefa III is an Apple system font and cannot be bundled. Android/web fall back to Crimson Pro.
-      OPEN: confirm the exact PostScript name RN needs on iOS (candidate "Kefa-Regular").
+      Production bundles Yrsa (OFL, weights 300-700) on iOS and Android and loads it via expo-font in app.config.ts.
+      The designer chose Kefa III before seeing this; Kefa III is an Apple system font and cannot be bundled for Android.
+      OPEN decision D-05: keep Yrsa or migrate. Tokens mirror production until decided.
 logo:
   mark_cream: brands/plandevida/assets/logo-cream.svg
   mark_accent: brands/plandevida/assets/logo-accent.svg
   mark_ink: brands/plandevida/assets/logo-ink.svg
-  status: from-figma     # Figma "Splash > Logo", recolored; confirm with brand owner
+  status: from-figma     # Figma "Splash > Logo", recolored; the app animates it with a Lottie file (assets/animations/logo.json)
   meaning: Stack of overlapping ellipses, read as footprints on a path.
 voice:
   language: es          # canonical product voice is Spanish; docs and specs stay in English
@@ -75,8 +76,21 @@ accessibility:
       reason: Destructive text (#D16161) on white or cream is 3.5 to 3.75:1 ("Delete norm", delete-account confirmation). Inherited from production.
       recommendation: Use a darker red for TEXT (about #B83F3F) and keep #D16161 for fills and icons.
       status: needs-design-decision
+    - id: PDV-W6
+      pair: text.on-accent-on-*
+      reason: >
+        Production labels on accent and destructive fills use text-background, which is white in light mode:
+        white on tan is 2.00:1 and white on destructive red is about 3.8:1 (ButtonPrimary, ButtonDestructive, swipe actions).
+        In dark mode the label is near-black and passes.
+      recommendation: Use ink (#030213) for labels on the tan fill (about 9:1); darken the destructive fill or use ink for labels on it.
+      status: needs-design-decision
+    - id: PDV-W7
+      pair: text.positive-on-surface
+      reason: Production shows positive change in the brand orange (#D77D2D, text-splash), about 3:1 on the cream surface in light mode (ChangeIndicator).
+      recommendation: Use a darker orange for text, or rely on the arrow icon and sign and keep the color decorative.
+      status: needs-design-decision
 sources:
   - Claude Design export "Plan de Vida Design System" (README, colors_and_type.css, manifest)
   - Figma "Plan de Vida (Copy)" file qWMcWuD7X6qnzXxAmRopvf
   - Reference videos of the production iOS app (Oct 2026)
-  - Code repo Bakia/plan-de-vida (NOT yet accessible; values unverified against code)
+  - Code repo Bakia/plan-de-vida @ cdfea70 (read-only; global.css, tailwind.config.js, src/components/*)

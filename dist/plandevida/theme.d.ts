@@ -32,6 +32,7 @@ export interface Theme {
   motion: {
     duration: {
       fast: number;
+      short: number;
       base: number;
       slow: number;
     };
@@ -163,6 +164,7 @@ export interface Theme {
       surfaceAlt: string;
       input: string;
       overlay: string;
+      card: string;
     };
     text: {
       primary: string;
@@ -171,6 +173,10 @@ export interface Theme {
       accent: string;
       onAccent: string;
       destructive: string;
+    };
+    disabled: {
+      default: string;
+      subtle: string;
     };
     border: {
       default: string;
@@ -184,26 +190,34 @@ export interface Theme {
     };
     status: {
       destructive: string;
-      success: string;
+      positive: string;
     };
     brand: {
       splashBg: string;
       splashFg: string;
     };
+    calendar: {
+      today: string;
+      onToday: string;
+    };
   };
   bottomSheet: {
     bg: string;
     radiusTop: number;
-    paddingX: number;
     handle: {
       width: number;
       height: number;
       radius: number;
       bg: string;
-      marginTop: number;
+      paddingY: number;
     };
     backdrop: string;
+    backdropOpacity: number;
     duration: number;
+    dragThreshold: number;
+    velocityThreshold: number;
+    springDamping: number;
+    springStiffness: number;
   };
   checkbox: {
     size: number;
@@ -211,26 +225,67 @@ export interface Theme {
     borderWidth: number;
     ring: string;
     check: string;
+    checkSize: number;
     disabledOpacity: number;
   };
   habitCard: {
     bg: string;
+    wrapperBg: string;
     text: string;
     fontSize: number;
     fontWeight: string;
+    letterSpacing: number;
     paddingX: number;
     paddingY: number;
+    listPaddingX: number;
+    listPaddingY: number;
     radiusTop: number;
     radiusBottom: number;
     pressedOpacity: number;
     strip: {
       height: number;
       gap: number;
+      segments: number;
       segmentFilled: string;
       segmentEmpty: string;
     };
+    swipe: {
+      toggleBg: string;
+      deleteBg: string;
+      label: string;
+      labelSize: number;
+      labelWeight: string;
+      threshold: number;
+      velocityThreshold: number;
+      revealWidth: number;
+      snapDuration: number;
+      returnDuration: number;
+    };
+  };
+  metricCard: {
+    bg: string;
+    radius: number;
+    padding: number;
+    width: number;
+    headerGap: number;
+    headerMarginBottom: number;
+    title: string;
+    titleSize: number;
+    titleWeight: string;
+    iconSize: number;
+    valueSize: number;
+    valueWeight: string;
+    valueTracking: number;
+    valueAccent: string;
+    valueForeground: string;
+    valueMuted: string;
+    subtitle: string;
+    subtitleSize: number;
+    subtitleMarginTop: number;
+    footerMarginTop: number;
   };
   segmentedControl: {
+    height: number;
     trackBg: string;
     trackRadius: number;
     trackPadding: number;
@@ -240,23 +295,6 @@ export interface Theme {
     fontSize: number;
     fontWeightActive: string;
     fontWeightInactive: string;
-    segmentPaddingY: number;
-    disabledOpacity: number;
-    duration: number;
-  };
-  statCard: {
-    bg: string;
-    radius: number;
-    padding: number;
-    gap: number;
-    label: string;
-    labelSize: number;
-    value: string;
-    valueSize: number;
-    valueWeight: string;
-    caption: string;
-    deltaPositive: string;
-    deltaNegative: string;
   };
 }
 export declare const brand: { id: string; name: string };

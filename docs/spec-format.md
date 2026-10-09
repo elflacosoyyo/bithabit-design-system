@@ -21,6 +21,9 @@ Validated by `schemas/component.schema.json` and by `npm run validate` (token ex
 Semver per component. Major = removed/renamed prop or changed meaning. Minor = new prop, state or token. Patch = wording or doc fixes.
 The manifest exposes `contentHash` (spec + usage) so tooling can detect a change even when someone forgot to bump the version.
 
+## code_gaps and open_questions
+- `code_gaps`: known differences between the production code and the contract (for example "no accessibilityRole", "hit area 40pt, contract 48pt"). They are not blockers; the `ds-sync` skill will report them to developers as suggestions.
+- `open_questions`: facts nobody knows yet or decisions the designer still owes. A component cannot be `stable` while any remain.
+
 ## Sources
-`sources` records where each fact came from: `figma`, `claude_design`, `videos`, `code`. `code[].verified: false` means the path was
-inferred from the Claude Design manifest and has not been read.
+`sources` records where each fact came from: `figma`, `claude_design`, `videos`, `code`. `code[].verified: true` means a maintainer read the file at the recorded `commit`; `false` means the path was inferred and not read.

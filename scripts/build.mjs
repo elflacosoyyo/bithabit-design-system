@@ -6,6 +6,8 @@ import crypto from 'node:crypto';
 import {
   ROOT, MODES, listBrands, loadResolved, toNested, toCssValue, isPublic, readYAML, readJSON,
 } from './lib.mjs';
+
+const COMPAT = readYAML('tokens/compat.yaml');
 import { loadSpecs } from './specs.mjs';
 
 const DIST = path.join(ROOT, 'dist');
@@ -41,11 +43,16 @@ function buildCss(brand, light, dark) {
     `:root,\n[data-theme="light"] {\n${decl(light)}\n}\n\n.dark,\n[data-theme="dark"] {\n${decl(dark, light)}\n}\n`;
 }
 
+function buildCompatCss(brand, light, dark) {
+  const block = (map) => Object.entries(COMPAT.colors)
+    .map(([name, path]) => `    --color-${name}: ${map.get(path).$value};`).join('\n');
+  return `/* ${HEADER}\n   Brand: ${brand}. Same --color-* variable names as Bakia/plan-de-vida global.css (NativeWind, darkMode: 'class').\n   Drop-in replacement for the color variables inside @layer base. */\n` +
+    `@layer base {\n  :root {\n${block(light)}\n  }\n\n  .dark:root {\n${block(dark)}\n  }\n}\n`;
+}
+
 function buildPreset(light) {
-  const v = (p) => `var(${cssVar(p)})`;
-  const group = (prefix, pick = () => true) => Object.fromEntries(
-    [...light].filter(([p, t]) => isPublic(p, t) && p.startsWith(prefix + '.') && pick(p) && p.split('.').length === prefix.split('.').length + 1)
-      .map(([p]) => [p.split('.').pop(), v(p)]));
+  const cv = (name) => `var(--color-${name})`;
+  const ev = (name) => `var(${cssVar(COMPAT.extras[name])})`;
   const lit = (prefix, fn = (t) => `${t.$value}`) => Object.fromEntries(
     [...light].filter(([p]) => p.startsWith(prefix + '.') && p.split('.').length === prefix.split('.').length + 1)
       .map(([p, t]) => [p.split('.').pop(), fn(t)]));
@@ -55,25 +62,39 @@ function buildPreset(light) {
     theme: {
       extend: {
         colors: {
-          ...group('color.bg'),
-          content: group('color.text'),
-          line: { DEFAULT: v('color.border.default'), strong: v('color.border.strong'), focus: v('color.border.focus') },
-          accent: { DEFAULT: v('color.accent.default'), pressed: v('color.accent.pressed'), subtle: v('color.accent.subtle') },
-          destructive: v('color.status.destructive'),
-          success: v('color.status.success'),
-          splash: { bg: v('color.brand.splash-bg'), fg: v('color.brand.splash-fg') },
+          splash: cv('splash'),
+          foreground: cv('foreground'),
+          accent: { DEFAULT: cv('accent'), pressed: ev('accent-pressed'), subtle: ev('accent-subtle') },
+          background: cv('background'),
+          surface: { DEFAULT: cv('surface'), alt: cv('surface-alt'), splash: cv('surface-splash') },
+          muted: cv('muted'),
+          destructive: cv('destructive'),
+          today: cv('today'),
+          border: cv('border'),
+          card: cv('card'),
+          input: { bg: cv('input-bg') },
+          overlay: cv('overlay'),
+          disabled: { DEFAULT: cv('disabled'), subtle: cv('disabled-subtle') },
+          // Roles the app does not have yet (--bh-* variables):
+          'accent-text': ev('accent-text'),
+          'on-accent': ev('on-accent'),
+          'destructive-text': ev('destructive-text'),
+          positive: ev('positive'),
+          focus: ev('focus'),
+          'line-strong': ev('line-strong'),
+          'on-today': ev('on-today'),
         },
         spacing: lit('spacing'),
         borderRadius: lit('radius'),
-        borderWidth: lit('border-width'),
+        borderWidth: { ...lit('border-width'), '1.5': light.get('border-width.medium').$value },
         fontSize,
         fontWeight: lit('font.weight'),
         letterSpacing: lit('font.tracking'),
         fontFamily: {
           sans: [light.get('font.family.sans').$value],
-          display: [light.get('font.family.display.web').$value],
-          'display-ios': [light.get('font.family.display.ios').$value],
-          'display-android': [light.get('font.family.display.android').$value],
+          serif: [light.get('font.family.display.ios').$value],
+          'serif-android': [light.get('font.family.display.android').$value],
+          'serif-web': [light.get('font.family.display.web').$value],
         },
         opacity: lit('opacity', (t) => String(t.$value)),
         transitionDuration: lit('motion.duration'),
@@ -81,7 +102,7 @@ function buildPreset(light) {
     },
   };
   // Tailwind's own colour keys must stay usable; flatten bg group names are canvas/surface/... by construction.
-  return `// ${HEADER}\n// Usage: presets: [require('@bakia/bithabit-design-system/tailwind-preset/<brand>')]\n// Colors use CSS variables so light/dark follow tokens.css (import it in global.css).\nmodule.exports = ${serialize(preset)};\n`;
+  return `// ${HEADER}\n// Usage: presets: [require('@bakia/bithabit-design-system/tailwind-preset/<brand>')]\n// Uses the BitHabit color names (foreground, background, surface, muted...). Colors read CSS variables:\n// --color-* from bithabit-compat.css and --bh-* from tokens.css (import both in global.css).\nmodule.exports = ${serialize(preset)};\n`;
 }
 
 fs.rmSync(DIST, { recursive: true, force: true });
@@ -105,6 +126,7 @@ for (const brand of listBrands()) {
     `export declare const themes: { light: Theme; dark: Theme };\n`);
   fs.writeFileSync(path.join(out, 'tokens.css'), buildCss(brand, res.light, res.dark));
   fs.writeFileSync(path.join(out, 'tailwind.preset.cjs'), buildPreset(res.light));
+  fs.writeFileSync(path.join(out, 'bithabit-compat.css'), buildCompatCss(brand, res.light, res.dark));
 
   manifest.brands[brand] = {
     name: meta.name,

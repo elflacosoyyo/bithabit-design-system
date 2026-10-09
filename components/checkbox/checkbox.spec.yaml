@@ -1,23 +1,23 @@
 id: checkbox
 name: Checkbox
-version: 0.1.0
+version: 0.2.0
 status: draft
 category: input
 summary: Circular completion control. A ring when empty, a bare check glyph when done.
 purpose: >
-  One-tap completion of a habit for today. Used inside HabitCard and in the detail sheet footer
-  ("Mark as done today"). Extracted as its own component so every completion control looks and behaves the same.
+  One-tap completion of a habit for today. Today it exists as inline markup in HabitCard and in FooterAction
+  ("Mark as done today"); the contract extracts it so every completion control looks and behaves the same.
 platforms: [react-native]
 surfaces: [app]
 anatomy:
   - part: ring
-    description: Circular outline. Visible only when unchecked.
+    description: Circular outline, border width thick, text.primary color. Visible only when unchecked.
     required: true
   - part: check
-    description: Feather "check" glyph. Replaces the ring when checked (no filled circle).
+    description: Feather "check" glyph at 24pt, text.primary. Replaces the ring when checked (no filled circle).
     required: true
   - part: hit-area
-    description: Invisible padding that extends the touch target beyond the visual size.
+    description: Invisible padding that extends the touch target beyond the 24pt visual.
     required: true
 props:
   - name: checked
@@ -25,7 +25,7 @@ props:
     required: true
     description: Current value.
   - name: onChange
-    type: '(next: boolean) => void'
+    type: "(next: boolean) => void"
     required: true
     description: Called with the new value on press.
   - name: disabled
@@ -45,24 +45,25 @@ states:
   - name: pressed
     description: Opacity drops to opacity.pressed.
   - name: disabled
-    description: opacity.disabled, not focusable.
+    description: opacity.disabled and not focusable.
 tokens:
   - checkbox.size
   - checkbox.hit-slop
   - checkbox.border-width
   - checkbox.ring
   - checkbox.check
+  - checkbox.check-size
   - checkbox.disabled-opacity
 accessibility:
   role: checkbox
   label: Required. Must describe the habit, not the control ("Evening prayer", not "checkbox").
   touch_target: "24pt visual + 12pt hit slop on every side = 48pt."
   notes:
-    - Expose accessibilityState.checked; announce the change.
+    - Expose accessibilityState.checked and announce the change.
     - Ring and check use text.primary, which meets 3:1 against canvas and surface in every brand and mode.
 behavior:
-  - Toggles on press-up. No long-press behavior.
-  - Does not own any confirmation or undo; the parent decides.
+  - Toggles on press. The parent decides about haptics (HabitCard uses a light impact), undo and confirmation.
+  - No animation between ring and check.
 related: [habit-card]
 sources:
   figma:
@@ -74,12 +75,27 @@ sources:
   claude_design:
     - "Plan de Vida Design System README: home checkbox uses border-2"
   code:
-    - { repo: Bakia/plan-de-vida, path: "src/components/habit-card.tsx (checkbox is inline today)", verified: false }
+    - repo: Bakia/plan-de-vida
+      path: "src/components/habit-card.tsx (inline checkbox, 24pt box)"
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: "src/components/footer-action.tsx (inline checkbox, 32pt box)"
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - There is no shared Checkbox component; the markup is duplicated in HabitCard and FooterAction.
+  - The two copies differ in size. HabitCard uses a 24pt box, FooterAction a 32pt box, both with a 24pt glyph.
+  - hitSlop is 8 in HabitCard (40pt target) and absent in FooterAction (the whole bar is the target).
+  - No accessibilityRole, label or state on either copy; no disabled styling.
 open_questions:
-  - Checkbox is inline in HabitCard and in FooterAction today; confirm there is no shared component and no completion animation.
-  - Exact visual size (24pt) is estimated from video.
-  - Does the check animate (draw-in) or just swap?
+  - Which size is right, 24pt (card) or 32pt (footer)? The contract assumes 24pt with a size prop to be decided.
 changelog:
+  - version: 0.2.0
+    date: "2026-10-09"
+    changes:
+      - Verified against Bakia/plan-de-vida at cdfea70. Documented the two inline copies and their size mismatch.
+      - Contract hit slop is 12 (48pt target); production uses 8 (see code_gaps).
   - version: 0.1.0
     date: "2026-10-08"
     changes:

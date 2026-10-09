@@ -19,8 +19,12 @@
         "$value": "150ms",
         "$type": "duration"
       },
+      "short": {
+        "$value": "200ms",
+        "$type": "duration"
+      },
       "base": {
-        "$value": "250ms",
+        "$value": "300ms",
         "$type": "duration"
       },
       "slow": {

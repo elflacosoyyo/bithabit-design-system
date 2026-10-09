@@ -4,6 +4,10 @@
       "$value": "{color.bg.surface}",
       "$type": "color"
     },
+    "wrapper-bg": {
+      "$value": "{color.bg.canvas}",
+      "$type": "color"
+    },
     "text": {
       "$value": "{color.text.primary}",
       "$type": "color"
@@ -16,12 +20,24 @@
       "$value": "{font.weight.light}",
       "$type": "fontWeight"
     },
+    "letter-spacing": {
+      "$value": "0.35px",
+      "$type": "dimension"
+    },
     "padding-x": {
       "$value": "{spacing.md}",
       "$type": "dimension"
     },
     "padding-y": {
       "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "list-padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "list-padding-y": {
+      "$value": "{spacing.xs}",
       "$type": "dimension"
     },
     "radius-top": {
@@ -38,12 +54,16 @@
     },
     "strip": {
       "height": {
-        "$value": "3px",
+        "$value": "{spacing.xs}",
         "$type": "dimension"
       },
       "gap": {
-        "$value": "{spacing.xs}",
+        "$value": "{spacing.2xs}",
         "$type": "dimension"
+      },
+      "segments": {
+        "$value": 7,
+        "$type": "number"
       },
       "segment-filled": {
         "$value": "{color.accent.default}",
@@ -52,6 +72,48 @@
       "segment-empty": {
         "$value": "{color.bg.surface-alt}",
         "$type": "color"
+      }
+    },
+    "swipe": {
+      "toggle-bg": {
+        "$value": "{color.accent.default}",
+        "$type": "color"
+      },
+      "delete-bg": {
+        "$value": "{color.status.destructive}",
+        "$type": "color"
+      },
+      "label": {
+        "$value": "{color.text.on-accent}",
+        "$type": "color"
+      },
+      "label-size": {
+        "$value": "{font.size.body}",
+        "$type": "dimension"
+      },
+      "label-weight": {
+        "$value": "{font.weight.semibold}",
+        "$type": "fontWeight"
+      },
+      "threshold": {
+        "$value": "80px",
+        "$type": "dimension"
+      },
+      "velocity-threshold": {
+        "$value": 500,
+        "$type": "number"
+      },
+      "reveal-width": {
+        "$value": "100px",
+        "$type": "dimension"
+      },
+      "snap-duration": {
+        "$value": "{motion.duration.fast}",
+        "$type": "duration"
+      },
+      "return-duration": {
+        "$value": "{motion.duration.short}",
+        "$type": "duration"
       }
     }
   }

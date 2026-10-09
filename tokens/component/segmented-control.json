@@ -1,7 +1,11 @@
 {
   "segmented-control": {
+    "height": {
+      "$value": "36px",
+      "$type": "dimension"
+    },
     "track-bg": {
-      "$value": "{color.bg.surface-alt}",
+      "$value": "{color.bg.input}",
       "$type": "color"
     },
     "track-radius": {
@@ -29,24 +33,12 @@
       "$type": "dimension"
     },
     "font-weight-active": {
-      "$value": "{font.weight.medium}",
+      "$value": "{font.weight.semibold}",
       "$type": "fontWeight"
     },
     "font-weight-inactive": {
-      "$value": "{font.weight.regular}",
+      "$value": "{font.weight.medium}",
       "$type": "fontWeight"
-    },
-    "segment-padding-y": {
-      "$value": "{spacing.sm}",
-      "$type": "dimension"
-    },
-    "disabled-opacity": {
-      "$value": "{opacity.disabled}",
-      "$type": "number"
-    },
-    "duration": {
-      "$value": "{motion.duration.fast}",
-      "$type": "duration"
     }
   }
 }

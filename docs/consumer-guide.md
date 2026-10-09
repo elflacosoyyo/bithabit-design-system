@@ -8,18 +8,21 @@ npm i github:elflacosoyyo/bithabit-design-system#v0.1.0
 ```
 Requires GitHub access to the repo. The package ships `dist/`, `components/` (specs and usage docs), `brands/` and `schemas/`.
 
-## Use tokens
+## Adopt it in a NativeWind app (no class renames)
+The generated files use the same names the app already has, so adoption is a swap of configuration, not of components.
+
+1. **Colors.** Replace the `--color-*` block inside `@layer base` in `global.css` with `dist/<brand>/bithabit-compat.css` (also importable as `@bakia/bithabit-design-system/css-compat/<brand>`). For Plan de Vida the values are identical to today's.
+2. **Tailwind.** In `tailwind.config.js` add the preset after `nativewind/preset`:
+```js
+presets: [require('nativewind/preset'), require('@bakia/bithabit-design-system/tailwind-preset/plandevida')],
+```
+   It provides `foreground`, `background`, `surface`, `muted`, `accent`, `destructive`, `border`... plus new roles such as `accent-text`, `on-accent`, `destructive-text`, `positive`. Keep the app-specific numeric spacings (`9`, `10`, `30`, `43`) in the app until they become component tokens.
+3. **Extra variables.** Import `css/<brand>` (`tokens.css`) if you use the new `--bh-*` roles.
+
+## Use tokens from code
 ```ts
 import { light, dark } from '@bakia/bithabit-design-system/themes/plandevida';
 // light.color.bg.surface, light.habitCard.radiusTop, light.typography.screenTitle ...
-```
-```js
-// tailwind.config.js (NativeWind)
-presets: [require('@bakia/bithabit-design-system/tailwind-preset/plandevida')],
-```
-```css
-/* global.css */
-@import '@bakia/bithabit-design-system/css/plandevida';
 ```
 
 ## What Claude should read before touching a component

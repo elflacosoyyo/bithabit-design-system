@@ -3,15 +3,15 @@
     "family": {
       "display": {
         "ios": {
-          "$value": "{font.family.kefa-iii}",
+          "$value": "{font.family.yrsa}",
           "$type": "fontFamily"
         },
         "android": {
-          "$value": "{font.family.crimson-pro}",
+          "$value": "{font.family.yrsa}",
           "$type": "fontFamily"
         },
         "web": {
-          "$value": "{font.family.crimson-pro}",
+          "$value": "{font.family.yrsa}",
           "$type": "fontFamily"
         }
       }

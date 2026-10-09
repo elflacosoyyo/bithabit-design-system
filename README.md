@@ -28,7 +28,7 @@ Code Connect: a thin mapping layer that lets developers (and their Claude) keep 
 | `components/inventory.yaml` | Backlog of every component the system will cover | design |
 | `schemas/` | JSON Schemas that validate brands and specs | tooling |
 | `scripts/` | `build.mjs` (tokens → outputs), `validate.mjs` (linter + WCAG contrast) | tooling |
-| `dist/` | **Generated** and committed: theme (JS + d.ts + JSON), CSS variables, Tailwind/NativeWind preset, `manifest.json` | dev |
+| `dist/` | **Generated** and committed: theme (JS + d.ts + JSON), CSS variables, a CSS file and Tailwind/NativeWind preset that use the app's existing BitHabit names, `manifest.json` | dev |
 | `audit/decisions.md` | Open and closed design decisions, inconsistencies found in the sources | design |
 | `docs/` | Architecture, spec format and the consumer guide for app developers | everyone |
 | `CLAUDE.md` | How Claude maintains this repo (the maintainer is Claude, guided by the designer) | Claude |
@@ -49,7 +49,7 @@ Every brand ships **light** and **dark**. Today:
 | Brand | Status | Accent | Notes |
 |---|---|---|---|
 | `bithabit` | default | blue | Neutral grays + white + blue. Proposal, pending approval |
-| `plandevida` | active | tan `#EDA96D` | Cream surfaces, Kefa III serif titles. Values from the Claude Design export |
+| `plandevida` | active | tan `#EDA96D` | Cream surfaces, Yrsa serif titles. Values verified against `Bakia/plan-de-vida` (generated CSS matches its `global.css` 1:1) |
 
 ## Status
 
@@ -57,9 +57,9 @@ Every brand ships **light** and **dark**. Today:
 |---|---|---|
 | 0 | Repo base, conventions, CI, `CLAUDE.md` | done |
 | 1 | Three-layer tokens, two brands, build, WCAG validation | done |
-| 2 | Component specs and usage docs | **5 of 34** components (vertical slice) |
+| 2 | Component specs and usage docs | **5 of 49** components, verified against the production code (vertical slice) |
 | 3 | Reference components in React Native + Storybook (RN-web) with brand/mode switcher, Chromatic | planned |
 | 4 | Code Connect layer: `connect.yaml` template, `ds-sync` Claude skill, onboarding for dev teams | planned |
 | 5 | Per-brand audit report, versioned releases | planned |
 
-Specs are **draft** until their `open_questions` are closed against the production code (`Bakia/plan-de-vida`, not yet accessible).
+Specs are **draft** until the designer approves the changes listed in each spec's `code_gaps` and closes its `open_questions`. See `audit/decisions.md` for what needs a decision.
