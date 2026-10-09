@@ -15,10 +15,12 @@ export interface BottomSheetProps {
    * 'inline' fills the nearest positioned parent so the catalog can show several sheets on one page.
    */
   presentation?: 'modal' | 'inline';
+  /** Fixes the sheet to this fraction of the screen height and lets the content scroll inside. Omit for a content-sized sheet. */
+  heightRatio?: number;
 }
 
 /** Contract: components/bottom-sheet/bottom-sheet.spec.yaml */
-export const BottomSheet = ({ isOpen, onClose, children, accessibilityLabel, presentation = 'modal' }: BottomSheetProps) => {
+export const BottomSheet = ({ isOpen, onClose, children, accessibilityLabel, presentation = 'modal', heightRatio }: BottomSheetProps) => {
   const { theme } = useTheme();
   const b = theme.bottomSheet;
   const { height: windowHeight } = useWindowDimensions();
@@ -88,12 +90,13 @@ export const BottomSheet = ({ isOpen, onClose, children, accessibilityLabel, pre
           borderTopLeftRadius: b.radiusTop,
           borderTopRightRadius: b.radiusTop,
           transform: [{ translateY }],
+          ...(heightRatio ? { height: Math.round(height * heightRatio) } : {}),
         }}
       >
         <View {...pan.panHandlers} style={{ alignItems: 'center', paddingVertical: b.handle.paddingY }}>
           <View style={{ width: b.handle.width, height: b.handle.height, borderRadius: b.handle.radius, backgroundColor: b.handle.bg }} aria-hidden />
         </View>
-        {children}
+        {heightRatio ? <View style={{ flex: 1, minHeight: 0 }}>{children}</View> : children}
       </Animated.View>
     </View>
   );

@@ -2,6 +2,7 @@
 // Home, Menu and the Prototype pages are all this component with a different starting point.
 import { useEffect, useState } from 'react';
 import { BottomSheet, DrawerMenu } from '../../src';
+import { useTheme } from '../../src/theme/ThemeProvider';
 import { useSample } from '../helpers/sample';
 import { HabitDetail } from './HabitDetail';
 import { HomeScreen } from './HomeScreen';
@@ -45,6 +46,7 @@ const useHabitSource = (mode: HomeMode) => {
 export const AppPhone = ({ homeMode = 'live', initialSection = 'home', initialDrawerOpen = false, initialDetail = null, initialDetailTab = 0, onNavChange, label = 'App screen' }: AppPhoneProps) => {
   const ui = useSample().ui;
   const sample = useSample();
+  const { theme } = useTheme();
   const [section, setSection] = useState<Section>(initialSection);
   const [drawerOpen, setDrawerOpen] = useState(initialDrawerOpen);
   const [detail, setDetail] = useState<number | null>(initialDetail);
@@ -73,7 +75,7 @@ export const AppPhone = ({ homeMode = 'live', initialSection = 'home', initialDr
         <PendingScreen title={title} onOpenMenu={() => setDrawerOpen(true)} />
       )}
 
-      <BottomSheet isOpen={sheetOpen} onClose={closeSheet} accessibilityLabel={ui.detailLabel} presentation="inline">
+      <BottomSheet isOpen={sheetOpen} onClose={closeSheet} accessibilityLabel={ui.detailLabel} presentation="inline" heightRatio={theme.bottomSheet.detailHeightRatio}>
         <HabitDetail title={detail !== null ? sample.habits[detail] : ''} initialTab={initialDetailTab} />
       </BottomSheet>
       <BottomSheet isOpen={newOpen} onClose={() => setNewOpen(false)} accessibilityLabel={ui.newHabit} presentation="inline">

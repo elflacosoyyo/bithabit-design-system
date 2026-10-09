@@ -221,7 +221,8 @@
       "dragThreshold": 100,
       "velocityThreshold": 500,
       "springDamping": 25,
-      "springStiffness": 100
+      "springStiffness": 100,
+      "detailHeightRatio": 0.7
     },
     "button": {
       "height": 48,
@@ -632,7 +633,8 @@
       "dragThreshold": 100,
       "velocityThreshold": 500,
       "springDamping": 25,
-      "springStiffness": 100
+      "springStiffness": 100,
+      "detailHeightRatio": 0.7
     },
     "button": {
       "height": 48,

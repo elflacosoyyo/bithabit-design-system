@@ -1,6 +1,6 @@
 id: bottom-sheet
 name: BottomSheet
-version: 0.2.0
+version: 0.3.0
 status: draft
 category: container
 summary: Modal sheet that slides up from the bottom over a dimmed backdrop and can be dragged down to dismiss.
@@ -14,7 +14,7 @@ anatomy:
     description: Full-screen flat dim behind the sheet. Pressing it closes the sheet.
     required: true
   - part: sheet
-    description: Canvas-colored panel with a 32pt top radius. Height is set by its content; bottom padding is the safe-area inset.
+    description: Canvas-colored panel with a 32pt top radius. Height is set by its content unless heightRatio is given; bottom padding is the safe-area inset.
     required: true
   - part: handle
     description: 40pt by 4pt pill centered at the top with 8pt vertical padding. The pan gesture is attached to this region only.
@@ -39,6 +39,10 @@ props:
     type: string
     required: false
     description: Contract addition. Names the sheet for screen readers (usually the title). Not in the current implementation.
+  - name: heightRatio
+    type: number
+    required: false
+    description: Fixes the sheet to this fraction of the screen height, whatever its content. The content scrolls inside. The norm detail passes the bottom-sheet.detail-height-ratio token (0.7). Omit it for a content-sized sheet.
 states:
   - name: hidden
     description: Not rendered.
@@ -65,6 +69,7 @@ tokens:
   - bottom-sheet.velocity-threshold
   - bottom-sheet.spring-damping
   - bottom-sheet.spring-stiffness
+  - bottom-sheet.detail-height-ratio
 accessibility:
   role: dialog
   label: Provide an accessibilityLabel that names the sheet.
@@ -77,7 +82,7 @@ behavior:
   - Rendered in a transparent Modal with a translucent status bar, so it always sits above navigation.
   - Opening and closing use timing, not a spring. Presenting starts after the Modal is shown.
   - Dragging down past 100pt, or releasing faster than 500pt per second, calls onClose. Otherwise the sheet springs back (damping 25, stiffness 100).
-  - No snap points. The sheet is content-sized; taller content scrolls inside the content slot.
+  - No snap points. By default the sheet is content-sized. With heightRatio it is exactly that fraction of the screen height, however short or long its content is, and the content scrolls inside (the norm detail is 70%, decision D-28).
   - The component does not avoid the keyboard; the content that owns the input must.
 related: [segmented-control, checkbox, habit-card]
 sources:
@@ -99,6 +104,7 @@ sources:
       commit: cdfea70
       verified: true
 code_gaps:
+  - The norm detail fixes its own height at 78% of the screen (SHEET_HEIGHT_RATIO in habit-detail-screen.tsx) instead of the sheet doing it. The contract asks for 70% (D-28) and moves the fixed height into the sheet through heightRatio.
   - The backdrop is the foreground color at 0.5 opacity. In dark mode that is cream, not a dim. The contract uses the overlay token (bg.overlay), which already exists in the app but is unused.
   - No accessibilityViewIsModal, label or dismiss action; no Reduce Motion handling.
   - The drag gesture covers only the handle region, not the whole header.
@@ -106,6 +112,10 @@ open_questions:
   - Confirm that the backdrop should use bg.overlay in both modes (the current dark-mode cream backdrop looks unintended).
   - Should the drag area extend to the sheet title?
 changelog:
+  - version: 0.3.0
+    date: "2026-10-09"
+    changes:
+      - Added heightRatio and the detail-height-ratio token. The norm detail sheet is a fixed 70% of the screen height (decision D-28); production fixes it at 78% in the screen.
   - version: 0.2.0
     date: "2026-10-09"
     changes:

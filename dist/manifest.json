@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "1b524ddefde3d1cf",
+      "tokensHash": "9e26ea98daa62bba",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "065f48e6a705cab5",
+      "tokensHash": "ed750c010df47376",
       "modes": [
         "light",
         "dark"
@@ -33,7 +33,7 @@
   "components": {
     "bottom-sheet": {
       "name": "BottomSheet",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "draft",
       "category": "container",
       "spec": "components/bottom-sheet/bottom-sheet.spec.yaml",
@@ -52,9 +52,10 @@
         "bottom-sheet.drag-threshold",
         "bottom-sheet.velocity-threshold",
         "bottom-sheet.spring-damping",
-        "bottom-sheet.spring-stiffness"
+        "bottom-sheet.spring-stiffness",
+        "bottom-sheet.detail-height-ratio"
       ],
-      "contentHash": "25cb5ea886e57add",
+      "contentHash": "f9b622ea7f977e5e",
       "props": [
         {
           "name": "isOpen",
@@ -71,11 +72,16 @@
         {
           "name": "accessibilityLabel",
           "required": false
+        },
+        {
+          "name": "heightRatio",
+          "required": false
         }
       ],
       "variants": [],
       "accessibilityRole": "dialog",
       "codeGaps": [
+        "The norm detail fixes its own height at 78% of the screen (SHEET_HEIGHT_RATIO in habit-detail-screen.tsx) instead of the sheet doing it. The contract asks for 70% (D-28) and moves the fixed height into the sheet through heightRatio.",
         "The backdrop is the foreground color at 0.5 opacity. In dark mode that is cream, not a dim. The contract uses the overlay token (bg.overlay), which already exists in the app but is unused.",
         "No accessibilityViewIsModal, label or dismiss action; no Reduce Motion handling.",
         "The drag gesture covers only the handle region, not the whole header."
@@ -124,6 +130,13 @@
         ]
       },
       "changelog": [
+        {
+          "version": "0.3.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Added heightRatio and the detail-height-ratio token. The norm detail sheet is a fixed 70% of the screen height (decision D-28); production fixes it at 78% in the screen."
+          ]
+        },
         {
           "version": "0.2.0",
           "date": "2026-10-09",

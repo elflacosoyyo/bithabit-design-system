@@ -14,13 +14,14 @@ mappings:
   bottom-sheet:
     component: src/components/bottom-sheet.tsx
     export: BottomSheet
-    syncedVersion: 0.2.0
-    syncedHash: "25cb5ea886e57add"
+    syncedVersion: 0.3.0
+    syncedHash: "f9b622ea7f977e5e"
     props:
       isOpen: isOpen
       onClose: onClose
       children: children
       accessibilityLabel: null
+      heightRatio: null
     acceptedGaps: []
   button:
     component: src/components/buttons.tsx

@@ -218,6 +218,7 @@ export interface Theme {
     velocityThreshold: number;
     springDamping: number;
     springStiffness: number;
+    detailHeightRatio: number;
   };
   button: {
     height: number;

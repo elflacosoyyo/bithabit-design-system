@@ -57,6 +57,10 @@
     "spring-stiffness": {
       "$value": 100,
       "$type": "number"
+    },
+    "detail-height-ratio": {
+      "$value": 0.7,
+      "$type": "number"
     }
   }
 }

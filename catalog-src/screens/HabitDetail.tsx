@@ -17,20 +17,23 @@ export const HabitDetail = ({ title, initialTab = 0 }: { title: string; initialT
   const [done, setDone] = useState<Set<string>>(() => cal.seed());
   const toggle = (d: string) => setDone((s) => { const n = new Set(s); if (n.has(d)) n.delete(d); else n.add(d); return n; });
   return (
-    <View testID="sheet" style={{ paddingHorizontal: theme.spacing.md, paddingBottom: theme.spacing.xl }}>
+    <View testID="sheet" style={{ flex: 1, minHeight: 0, paddingHorizontal: theme.spacing.md, paddingBottom: theme.spacing.xl }}>
       <Text role="heading" aria-level={2} style={{ ...textStyle(theme, 'screenTitle'), color: theme.color.text.primary, marginBottom: theme.spacing.sm }}>{title}</Text>
       <SegmentedControl labels={sample.tabs3} selectedIndex={tab} onSelect={setTab} accessibilityLabel={sample.ui.detailLabel} />
-      {tab === 2 ? (
-        <View testID="history" style={{ marginTop: theme.spacing.md, maxHeight: 420, overflowY: 'auto', gap: theme.monthCalendar.monthsGap }}>
-          {[[2026, 9], [2026, 8]].map(([y, m]) => (
-            <MonthCalendar key={m} year={y} month={m} title={cal.title(y, m)} dayLetters={cal.dayLetters} completedDates={done} today={cal.today} onToggleDate={toggle} dayAccessibilityLabel={cal.dayLabel} />
-          ))}
-        </View>
-      ) : (
-        <View style={{ marginTop: theme.spacing.md, padding: theme.spacing.md, borderRadius: theme.radius.lg, backgroundColor: theme.color.bg.surface }}>
-          <Text style={{ fontFamily: fontFamily(theme, 'display'), fontSize: theme.font.size.body, lineHeight: theme.font.lineHeight.body, color: theme.color.text.primary }}>{tab === 0 ? sample.notes : '—'}</Text>
-        </View>
-      )}
+      {/* The sheet is a fixed 70% of the screen, so whatever the tab holds scrolls inside this area. */}
+      <View testID={tab === 2 ? 'history' : 'detail-body'} style={{ flex: 1, minHeight: 0, marginTop: theme.spacing.md, overflowY: 'auto' }}>
+        {tab === 2 ? (
+          <View style={{ gap: theme.monthCalendar.monthsGap }}>
+            {[[2026, 9], [2026, 8]].map(([y, m]) => (
+              <MonthCalendar key={m} year={y} month={m} title={cal.title(y, m)} dayLetters={cal.dayLetters} completedDates={done} today={cal.today} onToggleDate={toggle} dayAccessibilityLabel={cal.dayLabel} />
+            ))}
+          </View>
+        ) : (
+          <View style={{ padding: theme.spacing.md, borderRadius: theme.radius.lg, backgroundColor: theme.color.bg.surface }}>
+            <Text style={{ fontFamily: fontFamily(theme, 'display'), fontSize: theme.font.size.body, lineHeight: theme.font.lineHeight.body, color: theme.color.text.primary }}>{tab === 0 ? sample.notes : '—'}</Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };

@@ -51,9 +51,16 @@ const Toggle = () => {
   );
 };
 
+const ShortContent = () => {
+  const { theme } = useTheme();
+  const sample = useSample();
+  return <View style={{ paddingHorizontal: theme.spacing.md }}><Text style={{ ...textStyle(theme, 'screenTitle'), color: theme.color.text.primary }}>{sample.sheetTitle}</Text></View>;
+};
+
 export const Examples = () => (
   <>
     <Example title="Open" note="Content-sized, 32pt top radius, no shadow: depth comes from the dim backdrop."><Frame><BottomSheet isOpen onClose={noop} accessibilityLabel="Habit detail" presentation="inline"><SheetContent /></BottomSheet></Frame></Example>
+    <Example title="Fixed height" note="With heightRatio 0.7 (the norm detail) the sheet is 70% of the screen height even though its content is one line. Content taller than that scrolls inside."><Frame><BottomSheet isOpen onClose={noop} accessibilityLabel="Habit detail" presentation="inline" heightRatio={0.7}><ShortContent /></BottomSheet></Frame></Example>
     <Example title="Interactive" note="Opens and closes in 300ms. Drag the handle down 100px (or flick) to dismiss; a shorter drag springs back. Tapping the backdrop closes it."><Toggle /></Example>
   </>
 );

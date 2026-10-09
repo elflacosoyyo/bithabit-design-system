@@ -1,6 +1,6 @@
 # BottomSheet
 
-> Spec: [`bottom-sheet.spec.yaml`](./bottom-sheet.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`bottom-sheet.spec.yaml`](./bottom-sheet.spec.yaml) · v0.3.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 A modal panel that slides up from the bottom, dims what is behind it and can be dragged down to dismiss.
@@ -19,7 +19,8 @@ It is content-sized (there are no snap points) and is the product's main way to 
 ## Do
 - Give the sheet a visible title or an `accessibilityLabel`.
 - Put primary actions in a footer inside the sheet (e.g. "Mark as done today").
-- Keep content scrollable inside the content slot; the sheet height follows its content.
+- Keep content scrollable inside the content slot. By default the sheet height follows its content.
+- Pass `heightRatio` when the sheet must not change height as its content changes. The norm detail is always 70% of the screen, on every tab, so switching tabs does not make the sheet jump.
 - The sheet does not avoid the keyboard. The content that owns an input must handle it.
 
 ## Don't
