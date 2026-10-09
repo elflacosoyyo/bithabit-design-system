@@ -1,0 +1,78 @@
+id: menu
+name: Menu
+version: 0.1.0
+status: draft
+summary: The side menu over the Home screen, with the sections, a contact row and the account row pinned at the bottom.
+route: "src/navigation/(drawer)/_layout.tsx -> src/components/drawer-content.tsx"
+components:
+  - id: drawer-menu
+    role: The whole panel and its overlay.
+  - id: nav-header
+    role: Visible behind the overlay (the menu button opens the drawer).
+  - id: header-bar
+    role: Visible behind the overlay.
+  - id: habit-card
+    role: Visible behind the overlay.
+pending:
+  - name: Edge swipe to open
+    note: The navigator also opens the drawer with a swipe from the left edge. Not recreated.
+  - name: Developer section
+    note: A "Demo" entry appears only when the demo flag is on. Not shown.
+states:
+  - id: open
+    label: Open
+    description: Home is the current section. Press a row to go to that section (the menu closes) or press the dimmed area to close it.
+  - id: account
+    label: Account active
+    description: The account screen is current, so its pinned row is accent colored and no section is.
+annotations:
+  - id: M1
+    type: note
+    target: drawer-title
+    component: drawer-menu
+    text: The title is 38pt in the display serif at regular weight. The screen title style (30pt, medium) is not used here.
+  - id: M2
+    type: gap
+    target: drawer-habits
+    component: drawer-menu
+    text: The section rows are drawn by the navigator's own list, so their padding, size and active tone are the library's defaults. The contract aligns them with the contact and account rows.
+  - id: M3
+    type: decision
+    target: drawer-active
+    component: drawer-menu
+    decision: D-25
+    text: The current section is shown only by an accent colored label, which has weak contrast in Plan de Vida. Should it also have a marker?
+  - id: M4
+    type: note
+    target: drawer-contact
+    component: drawer-menu
+    text: Contact opens the mail app. When there is none, a native alert says "No mail app is available on this device" (try it in the prototype).
+  - id: M5
+    type: note
+    target: drawer-account
+    component: drawer-menu
+    text: The account row is pinned to the bottom and is the only entry that is not a section of the navigator.
+  - id: M6
+    type: gap
+    target: drawer-overlay
+    component: drawer-menu
+    text: The overlay color is read from a hook in the layout instead of a shared token.
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "178:13250"
+      name: Menu (node from the inventory; not compared with the recreation)
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/drawer-content.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: "src/navigation/(drawer)/_layout.tsx"
+      commit: cdfea70
+      verified: true
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - First recreation from the production code, with six annotations.

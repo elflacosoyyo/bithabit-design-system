@@ -1,0 +1,72 @@
+id: empty-state
+name: EmptyState
+version: 0.1.0
+status: draft
+category: feedback
+summary: One quiet sentence shown where a list has no items.
+purpose: >
+  When there is nothing to list the app says so in one direct sentence, without illustration or apology. Home and Norms each have
+  their own copy of this today; the contract gives them one component with two placements.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: message
+    description: One sentence, muted, centered. Inline in sans at 14pt or centered in serif at 18pt.
+    required: true
+props:
+  - name: message
+    type: string
+    required: true
+    description: One direct sentence, never apologetic.
+  - name: variant
+    type: "'inline' | 'centered'"
+    required: false
+    default: inline
+    description: inline sits at the top of a list (Home). centered fills the area (Norms).
+variants:
+  - name: inline
+    description: Top aligned with 48pt above, sans 14pt. Used by Home.
+  - name: centered
+    description: Fills the available area, centered, serif 18pt. Used by the Norms list.
+states:
+  - name: default
+    description: Static text.
+tokens:
+  - empty-state.text-color
+  - empty-state.font-size
+  - empty-state.padding-x
+  - empty-state.padding-top
+  - empty-state.centered.font-size
+  - empty-state.centered.padding-x
+  - empty-state.centered.padding-y
+accessibility:
+  role: status
+  label: The message is the label.
+  notes:
+    - Muted text must keep 4.5:1 against the canvas (text.secondary on canvas is checked in the contrast audit).
+behavior:
+  - Shown by the list when it has no data. It has no action; adding an item is done from the screen's own header action.
+content:
+  - Direct and quiet. Home says "No hay normas programadas para hoy"; Norms says it has no norms yet.
+  - No exclamation marks, no emoji.
+related: [icon-button]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/screens/home-screen.tsx (ListEmptyComponent)
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/habits-screen/components/empty-state.tsx
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - Two different implementations exist. Home is inline markup (sans, sm, muted, px-lg, pt-2xl). Norms has a component named EmptyState (serif, lg, muted, centered, px-xl, py-2xl). The contract keeps both as variants.
+  - Neither has an accessibility role for the message.
+open_questions:
+  - Should Home and Norms share the same placement? The two treatments look like an accident, not a decision.
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft, unifying the Home and Norms empty states found while recreating the Home screen.

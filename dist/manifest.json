@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "86262c712bb550cc",
+      "tokensHash": "fef9235d1d1ae75f",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "53762811a61ef80c",
+      "tokensHash": "360d268e528fbacb",
       "modes": [
         "light",
         "dark"
@@ -384,9 +384,239 @@
         }
       ]
     },
+    "drawer-menu": {
+      "name": "DrawerMenu",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "navigation",
+      "spec": "components/drawer-menu/drawer-menu.spec.yaml",
+      "usage": "components/drawer-menu/drawer-menu.usage.md",
+      "tokens": [
+        "drawer-menu.bg",
+        "drawer-menu.overlay",
+        "drawer-menu.width",
+        "drawer-menu.title-color",
+        "drawer-menu.title-size",
+        "drawer-menu.title-padding-x",
+        "drawer-menu.title-padding-bottom",
+        "drawer-menu.item-padding-x",
+        "drawer-menu.item-padding-y",
+        "drawer-menu.item-font-size",
+        "drawer-menu.item-font-weight",
+        "drawer-menu.item-color",
+        "drawer-menu.item-active-color",
+        "drawer-menu.item-active-bg",
+        "drawer-menu.item-pressed-opacity",
+        "drawer-menu.slide-offset",
+        "drawer-menu.duration",
+        "drawer-menu.spring-damping",
+        "drawer-menu.spring-stiffness"
+      ],
+      "contentHash": "ebe65ca66cefaabe",
+      "props": [
+        {
+          "name": "isOpen",
+          "required": true
+        },
+        {
+          "name": "onClose",
+          "required": true
+        },
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "items",
+          "required": true
+        },
+        {
+          "name": "activeId",
+          "required": true
+        },
+        {
+          "name": "onSelect",
+          "required": true
+        },
+        {
+          "name": "contactLabel",
+          "required": true
+        },
+        {
+          "name": "onContact",
+          "required": true
+        },
+        {
+          "name": "accountLabel",
+          "required": true
+        },
+        {
+          "name": "onAccount",
+          "required": true
+        },
+        {
+          "name": "accountActive",
+          "required": false
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "navigation",
+      "codeGaps": [
+        "The section rows are drawn by the navigator's DrawerItemList, not by the app, so their padding, label size and active background are the library defaults. The contract aligns them with the Contact and Account rows (px md, py md, 14pt medium).",
+        "The library's active background is the accent at 12% alpha. The contract uses the solid accent.subtle token instead.",
+        "Contact and Account are TouchableOpacity rows with an accessibilityRole but no accessibility state for the current one.",
+        "The overlay color is read with a hook (colors.overlay) in the layout, not from a shared token."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/drawer-content.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/my-account-item.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/contact-us-item.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/navigation/(drawer)/_layout.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "figma": [
+          {
+            "file": "qWMcWuD7X6qnzXxAmRopvf",
+            "node": "178:13250",
+            "name": "Menu (name from the inventory; node not re-opened)"
+          }
+        ],
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/drawer-content.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/my-account-item.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/contact-us-item.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/navigation/(drawer)/_layout.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft from the drawer content and the navigator layout, found while recreating the Menu screen in the catalog."
+          ]
+        }
+      ]
+    },
+    "empty-state": {
+      "name": "EmptyState",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "feedback",
+      "spec": "components/empty-state/empty-state.spec.yaml",
+      "usage": "components/empty-state/empty-state.usage.md",
+      "tokens": [
+        "empty-state.text-color",
+        "empty-state.font-size",
+        "empty-state.padding-x",
+        "empty-state.padding-top",
+        "empty-state.centered.font-size",
+        "empty-state.centered.padding-x",
+        "empty-state.centered.padding-y"
+      ],
+      "contentHash": "fd84c30dc71df55f",
+      "props": [
+        {
+          "name": "message",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "required": false
+        }
+      ],
+      "variants": [
+        "inline",
+        "centered"
+      ],
+      "accessibilityRole": "status",
+      "codeGaps": [
+        "Two different implementations exist. Home is inline markup (sans, sm, muted, px-lg, pt-2xl). Norms has a component named EmptyState (serif, lg, muted, centered, px-xl, py-2xl). The contract keeps both as variants.",
+        "Neither has an accessibility role for the message."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/home-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/habits-screen/components/empty-state.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/home-screen.tsx (ListEmptyComponent)",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/habits-screen/components/empty-state.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft, unifying the Home and Norms empty states found while recreating the Home screen."
+          ]
+        }
+      ]
+    },
     "habit-card": {
       "name": "HabitCard",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "status": "draft",
       "category": "list",
       "spec": "components/habit-card/habit-card.spec.yaml",
@@ -421,7 +651,7 @@
         "habit-card.swipe.snap-duration",
         "habit-card.swipe.return-duration"
       ],
-      "contentHash": "4e8144b5b61fdcbd",
+      "contentHash": "3af439b7407b9a8e",
       "props": [
         {
           "name": "title",
@@ -445,6 +675,14 @@
         },
         {
           "name": "onLongPress",
+          "required": false
+        },
+        {
+          "name": "onDeleteRequest",
+          "required": false
+        },
+        {
+          "name": "labels",
           "required": false
         },
         {
@@ -522,6 +760,14 @@
       },
       "changelog": [
         {
+          "version": "0.3.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Documented the swipeable variant's props (onDeleteRequest, labels) and added its reference implementation (SwipeableHabitCard) to the catalog.",
+            "The reference exposes the swipe actions to assistive technology as custom accessibility actions, which production does not."
+          ]
+        },
+        {
           "version": "0.2.0",
           "date": "2026-10-09",
           "changes": [
@@ -534,6 +780,169 @@
           "date": "2026-10-08",
           "changes": [
             "Initial draft from reference videos, Figma and the Claude Design export."
+          ]
+        }
+      ]
+    },
+    "header-bar": {
+      "name": "HeaderBar",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "navigation",
+      "spec": "components/header-bar/header-bar.spec.yaml",
+      "usage": "components/header-bar/header-bar.usage.md",
+      "tokens": [
+        "header-bar.min-height",
+        "header-bar.bg",
+        "header-bar.padding-x",
+        "header-bar.title-color",
+        "header-bar.subtitle-color",
+        "typography.screen-title",
+        "typography.caption"
+      ],
+      "contentHash": "59e0f0c9da585117",
+      "props": [
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "subtitle",
+          "required": false
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "heading",
+      "codeGaps": [
+        "The subtitle uses text.primary (text-foreground) where a secondary tone would be quieter; the contract keeps production.",
+        "The title has no heading role and the subtitle date has no spoken form."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/header-bar.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/home-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/header-bar.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/home-screen.tsx (HeaderBar with the formatted date)",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft from the production component, found while recreating the Home screen in the catalog."
+          ]
+        }
+      ]
+    },
+    "icon-button": {
+      "name": "IconButton",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "action",
+      "spec": "components/icon-button/icon-button.spec.yaml",
+      "usage": "components/icon-button/icon-button.usage.md",
+      "tokens": [
+        "icon-button.size",
+        "icon-button.icon-size",
+        "icon-button.hit-slop",
+        "icon-button.color",
+        "icon-button.pressed-opacity",
+        "icon-button.disabled-opacity"
+      ],
+      "contentHash": "97d9c5064b6bfd8d",
+      "props": [
+        {
+          "name": "icon",
+          "required": true
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": true
+        },
+        {
+          "name": "onPress",
+          "required": true
+        },
+        {
+          "name": "disabled",
+          "required": false
+        },
+        {
+          "name": "loading",
+          "required": false
+        },
+        {
+          "name": "testID",
+          "required": false
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "button",
+      "codeGaps": [
+        "The Home \"plus\" is a TouchableOpacity with mr-4 and p-2 around a 24pt icon (40pt box) and hitSlop 8 (56pt), where the contract is 40 + 4 (48pt). The Norms \"edit\" action repeats the same markup.",
+        "Neither action has an accessibilityRole or an accessibilityLabel.",
+        "While loading the Home action swaps in an ActivityIndicator with no color token and is only blocked through disabled, with no dimming.",
+        "The menu button on the left is the one drawn by the drawer navigator, not a component of the app."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/home-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/habits-screen/habits-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/home-screen.tsx (headerRight \"plus\" action)",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/habits-screen/habits-screen.tsx (headerRight \"edit\" action)",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft, extracted from the header actions of Home and Norms, found while recreating the Home screen in the catalog."
           ]
         }
       ]
@@ -675,6 +1084,79 @@
           "date": "2026-10-08",
           "changes": [
             "Initial draft as stat-card from reference videos and the Claude Design Stats exploration."
+          ]
+        }
+      ]
+    },
+    "nav-header": {
+      "name": "NavHeader",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "navigation",
+      "spec": "components/nav-header/nav-header.spec.yaml",
+      "usage": "components/nav-header/nav-header.usage.md",
+      "tokens": [
+        "nav-header.height",
+        "nav-header.bg",
+        "nav-header.padding-x"
+      ],
+      "contentHash": "a3c28ed66fcd9f2b",
+      "props": [
+        {
+          "name": "left",
+          "required": false
+        },
+        {
+          "name": "right",
+          "required": false
+        },
+        {
+          "name": "title",
+          "required": false
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "banner",
+      "codeGaps": [
+        "The bar is not an app component. It is the drawer navigator's header configured with headerTitle empty, headerShadowVisible false and headerTitleAlign center, so its height and padding come from the library.",
+        "The 44pt height and the md padding are the contract; the library gives about 44pt on iOS and 56pt on Android. These are estimated from the library defaults, not measured."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/navigation/(drawer)/_layout.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/home-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/navigation/(drawer)/_layout.tsx (screenOptions)",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/home-screen.tsx (Stack.Screen headerRight)",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft, found while recreating the Home screen in the catalog."
           ]
         }
       ]

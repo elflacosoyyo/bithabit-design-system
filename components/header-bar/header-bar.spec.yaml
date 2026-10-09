@@ -1,0 +1,72 @@
+id: header-bar
+name: HeaderBar
+version: 0.1.0
+status: draft
+category: navigation
+summary: Screen title in the display serif, with an optional small line (the date) on the trailing edge.
+purpose: >
+  Gives every top-level screen its name. Home, Settings, Stats, My Account and Account Deleted use the same component, so the
+  title treatment is already consistent; the contract records it and its tokens.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: title
+    description: Screen title, serif (display role), 30pt, medium weight. The screen-title text style.
+    required: true
+  - part: subtitle
+    description: Small sans line, 12pt, aligned to the trailing edge and the baseline of the title. On Home it is today's date.
+    required: false
+props:
+  - name: title
+    type: string
+    required: true
+    description: Screen title. On Home it is the app name.
+  - name: subtitle
+    type: string
+    required: false
+    description: Small trailing line, normally a formatted date.
+states:
+  - name: default
+    description: Title and optional subtitle. Static.
+tokens:
+  - header-bar.min-height
+  - header-bar.bg
+  - header-bar.padding-x
+  - header-bar.title-color
+  - header-bar.subtitle-color
+  - typography.screen-title
+  - typography.caption
+accessibility:
+  role: heading
+  label: The title text is the label.
+  notes:
+    - The title is the screen's level 1 heading.
+    - The subtitle is plain text. If it is a date, give it a full spoken form ("Friday, October 9").
+behavior:
+  - Row layout, items aligned to the bottom, title leading and subtitle trailing. The row wraps when both do not fit.
+  - Static, with no press and no animation.
+content:
+  - Titles are single nouns in sentence case, never ALLCAPS ("Normas", "Ajustes").
+  - On Home the title is the app name and the subtitle the date, capitalized ("Jueves, 9 de Octubre").
+related: [nav-header]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/header-bar.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/home-screen.tsx (HeaderBar with the formatted date)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The subtitle uses text.primary (text-foreground) where a secondary tone would be quieter; the contract keeps production.
+  - The title has no heading role and the subtitle date has no spoken form.
+open_questions:
+  - Should long titles truncate or wrap? Today the row wraps (flex-wrap) and the subtitle drops below.
+  - Figma node for the header not located (the inventory only names "Header").
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft from the production component, found while recreating the Home screen in the catalog.

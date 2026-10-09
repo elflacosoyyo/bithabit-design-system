@@ -39,3 +39,10 @@ export const PlusGlyph = ({ size, color, strokeWidth = 1.75 }: { size: number; c
     <View style={{ position: 'absolute', width: strokeWidth, height: size * 0.8, backgroundColor: color }} />
   </View>
 );
+
+/** Hamburger menu drawn with three bars. Stand-in for the Feather "menu" icon. */
+export const MenuGlyph = ({ size, color, strokeWidth = 2 }: { size: number; color: string; strokeWidth?: number }) => (
+  <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center', gap: size * 0.2 }} aria-hidden>
+    {[0, 1, 2].map((i) => <View key={i} style={{ width: size * 0.8, height: strokeWidth, backgroundColor: color }} />)}
+  </View>
+);

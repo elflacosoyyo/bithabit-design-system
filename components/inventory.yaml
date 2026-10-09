@@ -83,7 +83,7 @@ components:
 - id: header-bar
   name: HeaderBar
   category: navigation
-  status: planned
+  status: spec-draft
   priority: P1
   sources:
   - code:src/components/header-bar.tsx
@@ -261,7 +261,7 @@ components:
 - id: drawer-menu
   name: DrawerMenu
   category: navigation
-  status: planned
+  status: spec-draft
   priority: P1
   sources:
   - code:src/components/drawer-content.tsx
@@ -438,3 +438,29 @@ components:
   sources:
   - claude-design:widget
   notes: Out of v1.
+- id: icon-button
+  name: IconButton
+  category: action
+  status: spec-draft
+  priority: P1
+  sources:
+  - code:src/screens/home-screen.tsx (headerRight)
+  - code:src/screens/habits-screen/habits-screen.tsx (headerRight)
+  notes: Icon-only header actions (add, edit); the menu button is the navigator's own.
+- id: nav-header
+  name: NavHeader
+  category: navigation
+  status: spec-draft
+  priority: P1
+  sources:
+  - code:src/navigation/(drawer)/_layout.tsx (screenOptions)
+  notes: Today it is the navigator's header; the contract fixes size and content.
+- id: empty-state
+  name: EmptyState
+  category: feedback
+  status: spec-draft
+  priority: P1
+  sources:
+  - code:src/screens/home-screen.tsx (ListEmptyComponent)
+  - code:src/screens/habits-screen/components/empty-state.tsx
+  notes: Two implementations in the app, kept as inline and centered variants.

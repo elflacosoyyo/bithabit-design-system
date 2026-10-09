@@ -1,0 +1,157 @@
+id: drawer-menu
+name: DrawerMenu
+version: 0.1.0
+status: draft
+category: navigation
+summary: Side menu that slides over the screen with the app's sections, a contact link and the account entry pinned at the bottom.
+purpose: >
+  The app's main navigation is a drawer. The sections come from the navigator; the title, the contact item and the account item
+  are custom. The contract describes the whole panel so every brand's menu looks and moves the same.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: overlay
+    description: Scrim over the screen (color.bg.overlay). Pressing it closes the menu.
+    required: true
+  - part: panel
+    description: Surface-colored panel from the leading edge, 320pt wide at most.
+    required: true
+  - part: title
+    description: The word Menu in the display serif, 38pt, with md padding.
+    required: true
+  - part: items
+    description: One row per section. The current one is accent colored on the accent.subtle tone.
+    required: true
+  - part: contact
+    description: A "Contact us" row right after the sections.
+    required: true
+  - part: account
+    description: A "My account" row pinned to the bottom of the panel, accent colored when the account screen is current.
+    required: true
+props:
+  - name: isOpen
+    type: boolean
+    required: true
+    description: Whether the menu is shown.
+  - name: onClose
+    type: "() => void"
+    required: true
+    description: Called when the overlay is pressed.
+  - name: title
+    type: string
+    required: true
+    description: The word Menu, translated.
+  - name: items
+    type: "Array<{ id: string; label: string }>"
+    required: true
+    description: Sections in order (Home, Norms, Stats, Subscription, Settings).
+  - name: activeId
+    type: "string | null"
+    required: true
+    description: Id of the current section.
+  - name: onSelect
+    type: "(id: string) => void"
+    required: true
+    description: Called when a section is pressed.
+  - name: contactLabel
+    type: string
+    required: true
+    description: Label of the contact row.
+  - name: onContact
+    type: "() => void"
+    required: true
+    description: Opens the mail app; shows an alert when none is available.
+  - name: accountLabel
+    type: string
+    required: true
+    description: Label of the account row.
+  - name: onAccount
+    type: "() => void"
+    required: true
+    description: Opens the account screen.
+  - name: accountActive
+    type: boolean
+    required: false
+    default: false
+    description: True when the account screen is current.
+states:
+  - name: closed
+    description: Not mounted.
+  - name: open
+    description: Panel in place over the dimmed screen.
+  - name: item-active
+    description: The current section is accent colored on accent.subtle.
+  - name: item-pressed
+    description: A pressed row drops to opacity.pressed.
+tokens:
+  - drawer-menu.bg
+  - drawer-menu.overlay
+  - drawer-menu.width
+  - drawer-menu.title-color
+  - drawer-menu.title-size
+  - drawer-menu.title-padding-x
+  - drawer-menu.title-padding-bottom
+  - drawer-menu.item-padding-x
+  - drawer-menu.item-padding-y
+  - drawer-menu.item-font-size
+  - drawer-menu.item-font-weight
+  - drawer-menu.item-color
+  - drawer-menu.item-active-color
+  - drawer-menu.item-active-bg
+  - drawer-menu.item-pressed-opacity
+  - drawer-menu.slide-offset
+  - drawer-menu.duration
+  - drawer-menu.spring-damping
+  - drawer-menu.spring-stiffness
+accessibility:
+  role: navigation
+  label: The panel is named by its title.
+  touch_target: Every row is at least 48pt high (14pt text with 16pt padding on each side is 46pt, estimated).
+  notes:
+    - Mark the current row with aria-current "page" (accessibilityState selected on native).
+    - Move focus into the menu when it opens and back to the menu button when it closes.
+    - The active label is accent on the surface tone, a pair already checked by the contrast audit (text.accent-on-surface).
+behavior:
+  - Opens from the leading edge with the menu button or an edge swipe; closes by pressing the overlay or selecting a section.
+  - The panel slides in 300ms. Its content eases in with a spring (damping 25, stiffness 100) from 20pt to the left while fading in.
+  - Closing slides back in 300ms without the spring.
+  - The Demo section is hidden unless the demo flag is on; it never appears to users.
+content:
+  - Sections are single words or short nouns in sentence case ("Estadísticas", "Suscripción", "Ajustes").
+related: [nav-header, icon-button]
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "178:13250"
+      name: Menu (name from the inventory; node not re-opened)
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/drawer-content.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/my-account-item.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/contact-us-item.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: "src/navigation/(drawer)/_layout.tsx"
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The section rows are drawn by the navigator's DrawerItemList, not by the app, so their padding, label size and active background are the library defaults. The contract aligns them with the Contact and Account rows (px md, py md, 14pt medium).
+  - The library's active background is the accent at 12% alpha. The contract uses the solid accent.subtle token instead.
+  - Contact and Account are TouchableOpacity rows with an accessibilityRole but no accessibility state for the current one.
+  - The overlay color is read with a hook (colors.overlay) in the layout, not from a shared token.
+open_questions:
+  - What are the real panel width and row heights? The width comes from the navigator's default, not from the app. The contract assumes 320pt.
+  - Does the Figma menu (node 178:13250) match the 14pt medium rows and the 38pt title? Not compared yet.
+  - Should the current row have a marker besides color (a bar)? Accent text alone is a weak signal.
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft from the drawer content and the navigator layout, found while recreating the Menu screen in the catalog.

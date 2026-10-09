@@ -1,0 +1,110 @@
+id: home
+name: Home
+version: 0.1.0
+status: draft
+summary: Today's norms as a list of swipeable cards under the title and date, with the menu on the left and "add" on the right.
+route: "src/navigation/(drawer)/home.tsx -> src/screens/home-screen.tsx"
+components:
+  - id: nav-header
+    role: The bar under the status bar that holds the two actions.
+  - id: icon-button
+    role: Open menu on the left and add a norm on the right.
+  - id: header-bar
+    role: App name as the title and today's date as the subtitle.
+  - id: habit-card
+    role: One swipeable card per norm scheduled for today.
+  - id: checkbox
+    role: Completion control inside each card.
+  - id: empty-state
+    role: Message shown when nothing is scheduled today.
+  - id: bottom-sheet
+    role: Frame of the norm detail that opens when a card is pressed.
+  - id: segmented-control
+    role: Tabs inside the detail sheet.
+pending:
+  - name: Norm detail content
+    note: The real sheet has a "mark as done today" footer, an edit icon, a calendar and a notes editor. The recreation shows only the frame, the title, the tabs and the reading text.
+    needs: [footer-action, calendar-day, habit-content]
+  - name: Drag to reorder
+    note: A long press on a card starts a drag in production. It is documented in the habit-card spec and not recreated.
+  - name: Suggested norms sheet
+    note: Pressing the add action loads suggestions and opens a second sheet (paywall check first). Not recreated.
+    needs: [suggested-habit-row]
+  - name: Entrance animation
+    note: Cards fade in with a 100ms stagger when the screen mounts. Not recreated.
+states:
+  - id: with-habits
+    label: With norms
+    description: Live data. Everything on the screen responds, and what you change is kept while you move between the catalog pages.
+  - id: empty
+    label: Empty
+    description: Nothing is scheduled for today.
+  - id: all-done
+    label: All completed
+    description: Every norm is completed for today.
+  - id: detail-open
+    label: Detail open
+    description: A card was pressed and its detail sheet is open.
+annotations:
+  - id: H1
+    type: gap
+    target: menu-button
+    component: icon-button
+    text: The menu button is drawn by the drawer navigator, not by the app. Its size, hit area and accessibility label come from the library and were not measured.
+  - id: H2
+    type: gap
+    target: add-button
+    component: icon-button
+    text: The add action has no accessibility role or label, and its touch target is 56pt (40pt plus a hit slop of 8) instead of 48pt.
+  - id: H3
+    type: note
+    target: title
+    component: header-bar
+    text: The title is the app name and the subtitle is the date, with each word capitalized by formatHeaderDate (for example "Viernes, 9 de Octubre").
+  - id: H4
+    type: note
+    target: list
+    text: Cards are separated by a 16pt gap and each card adds 4pt above and below. The list starts 8pt below the title.
+  - id: H5
+    type: gap
+    target: card-first
+    component: habit-card
+    text: Swipe right to toggle and left to delete are not announced to assistive technology in production. The recreation exposes them as custom actions.
+  - id: H6
+    type: decision
+    target: empty
+    component: empty-state
+    decision: D-26
+    text: Home and Norms show different empty states. Which treatment should both use?
+  - id: H7
+    type: gap
+    target: sheet
+    component: bottom-sheet
+    text: The real detail sheet carries more (footer action, edit, calendar, notes). Only its frame is recreated until footer-action and calendar-day have contracts.
+  - id: H8
+    type: note
+    target: alert
+    text: Deleting asks for confirmation with a native alert. The catalog shows an emulation of it. It is not a design-system component.
+sources:
+  figma:
+    - file: qWMcWuD7X6qnzXxAmRopvf
+      node: "5457:5715"
+      name: Home (from the habit-card inventory entry; the full screen was not compared)
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/screens/home-screen.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/swipeable-habit-card.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/components/header-bar.tsx
+      commit: cdfea70
+      verified: true
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - First recreation from the production code, with eight annotations.

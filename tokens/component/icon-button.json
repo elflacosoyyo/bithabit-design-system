@@ -1,0 +1,28 @@
+{
+  "icon-button": {
+    "size": {
+      "$value": "40px",
+      "$type": "dimension"
+    },
+    "icon-size": {
+      "$value": "{spacing.lg}",
+      "$type": "dimension"
+    },
+    "hit-slop": {
+      "$value": "4px",
+      "$type": "dimension"
+    },
+    "color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "pressed-opacity": {
+      "$value": "{opacity.pressed}",
+      "$type": "number"
+    },
+    "disabled-opacity": {
+      "$value": "{opacity.disabled}",
+      "$type": "number"
+    }
+  }
+}

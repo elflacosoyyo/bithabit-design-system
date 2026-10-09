@@ -1,6 +1,6 @@
 # HabitCard
 
-> Spec: [`habit-card.spec.yaml`](./habit-card.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`habit-card.spec.yaml`](./habit-card.spec.yaml) · v0.3.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 A full-width row that represents one habit on the Today screen. It combines a title, a completion

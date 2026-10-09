@@ -6,6 +6,7 @@ import {
   MODES, listBrands, loadRaw, loadResolved, flatten, readJSON, readYAML, exists, contrast, parseHex, listFiles, ROOT,
 } from './lib.mjs';
 import { loadSpecs } from './specs.mjs';
+import { loadScreens } from './screens.mjs';
 
 const errors = [], warnings = [];
 const err = (m) => errors.push(m);
@@ -144,9 +145,40 @@ for (const c of inv) {
 }
 for (const id of specIds) if (id && !seen.has(id)) err(`[inventory] spec "${id}" is missing from components/inventory.yaml`);
 
+// ---- 5a. Screen recreations: components must exist in the inventory, decisions in audit/decisions.md
+{
+  const screenSchema = ajv.compile(readJSON('schemas/screen.schema.json'));
+  const status = new Map(inv.map((c) => [c.id, c.status]));
+  const decisionsText = fs.readFileSync(path.join(ROOT, 'audit/decisions.md'), 'utf8');
+  for (const { dir, file, screen } of loadScreens()) {
+    if (!screen) { err(`[screen] ${file}: missing`); continue; }
+    if (!screenSchema(screen)) { err(`[screen] ${file}: ${fmt(screenSchema.errors)}`); continue; }
+    if (screen.id !== dir) err(`[screen] ${file}: id "${screen.id}" must equal the folder name`);
+    if (screen.changelog[0].version !== screen.version) err(`[screen] ${file}: changelog[0].version must equal version`);
+    for (const c of screen.components) {
+      if (!status.has(c.id)) err(`[screen] ${file}: component "${c.id}" is not in components/inventory.yaml`);
+      else if (!status.get(c.id).startsWith('spec')) warn(`[screen] ${screen.id}: uses "${c.id}", which has no contract yet (${status.get(c.id)})`);
+    }
+    for (const p of screen.pending ?? []) for (const n of p.needs ?? []) if (!status.has(n)) err(`[screen] ${file}: pending "${p.name}" needs "${n}", which is not in the inventory`);
+    const ids = new Set();
+    for (const a of screen.annotations) {
+      if (ids.has(a.id)) err(`[screen] ${file}: duplicate annotation id ${a.id}`);
+      ids.add(a.id);
+      if (a.component && !status.has(a.component)) err(`[screen] ${file}: annotation ${a.id} names unknown component "${a.component}"`);
+      if (a.type === 'decision' && !a.decision) err(`[screen] ${file}: annotation ${a.id} is a decision but has no "decision" id`);
+      if (a.decision && !new RegExp(`\\|\\s*${a.decision}\\s*\\|`).test(decisionsText)) err(`[screen] ${file}: annotation ${a.id} points at ${a.decision}, which is not in audit/decisions.md`);
+    }
+    const stateIds = screen.states.map((x) => x.id);
+    if (new Set(stateIds).size !== stateIds.length) err(`[screen] ${file}: duplicate state ids`);
+    const open = screen.annotations.filter((a) => a.type === 'question' || a.type === 'decision').length;
+    if (open) warn(`[screen] ${screen.id}: ${open} open question/decision annotation(s)`);
+  }
+}
+
 // ---- 5b. YAML trap: in a plain (unquoted) scalar, " #" starts a comment and silently cuts the text
 const yamlFiles = [
   ...specs.map((x) => `components/${x.dir}/${x.dir}.spec.yaml`), 'components/inventory.yaml',
+  ...loadScreens().map((x) => x.file),
   ...brands.map((b) => `brands/${b}/brand.yaml`), 'integration/connect.template.yaml',
 ];
 for (const f of yamlFiles) {

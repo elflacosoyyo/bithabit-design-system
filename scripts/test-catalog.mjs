@@ -135,6 +135,152 @@ await step('bottom sheet: open and close with the backdrop', async () => {
   await region.getByTestId('bottom-sheet-backdrop').click({ position: { x: 10, y: 10 } });
   await region.getByRole('dialog').waitFor({ state: 'detached', timeout: 4000 });
 });
+const swipe = async (locator, dx) => {
+  await locator.scrollIntoViewIfNeeded(); // mouse events outside the viewport are dropped
+  const b = await locator.boundingBox();
+  const y = b.y + b.height / 2;
+  const x0 = b.x + b.width / 2;
+  await page.mouse.move(x0, y);
+  await page.mouse.down();
+  for (let i = 1; i <= 8; i++) { await page.mouse.move(x0 + (dx * i) / 8, y); await page.waitForTimeout(16); }
+  await page.mouse.up();
+};
+await step('icon button: press, then ignored while loading', async () => {
+  await go(page, '/components/icon-button', 'bithabit', 'light');
+  const region = page.getByRole('region', { name: 'Interactive', exact: true });
+  const button = region.getByRole('button', { name: 'New habit' });
+  await button.click();
+  await page.waitForFunction(() => /Pressed 1 times/.test(document.querySelector('[data-testid="icon-button-count"]')?.textContent ?? ''), null, { timeout: 4000 });
+  assert.equal(await button.getAttribute('aria-busy'), 'true');
+  await button.click({ force: true });
+  await page.waitForTimeout(200);
+  assert.match(await region.getByTestId('icon-button-count').textContent(), /Pressed 1 times/, 'a loading icon button must not fire onPress');
+});
+await step('habit card: swipe right toggles, swipe left asks to delete', async () => {
+  await go(page, '/components/habit-card', 'bithabit', 'light');
+  const region = page.getByRole('region', { name: 'Swipeable', exact: true });
+  await swipe(region.getByTestId('swipe-0'), 140);
+  await page.waitForFunction(() => /Read ten pages: toggled/.test(document.querySelector('[data-testid="swipe-status"]')?.textContent ?? ''), null, { timeout: 4000 });
+  await swipe(region.getByTestId('swipe-1'), -140);
+  await page.waitForFunction(() => /Drink water: delete requested/.test(document.querySelector('[data-testid="swipe-status"]')?.textContent ?? ''), null, { timeout: 4000 });
+  const before = await region.getByTestId('swipe-2').count();
+  await swipe(region.getByTestId('swipe-2'), 40); // a short drag springs back and does nothing
+  await page.waitForTimeout(350);
+  assert.equal(await region.getByTestId('swipe-2').count(), before);
+  assert.doesNotMatch(await region.getByTestId('swipe-status').textContent(), /Evening walk/, 'a short drag must not trigger an action');
+});
+await step('drawer menu: open, pick a section, close', async () => {
+  await go(page, '/components/drawer-menu', 'plandevida', 'light');
+  const region = page.getByRole('region', { name: 'Interactive', exact: true });
+  assert.equal(await region.getByRole('navigation').count(), 0);
+  await region.getByRole('button', { name: 'Open menu' }).click();
+  const menu = region.getByRole('navigation', { name: 'Menú' });
+  await menu.waitFor({ timeout: 4000 });
+  assert.equal(await menu.getByRole('button', { name: 'Plan de Vida' }).getAttribute('aria-current'), 'page');
+  await menu.getByRole('button', { name: 'Estadísticas' }).click();
+  await menu.waitFor({ state: 'detached', timeout: 4000 });
+  assert.match(await region.getByTestId('drawer-current').textContent(), /Estadísticas/);
+  await region.getByRole('button', { name: 'Open menu' }).click();
+  await menu.waitFor({ timeout: 4000 });
+  await region.getByTestId('drawer-overlay').click({ position: { x: 5, y: 200 } });
+  await menu.waitFor({ state: 'detached', timeout: 4000 });
+});
+await step('home screen: complete, swipe, delete with confirmation, open detail', async () => {
+  await go(page, '/screens/home', 'bithabit', 'light');
+  const phone = page.getByRole('group', { name: 'Home screen' });
+  const boxes = phone.getByRole('checkbox');
+  assert.equal(await boxes.count(), 4);
+  assert.equal(await boxes.nth(1).getAttribute('aria-checked'), 'false');
+  await boxes.nth(1).click();
+  await page.waitForFunction(() => document.querySelectorAll('[aria-label="Home screen"] [role=checkbox]')[1].getAttribute('aria-checked') === 'true', null, { timeout: 4000 });
+  await swipe(phone.getByTestId('card-first'), 140); // the first card starts completed, so a swipe right undoes it
+  await page.waitForFunction(() => document.querySelectorAll('[aria-label="Home screen"] [role=checkbox]')[0].getAttribute('aria-checked') === 'false', null, { timeout: 4000 });
+  await swipe(phone.getByTestId('card-1'), -140);
+  const alert = page.getByRole('alertdialog');
+  await alert.waitFor({ timeout: 4000 });
+  assert.match(await alert.textContent(), /Delete habit/);
+  await alert.getByRole('button', { name: 'Cancel' }).click();
+  assert.equal(await boxes.count(), 4, 'cancel keeps the card');
+  await swipe(phone.getByTestId('card-1'), -140);
+  await alert.waitFor({ timeout: 4000 });
+  await alert.getByRole('button', { name: 'Delete' }).click();
+  await page.waitForFunction(() => document.querySelectorAll('[aria-label="Home screen"] [role=checkbox]').length === 3, null, { timeout: 4000 });
+  await phone.getByRole('button', { name: /^Evening walk,/ }).click({ position: { x: 30, y: 20 } });
+  const sheet = phone.getByRole('dialog', { name: 'Habit detail' });
+  await sheet.waitFor({ timeout: 4000 });
+  assert.match(await sheet.textContent(), /Evening walk/);
+  await phone.getByTestId('bottom-sheet-backdrop').click({ position: { x: 20, y: 40 } });
+  await sheet.waitFor({ state: 'detached', timeout: 4000 });
+});
+await step('home screen: the data stays when you leave and come back, and Reset restores it', async () => {
+  await page.getByRole('link', { name: 'Menu', exact: true }).click();
+  await page.waitForSelector('main[data-route="/screens/menu"]', { timeout: 4000 });
+  await page.getByRole('link', { name: 'Home', exact: true }).click();
+  await page.waitForSelector('main[data-route="/screens/home"]', { timeout: 4000 });
+  assert.equal(await page.getByRole('group', { name: 'Home screen' }).getByRole('checkbox').count(), 3, 'the deleted card is still deleted');
+  await page.getByRole('button', { name: 'Reset demo data' }).click();
+  await page.getByRole('button', { name: 'Empty', exact: true }).click(); // switching state remounts the phone
+  await page.getByRole('button', { name: 'With norms', exact: true }).click();
+  await page.waitForFunction(() => document.querySelectorAll('[aria-label="Home screen"] [role=checkbox]').length === 4, null, { timeout: 4000 });
+});
+await step('home screen: empty and all-completed states', async () => {
+  await go(page, '/screens/home', 'plandevida', 'dark');
+  await page.getByRole('button', { name: 'Empty', exact: true }).click();
+  await page.getByText('No hay normas programadas para hoy').waitFor({ timeout: 4000 });
+  await page.getByRole('button', { name: 'All completed', exact: true }).click();
+  await page.waitForFunction(() => { const c = [...document.querySelectorAll('[aria-label="Home screen"] [role=checkbox]')]; return c.length === 4 && c.every((x) => x.getAttribute('aria-checked') === 'true'); }, null, { timeout: 4000 });
+});
+await step('prototype: navigate with the menu, mail alert, new norm sheet', async () => {
+  await go(page, '/screens/prototype', 'bithabit', 'light');
+  const phone = page.getByRole('group', { name: 'App prototype' });
+  await phone.getByRole('button', { name: 'Open menu' }).click();
+  const menu = phone.getByRole('navigation', { name: 'Menu' });
+  await menu.waitFor({ timeout: 4000 });
+  await menu.getByRole('button', { name: 'Contact us' }).click();
+  const alert = page.getByRole('alertdialog');
+  await alert.waitFor({ timeout: 4000 });
+  assert.match(await alert.textContent(), /No mail app is available/);
+  await alert.getByRole('button', { name: 'OK' }).click();
+  await menu.getByRole('button', { name: 'Stats' }).click();
+  await menu.waitFor({ state: 'detached', timeout: 4000 });
+  await phone.getByTestId('pending-screen').waitFor({ timeout: 4000 });
+  assert.equal(await phone.getByRole('heading', { name: 'Stats' }).count(), 1);
+  assert.equal(await page.locator('[data-pin-layer] button').count(), 0, 'a placeholder section has no annotations');
+  await phone.getByRole('button', { name: 'Open menu' }).click();
+  await menu.waitFor({ timeout: 4000 });
+  await menu.getByRole('button', { name: 'My account' }).click();
+  await menu.waitFor({ state: 'detached', timeout: 4000 });
+  await phone.getByRole('heading', { name: 'My account' }).waitFor({ timeout: 4000 });
+  await phone.getByRole('button', { name: 'Open menu' }).click();
+  await menu.getByRole('button', { name: 'Home', exact: true }).click();
+  await menu.waitFor({ state: 'detached', timeout: 4000 });
+  await phone.getByTestId('card-first').waitFor({ timeout: 4000 });
+  await phone.getByRole('button', { name: 'New habit' }).click();
+  await phone.getByRole('dialog', { name: 'New habit' }).waitFor({ timeout: 4000 });
+});
+for (const [id, labelsByState] of [['home', ['With norms', 'Empty', 'All completed', 'Detail open']], ['menu', ['Open', 'Account active']]]) {
+  await step(`screen "${id}": every annotation is attached to an element that exists`, async () => {
+    await go(page, `/screens/${id}`, 'bithabit', 'light');
+    const ids = await page.locator('[data-annotation]').evaluateAll((els) => els.map((e) => e.getAttribute('data-annotation')));
+    assert.ok(ids.length >= 5, `${id}: expected annotations, found ${ids.length}`);
+    const seen = new Set();
+    const collect = async () => { for (const l of await page.locator('[data-pin-layer] button').evaluateAll((els) => els.map((e) => e.textContent.trim()))) seen.add(l); };
+    for (const label of labelsByState) {
+      await page.getByRole('button', { name: label, exact: true }).click();
+      await page.waitForTimeout(700);
+      await collect();
+      if (id === 'home' && label === 'With norms') { // the delete alert only exists after a swipe
+        await swipe(page.getByTestId('card-1'), -140);
+        await page.getByRole('alertdialog').waitFor({ timeout: 4000 });
+        await page.waitForTimeout(500);
+        await collect();
+        await page.getByRole('alertdialog').getByRole('button', { name: 'Cancel' }).click();
+      }
+    }
+    const missing = ids.filter((a) => !seen.has(a));
+    assert.deepEqual(missing, [], `${id}: annotation(s) ${missing.join(', ')} match no element in any state (check the target ids in screens/${id}/${id}.screen.yaml)`);
+  });
+}
 await step('toolbar: switching brand and mode re-themes the page and keeps the route', async () => {
   await go(page, '/foundations/colors', 'bithabit', 'light');
   await page.getByLabel('Brand').selectOption('plandevida');

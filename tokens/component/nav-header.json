@@ -1,0 +1,16 @@
+{
+  "nav-header": {
+    "height": {
+      "$value": "44px",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.bg.canvas}",
+      "$type": "color"
+    },
+    "padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    }
+  }
+}

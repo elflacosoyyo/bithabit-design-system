@@ -18,6 +18,7 @@ const Intro = () => {
         rows={[
           ['Foundations', 'Tokens resolved for the active brand and mode: colors, type, spacing, shape. "Brands" compares every brand side by side.'],
           ['Components', 'Each component with its states, an interactive version, an "All brands" matrix (every brand × light and dark) and a "Spec" page generated from its contract.'],
+          ['Screens', 'Real app screens recreated from the components, with annotations pinned to the elements, and a Prototype where you can move between them. Missing components found here are created and added to the system.'],
           ['Audit', 'WCAG contrast for every brand and mode with the documented waivers, and the status of the component inventory.'],
         ]}
       />

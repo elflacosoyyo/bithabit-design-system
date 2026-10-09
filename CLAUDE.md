@@ -51,6 +51,13 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 6. Add the reference component in `src/components/` and its catalog page in `catalog-src/pages/components/` (`Examples` and `AllBrands`; register it in `catalog-src/registry.tsx`). Checklist in `docs/catalog.md`.
 7. `npm run check && npm run test:catalog`.
 
+### Add or change a screen
+1. Read the real screen in `Bakia/plan-de-vida` (and compare with Figma when you can). Write `screens/<id>/<id>.screen.yaml` (schema `schemas/screen.schema.json`): components used, what is `pending`, states, annotations, sources with `verified`.
+2. Build it only from design-system components. If the screen needs something that is not in `components/inventory.yaml`, add that component first, following "Add or change a component" (contract, tokens, reference component, catalog page). Never draw a one-off piece inside a screen; if something must be a placeholder, mark it visibly and list it under `pending`.
+3. Compose it in `catalog-src/screens/` and add a page in `catalog-src/pages/screens/` (exports `Screen`, `AllBrands`, `Notes`), registered in `catalog-src/registry.tsx`. The prototype (`AppPhone`) is the same composition, so a new section appears there too.
+4. Annotations are the designer's notes: `note`, `gap`, `question` or `decision` (a `decision` points at a `D-xx` row in `audit/decisions.md`). Each `target` is a `data-testid` or `data-anno` in the recreation. Write what the designer dictates; do not invent findings.
+5. Screens are documentation: they are not part of `dist/manifest.json`. `npm run check && npm run test:catalog` (the test fails if an annotation points at nothing).
+
 ### Update a token
 - Change the lowest layer that is correct (a brand override before a base token, a semantic token before a primitive).
 - Run `npm run validate` and read the **contrast** summary. A change that lowers contrast must be justified in `audit/decisions.md`.

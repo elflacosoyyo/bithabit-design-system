@@ -1,0 +1,24 @@
+{
+  "header-bar": {
+    "min-height": {
+      "$value": "44px",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.bg.canvas}",
+      "$type": "color"
+    },
+    "padding-x": {
+      "$value": "{spacing.lg}",
+      "$type": "dimension"
+    },
+    "title-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "subtitle-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    }
+  }
+}

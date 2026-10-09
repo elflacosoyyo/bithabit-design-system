@@ -1,0 +1,75 @@
+id: nav-header
+name: NavHeader
+version: 0.1.0
+status: draft
+category: navigation
+summary: The 44pt bar under the status bar that holds a leading and a trailing action.
+purpose: >
+  Every top-level screen starts with a thin bar that carries the menu button on the left and, on some screens, a single action
+  on the right. The app builds it with the navigator's own header; the contract fixes its size, padding and content.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: bar
+    description: 44pt high row on the canvas color with horizontal padding md. No border, no shadow.
+    required: true
+  - part: left
+    description: Leading slot, normally an IconButton (open menu or back).
+    required: false
+  - part: title
+    description: Optional centered title. The app leaves it empty and puts the screen title in a HeaderBar below the bar.
+    required: false
+  - part: right
+    description: Trailing slot, normally an IconButton.
+    required: false
+props:
+  - name: left
+    type: ReactNode
+    required: false
+    description: Leading action.
+  - name: right
+    type: ReactNode
+    required: false
+    description: Trailing action.
+  - name: title
+    type: string
+    required: false
+    description: Centered title. Leave empty when the screen shows a HeaderBar.
+states:
+  - name: default
+    description: Bar with its slots. It has no interactive state of its own.
+tokens:
+  - nav-header.height
+  - nav-header.bg
+  - nav-header.padding-x
+accessibility:
+  role: banner
+  label: The bar itself needs no label. Its actions carry their own.
+  notes:
+    - When a title is present it is the screen's level 1 heading; when it is empty the HeaderBar below is.
+    - Keep the tab order left, title, right.
+behavior:
+  - Sits under the system status bar and above the screen content. It does not scroll with the content.
+  - The header has no shadow (headerShadowVisible is false in the app).
+related: [icon-button, header-bar]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: "src/navigation/(drawer)/_layout.tsx (screenOptions)"
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/home-screen.tsx (Stack.Screen headerRight)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The bar is not an app component. It is the drawer navigator's header configured with headerTitle empty, headerShadowVisible false and headerTitleAlign center, so its height and padding come from the library.
+  - The 44pt height and the md padding are the contract; the library gives about 44pt on iOS and 56pt on Android. These are estimated from the library defaults, not measured.
+open_questions:
+  - What are the real header height and horizontal inset on iOS and Android? Not measured (the library draws the header, and the app repo has no node_modules in this checkout).
+  - Does the left menu button's position match the 16pt padding of the contract?
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft, found while recreating the Home screen in the catalog.

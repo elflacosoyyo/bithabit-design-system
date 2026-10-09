@@ -264,6 +264,38 @@
       "checkSize": 24,
       "disabledOpacity": 0.5
     },
+    "drawerMenu": {
+      "bg": "#faf8f2",
+      "overlay": "rgba(3, 2, 19, 0.5)",
+      "width": 320,
+      "titleColor": "#030213",
+      "titleSize": 38,
+      "titlePaddingX": 16,
+      "titlePaddingBottom": 16,
+      "itemPaddingX": 16,
+      "itemPaddingY": 16,
+      "itemFontSize": 14,
+      "itemFontWeight": "500",
+      "itemColor": "#030213",
+      "itemActiveColor": "#eda96d",
+      "itemActiveBg": "#fdf5eb",
+      "itemPressedOpacity": 0.7,
+      "slideOffset": 20,
+      "duration": 300,
+      "springDamping": 25,
+      "springStiffness": 100
+    },
+    "emptyState": {
+      "textColor": "#717182",
+      "fontSize": 14,
+      "paddingX": 24,
+      "paddingTop": 48,
+      "centered": {
+        "fontSize": 18,
+        "paddingX": 32,
+        "paddingY": 48
+      }
+    },
     "habitCard": {
       "bg": "#faf8f2",
       "wrapperBg": "#FFFFFF",
@@ -298,6 +330,21 @@
         "returnDuration": 200
       }
     },
+    "headerBar": {
+      "minHeight": 44,
+      "bg": "#FFFFFF",
+      "paddingX": 24,
+      "titleColor": "#030213",
+      "subtitleColor": "#030213"
+    },
+    "iconButton": {
+      "size": 40,
+      "iconSize": 24,
+      "hitSlop": 4,
+      "color": "#030213",
+      "pressedOpacity": 0.7,
+      "disabledOpacity": 0.5
+    },
     "metricCard": {
       "bg": "#faf8f2",
       "radius": 12,
@@ -319,6 +366,11 @@
       "subtitleSize": 12,
       "subtitleMarginTop": 4,
       "footerMarginTop": 8
+    },
+    "navHeader": {
+      "height": 44,
+      "bg": "#FFFFFF",
+      "paddingX": 16
     },
     "segmentedControl": {
       "height": 36,
@@ -594,6 +646,38 @@
       "checkSize": 24,
       "disabledOpacity": 0.5
     },
+    "drawerMenu": {
+      "bg": "#1e1c19",
+      "overlay": "rgba(3, 2, 19, 0.5)",
+      "width": 320,
+      "titleColor": "#f5f2ec",
+      "titleSize": 38,
+      "titlePaddingX": 16,
+      "titlePaddingBottom": 16,
+      "itemPaddingX": 16,
+      "itemPaddingY": 16,
+      "itemFontSize": 14,
+      "itemFontWeight": "500",
+      "itemColor": "#f5f2ec",
+      "itemActiveColor": "#eda96d",
+      "itemActiveBg": "#2a2722",
+      "itemPressedOpacity": 0.7,
+      "slideOffset": 20,
+      "duration": 300,
+      "springDamping": 25,
+      "springStiffness": 100
+    },
+    "emptyState": {
+      "textColor": "#9b9893",
+      "fontSize": 14,
+      "paddingX": 24,
+      "paddingTop": 48,
+      "centered": {
+        "fontSize": 18,
+        "paddingX": 32,
+        "paddingY": 48
+      }
+    },
     "habitCard": {
       "bg": "#1e1c19",
       "wrapperBg": "#131210",
@@ -628,6 +712,21 @@
         "returnDuration": 200
       }
     },
+    "headerBar": {
+      "minHeight": 44,
+      "bg": "#131210",
+      "paddingX": 24,
+      "titleColor": "#f5f2ec",
+      "subtitleColor": "#f5f2ec"
+    },
+    "iconButton": {
+      "size": 40,
+      "iconSize": 24,
+      "hitSlop": 4,
+      "color": "#f5f2ec",
+      "pressedOpacity": 0.7,
+      "disabledOpacity": 0.5
+    },
     "metricCard": {
       "bg": "#1e1c19",
       "radius": 12,
@@ -649,6 +748,11 @@
       "subtitleSize": 12,
       "subtitleMarginTop": 4,
       "footerMarginTop": 8
+    },
+    "navHeader": {
+      "height": 44,
+      "bg": "#131210",
+      "paddingX": 16
     },
     "segmentedControl": {
       "height": 36,

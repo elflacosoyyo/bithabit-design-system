@@ -260,6 +260,38 @@ export interface Theme {
     checkSize: number;
     disabledOpacity: number;
   };
+  drawerMenu: {
+    bg: string;
+    overlay: string;
+    width: number;
+    titleColor: string;
+    titleSize: number;
+    titlePaddingX: number;
+    titlePaddingBottom: number;
+    itemPaddingX: number;
+    itemPaddingY: number;
+    itemFontSize: number;
+    itemFontWeight: string;
+    itemColor: string;
+    itemActiveColor: string;
+    itemActiveBg: string;
+    itemPressedOpacity: number;
+    slideOffset: number;
+    duration: number;
+    springDamping: number;
+    springStiffness: number;
+  };
+  emptyState: {
+    textColor: string;
+    fontSize: number;
+    paddingX: number;
+    paddingTop: number;
+    centered: {
+      fontSize: number;
+      paddingX: number;
+      paddingY: number;
+    };
+  };
   habitCard: {
     bg: string;
     wrapperBg: string;
@@ -294,6 +326,21 @@ export interface Theme {
       returnDuration: number;
     };
   };
+  headerBar: {
+    minHeight: number;
+    bg: string;
+    paddingX: number;
+    titleColor: string;
+    subtitleColor: string;
+  };
+  iconButton: {
+    size: number;
+    iconSize: number;
+    hitSlop: number;
+    color: string;
+    pressedOpacity: number;
+    disabledOpacity: number;
+  };
   metricCard: {
     bg: string;
     radius: number;
@@ -315,6 +362,11 @@ export interface Theme {
     subtitleSize: number;
     subtitleMarginTop: number;
     footerMarginTop: number;
+  };
+  navHeader: {
+    height: number;
+    bg: string;
+    paddingX: number;
   };
   segmentedControl: {
     height: number;

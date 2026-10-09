@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ThemeProvider, useTheme } from '../src/theme/ThemeProvider';
 import { BRAND_IDS, brandName, type Mode } from '../src/theme/themes';
-import { NAV, ROUTES, TABS } from './registry';
+import { NAV, ROUTES } from './registry';
 import './styles.css';
 
 const store = {
@@ -42,11 +42,11 @@ const Shell = ({ hash, brand, mode, setParam }: { hash: Hash; brand: string; mod
         </div>
       </header>
       <nav className="side" aria-label="Catalog">
-        {(['Overview', 'Foundations', 'Components', 'Audit'] as const).map((group) => (
+        {(['Overview', 'Foundations', 'Components', 'Screens', 'Audit'] as const).map((group) => (
           <div key={group} style={{ display: 'contents' }}>
             <h2>{group}</h2>
             {NAV.filter((n) => n.group === group).map((n) => (
-              <a key={n.path} href={href(n.path)} aria-current={route.path === n.path || (route.component && n.path === `/components/${route.component}`) ? 'page' : undefined}>{n.title}</a>
+              <a key={n.path} href={href(n.path)} aria-current={route.path === n.path || (route.base && n.path === route.base) ? 'page' : undefined}>{n.title}</a>
             ))}
           </div>
         ))}
@@ -54,10 +54,10 @@ const Shell = ({ hash, brand, mode, setParam }: { hash: Hash; brand: string; mod
       <main className="stage" data-route={route.path}>
         {/* The brand's canvas is the stage the content sits on */}
         <div className="content" style={{ background: theme.color.bg.canvas, color: theme.color.text.primary, fontFamily: theme.font.family.sans }}>
-          {route.component ? (
-            <nav className="tabs" aria-label="Component views" style={{ ['--line' as string]: theme.color.border.default, ['--shell-muted' as string]: theme.color.text.secondary, ['--shell-fg' as string]: theme.color.text.primary }}>
-              {TABS.map((t) => {
-                const p = `/components/${route.component}${t.suffix}`;
+          {route.base && route.tabs ? (
+            <nav className="tabs" aria-label="Page views" style={{ ['--line' as string]: theme.color.border.default, ['--shell-muted' as string]: theme.color.text.secondary, ['--shell-fg' as string]: theme.color.text.primary }}>
+              {route.tabs.map((t) => {
+                const p = `${route.base}${t.suffix}`;
                 return <a key={t.label} href={href(p)} aria-current={route.path === p ? 'page' : undefined}>{t.label}</a>;
               })}
             </nav>

@@ -1,0 +1,80 @@
+{
+  "drawer-menu": {
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "overlay": {
+      "$value": "{color.bg.overlay}",
+      "$type": "color"
+    },
+    "width": {
+      "$value": "320px",
+      "$type": "dimension"
+    },
+    "title-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "title-size": {
+      "$value": "{font.size.4xl}",
+      "$type": "dimension"
+    },
+    "title-padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "title-padding-bottom": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "item-padding-x": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "item-padding-y": {
+      "$value": "{spacing.md}",
+      "$type": "dimension"
+    },
+    "item-font-size": {
+      "$value": "{font.size.sm}",
+      "$type": "dimension"
+    },
+    "item-font-weight": {
+      "$value": "{font.weight.medium}",
+      "$type": "fontWeight"
+    },
+    "item-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "item-active-color": {
+      "$value": "{color.text.accent}",
+      "$type": "color"
+    },
+    "item-active-bg": {
+      "$value": "{color.accent.subtle}",
+      "$type": "color"
+    },
+    "item-pressed-opacity": {
+      "$value": "{opacity.pressed}",
+      "$type": "number"
+    },
+    "slide-offset": {
+      "$value": "20px",
+      "$type": "dimension"
+    },
+    "duration": {
+      "$value": "{motion.duration.base}",
+      "$type": "duration"
+    },
+    "spring-damping": {
+      "$value": 25,
+      "$type": "number"
+    },
+    "spring-stiffness": {
+      "$value": 100,
+      "$type": "number"
+    }
+  }
+}

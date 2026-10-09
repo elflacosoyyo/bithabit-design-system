@@ -264,6 +264,38 @@ export const light = {
     checkSize: 24,
     disabledOpacity: 0.5
   },
+  drawerMenu: {
+    bg: "#F9FAFB",
+    overlay: "rgba(17, 24, 39, 0.5)",
+    width: 320,
+    titleColor: "#111827",
+    titleSize: 38,
+    titlePaddingX: 16,
+    titlePaddingBottom: 16,
+    itemPaddingX: 16,
+    itemPaddingY: 16,
+    itemFontSize: 14,
+    itemFontWeight: "500",
+    itemColor: "#111827",
+    itemActiveColor: "#1D4ED8",
+    itemActiveBg: "#EFF6FF",
+    itemPressedOpacity: 0.7,
+    slideOffset: 20,
+    duration: 300,
+    springDamping: 25,
+    springStiffness: 100
+  },
+  emptyState: {
+    textColor: "#4B5563",
+    fontSize: 14,
+    paddingX: 24,
+    paddingTop: 48,
+    centered: {
+      fontSize: 18,
+      paddingX: 32,
+      paddingY: 48
+    }
+  },
   habitCard: {
     bg: "#F9FAFB",
     wrapperBg: "#FFFFFF",
@@ -298,6 +330,21 @@ export const light = {
       returnDuration: 200
     }
   },
+  headerBar: {
+    minHeight: 44,
+    bg: "#FFFFFF",
+    paddingX: 24,
+    titleColor: "#111827",
+    subtitleColor: "#111827"
+  },
+  iconButton: {
+    size: 40,
+    iconSize: 24,
+    hitSlop: 4,
+    color: "#111827",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5
+  },
   metricCard: {
     bg: "#F9FAFB",
     radius: 12,
@@ -319,6 +366,11 @@ export const light = {
     subtitleSize: 12,
     subtitleMarginTop: 4,
     footerMarginTop: 8
+  },
+  navHeader: {
+    height: 44,
+    bg: "#FFFFFF",
+    paddingX: 16
   },
   segmentedControl: {
     height: 36,
@@ -594,6 +646,38 @@ export const dark = {
     checkSize: 24,
     disabledOpacity: 0.5
   },
+  drawerMenu: {
+    bg: "#111827",
+    overlay: "rgba(17, 24, 39, 0.5)",
+    width: 320,
+    titleColor: "#F9FAFB",
+    titleSize: 38,
+    titlePaddingX: 16,
+    titlePaddingBottom: 16,
+    itemPaddingX: 16,
+    itemPaddingY: 16,
+    itemFontSize: 14,
+    itemFontWeight: "500",
+    itemColor: "#F9FAFB",
+    itemActiveColor: "#60A5FA",
+    itemActiveBg: "#1E3A8A",
+    itemPressedOpacity: 0.7,
+    slideOffset: 20,
+    duration: 300,
+    springDamping: 25,
+    springStiffness: 100
+  },
+  emptyState: {
+    textColor: "#9CA3AF",
+    fontSize: 14,
+    paddingX: 24,
+    paddingTop: 48,
+    centered: {
+      fontSize: 18,
+      paddingX: 32,
+      paddingY: 48
+    }
+  },
   habitCard: {
     bg: "#111827",
     wrapperBg: "#030712",
@@ -628,6 +712,21 @@ export const dark = {
       returnDuration: 200
     }
   },
+  headerBar: {
+    minHeight: 44,
+    bg: "#030712",
+    paddingX: 24,
+    titleColor: "#F9FAFB",
+    subtitleColor: "#F9FAFB"
+  },
+  iconButton: {
+    size: 40,
+    iconSize: 24,
+    hitSlop: 4,
+    color: "#F9FAFB",
+    pressedOpacity: 0.7,
+    disabledOpacity: 0.5
+  },
   metricCard: {
     bg: "#111827",
     radius: 12,
@@ -649,6 +748,11 @@ export const dark = {
     subtitleSize: 12,
     subtitleMarginTop: 4,
     footerMarginTop: 8
+  },
+  navHeader: {
+    height: 44,
+    bg: "#030712",
+    paddingX: 16
   },
   segmentedControl: {
     height: 36,

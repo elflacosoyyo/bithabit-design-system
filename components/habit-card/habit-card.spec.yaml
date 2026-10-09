@@ -1,6 +1,6 @@
 id: habit-card
 name: HabitCard
-version: 0.2.0
+version: 0.3.0
 status: draft
 category: list
 summary: Tappable row for one habit with a done-today checkbox and a seven-day history strip underneath.
@@ -50,6 +50,14 @@ props:
     type: () => void
     required: false
     description: Optional. The list uses it to start drag-to-reorder.
+  - name: onDeleteRequest
+    type: "() => void"
+    required: false
+    description: Swipeable variant only. Called when the card is swiped left past the threshold. The caller asks for confirmation and deletes (production calls onDelete after a native alert).
+  - name: labels
+    type: "{ done: string; undo: string; delete: string }"
+    required: false
+    description: Swipeable variant only. Texts of the swipe backgrounds, translated by the caller.
   - name: disabled
     type: boolean
     required: false
@@ -149,6 +157,11 @@ open_questions:
   - Should long titles truncate to one line? Today the title has no numberOfLines and wraps, growing the row.
   - Should the disabled state (set during a drag) have a visual treatment?
 changelog:
+  - version: 0.3.0
+    date: "2026-10-09"
+    changes:
+      - Documented the swipeable variant's props (onDeleteRequest, labels) and added its reference implementation (SwipeableHabitCard) to the catalog.
+      - The reference exposes the swipe actions to assistive technology as custom accessibility actions, which production does not.
   - version: 0.2.0
     date: "2026-10-09"
     changes:

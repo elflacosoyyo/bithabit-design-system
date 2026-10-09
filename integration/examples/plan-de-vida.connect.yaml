@@ -3,7 +3,7 @@
 # syncedVersion/syncedHash record the contract version this app was aligned with at generation time:
 # run `ds-sync check` to see what has moved since, and `ds-sync bump <id>` after you align a component.
 # Props: design-system prop -> app prop, or null when the app has no equivalent.
-# Design-system components with no matching file found: checkbox (looks inline in src/components/habit-card.tsx; a standalone component is suggested).
+# Design-system components with no matching file found: checkbox (looks inline in src/components/habit-card.tsx; a standalone component is suggested), drawer-menu (looks inline in src/components/drawer-content.tsx; a standalone component is suggested), empty-state (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), icon-button (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), nav-header (looks inline in src/navigation/(drawer)/_layout.tsx; a standalone component is suggested).
 
 designSystem: "@bakia/bithabit-design-system"
 brand: plandevida
@@ -51,8 +51,8 @@ mappings:
   habit-card:
     component: src/components/habit-card.tsx
     export: HabitCard
-    syncedVersion: 0.2.0
-    syncedHash: "4e8144b5b61fdcbd"
+    syncedVersion: 0.3.0
+    syncedHash: "3af439b7407b9a8e"
     props:
       title: title
       completed: completed
@@ -60,7 +60,18 @@ mappings:
       onToggle: onToggle
       onPress: onPress
       onLongPress: onLongPress
+      onDeleteRequest: null
+      labels: null
       disabled: disabled
+    acceptedGaps: []
+  header-bar:
+    component: src/components/header-bar.tsx
+    export: HeaderBar
+    syncedVersion: 0.1.0
+    syncedHash: "59e0f0c9da585117"
+    props:
+      title: title
+      subtitle: subtitle
     acceptedGaps: []
   metric-card:
     component: src/components/metric-card.tsx

@@ -1,0 +1,97 @@
+id: icon-button
+name: IconButton
+version: 0.1.0
+status: draft
+category: action
+summary: Icon-only action with a 48pt touch target, used in navigation bars (open menu, add, edit).
+purpose: >
+  Screens put one or two icon-only actions in the navigation header (the menu on the left, "add" or "edit" on the right).
+  Today each one is hand-built; the contract makes them one component with a required accessible label.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: touch-area
+    description: Visual box plus a hit slop on every side. 40pt box + 4pt slop = 48pt.
+    required: true
+  - part: icon
+    description: Stroke glyph at 24pt in icon-button.color. Never filled, never tinted with the accent.
+    required: true
+  - part: spinner
+    description: Replaces the icon while loading.
+    required: false
+props:
+  - name: icon
+    type: ReactNode
+    required: true
+    description: The glyph (Feather in production), sized by the component.
+  - name: accessibilityLabel
+    type: string
+    required: true
+    description: What the action does ("Open menu", "New norm"). An icon alone says nothing to a screen reader.
+  - name: onPress
+    type: "() => void"
+    required: true
+    description: Called on press.
+  - name: disabled
+    type: boolean
+    required: false
+    default: false
+    description: Dims the control and blocks presses.
+  - name: loading
+    type: boolean
+    required: false
+    default: false
+    description: Swaps the icon for a spinner and blocks presses.
+  - name: testID
+    type: string
+    required: false
+    description: Test hook.
+states:
+  - name: default
+    description: Icon at full opacity.
+  - name: pressed
+    description: Opacity drops to opacity.pressed.
+  - name: disabled
+    description: opacity.disabled and not pressable.
+  - name: loading
+    description: Spinner in place of the icon, not pressable.
+tokens:
+  - icon-button.size
+  - icon-button.icon-size
+  - icon-button.hit-slop
+  - icon-button.color
+  - icon-button.pressed-opacity
+  - icon-button.disabled-opacity
+accessibility:
+  role: button
+  label: Required. Describes the action, never the picture ("New norm", not "plus").
+  touch_target: "40pt box + 4pt hit slop on every side = 48pt."
+  notes:
+    - Expose accessibilityState busy while loading.
+    - The glyph is decorative; hide it from assistive tech and let the label speak.
+behavior:
+  - Press calls onPress. While loading or disabled nothing happens.
+  - No background, border or shadow at rest; the only feedback is the opacity drop.
+related: [nav-header, button]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/screens/home-screen.tsx (headerRight "plus" action)
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/habits-screen/habits-screen.tsx (headerRight "edit" action)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The Home "plus" is a TouchableOpacity with mr-4 and p-2 around a 24pt icon (40pt box) and hitSlop 8 (56pt), where the contract is 40 + 4 (48pt). The Norms "edit" action repeats the same markup.
+  - Neither action has an accessibilityRole or an accessibilityLabel.
+  - While loading the Home action swaps in an ActivityIndicator with no color token and is only blocked through disabled, with no dimming.
+  - The menu button on the left is the one drawn by the drawer navigator, not a component of the app.
+open_questions:
+  - Which icons does the drawer navigator's own menu button use for its hit area and label? Not verified (library code).
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft, extracted from the header actions of Home and Norms, found while recreating the Home screen in the catalog.

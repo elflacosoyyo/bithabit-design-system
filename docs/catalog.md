@@ -20,6 +20,7 @@ Use the **Brand** selector and the **Light/Dark** toggle in the top bar; every p
 | **Overview** | How to read the catalog and the brands in this build |
 | **Foundations** | Colors (with the Tailwind/CSS name the app already uses), typography, shape and spacing, and **brands side by side** (the full visual difference between clients) |
 | **Components** | One page per component with three tabs: **Examples** (states and interactive versions), **All brands** (every brand × light and dark at once) and **Spec** (the contract generated from `spec.yaml` + `usage.md`, with the real value of each token for the selected brand and mode) |
+| **Screens** | A **Prototype** (the app as one navigable phone) and one page per recreated screen with tabs **Screen** (state selector, annotation pins and list), **All brands** and **Notes** (the screen's contract). See `docs/screens.md` |
 | **Audit** | WCAG 2.2 AA contrast for every brand and mode with the documented waivers (same math as `npm run validate`), and the status of the whole component inventory |
 
 ## Reference components are not production code
@@ -29,7 +30,8 @@ Use the **Brand** selector and the **Light/Dark** toggle in the top bar; every p
 `npm run build-catalog && npm run test:catalog` opens the built file **as a file** (`file://`) in headless Chromium with the network blocked and:
 - loads every page cold in two brand/mode combinations and fails on any console error, page error, network request or empty page;
 - checks the canvas takes the brand's color, so a broken theme is caught;
-- runs the interactions: complete a habit, toggle a checkbox, switch tabs, open and close the bottom sheet, switch brand and mode from the toolbar, and check that Yrsa is embedded and applied.
+- runs the interactions: complete a habit, toggle a checkbox, switch tabs, open and close the bottom sheet and the drawer menu, swipe cards with the mouse, delete with confirmation, move through the prototype, switch brand and mode from the toolbar, and check that Yrsa is embedded and applied;
+- checks that every annotation of every screen is attached to an element that exists in at least one state.
 
 Set `SNAPSHOTS=1` to also write PNGs to `catalog-snapshots/` (ignored by git) to look at the pages. In CI the browser is `CHROMIUM_PATH=/usr/bin/google-chrome`.
 
@@ -39,6 +41,9 @@ Set `SNAPSHOTS=1` to also write PNGs to `catalog-snapshots/` (ignored by git) to
 3. A page `catalog-src/pages/components/<Name>.tsx` exporting `Examples` (use `<Example title="...">` blocks; give interactive ones a clear title) and `AllBrands` (use `BrandMatrix` and `useSample()` so each brand shows its own voice). Register it in `catalog-src/registry.tsx`; the Spec tab is automatic.
 4. If the component is interactive, add a step for it in `scripts/test-catalog.mjs`.
 5. `npm run check && npm run test:catalog`.
+
+## Adding a screen
+See `docs/screens.md`. In short: a `screens/<id>/<id>.screen.yaml`, a page in `catalog-src/pages/screens/`, a route in `catalog-src/registry.tsx`, and every component it needs added to the system first.
 
 ## Why there is no Storybook or Chromatic (decision D-23)
 Both were tried first. They were replaced because the design system should not depend on a framework's release cycle or on an external service and account. What was given up, and what to do if it is missed later:
