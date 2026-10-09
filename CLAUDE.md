@@ -12,6 +12,7 @@ Keep a single, validated source of truth for tokens, brands and component contra
 npm run check      # ALWAYS before committing: test + validate + build + dist up-to-date check
 npm run validate   # schema, token resolution, mode parity, WCAG contrast, spec/inventory consistency
 npm run build      # regenerates dist/ (committed on purpose, so apps can install from GitHub)
+npm run storybook  # visual catalog; also `build-storybook` and `test:stories` (see docs/storybook.md)
 ```
 Never edit `dist/` by hand. If `dist/` changes, commit it together with the source change that caused it.
 
@@ -45,7 +46,8 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 3. Add component tokens in `tokens/component/<id>.json`, referencing semantic tokens only. List **every** token the component reads under `tokens:` in the spec.
 4. Read the real component in `Bakia/plan-de-vida` and copy facts (props, sizes, behavior) into the spec. Everything still unknown goes in `open_questions`; every difference between the code and what the contract prescribes goes in `code_gaps` (this is what the ds-sync skill will report to developers).
 5. Set the inventory status to `spec-draft`. Bump `version` (semver) and add a `changelog` entry whose top version equals `version`.
-6. `npm run check`.
+6. Add the reference component in `src/components/` and its stories in `stories/components/` (states, `Interactive` with a `play` function, `AllBrands`, `Spec`). Checklist in `docs/storybook.md`.
+7. `npm run check && npm run build-storybook && npm run test:stories`.
 
 ### Update a token
 - Change the lowest layer that is correct (a brand override before a base token, a semantic token before a primitive).
@@ -59,6 +61,11 @@ Record every conflict you resolve in `audit/decisions.md`. Never silently pick a
 
 ## Component spec status
 `draft` (has open questions) → `stable` (no open questions, verified against code) → `deprecated`. `validate` rejects `stable` with open questions.
+
+## Storybook rules
+- Reference components read tokens through `useTheme()`; never literals. They implement the **contract** (including accessibility roles and hit areas), not the production quirks; differences go in the spec's `code_gaps`.
+- Stories must work in every brand: use `useSample()` for content so each brand shows its own voice, and add the story to `BrandMatrix`.
+- A story that animates needs `parameters.chromatic.delay` so visual snapshots are stable.
 
 ## Do not
 - Do not add emojis, shadows, gradients or photography to specs unless the brand's voice/visual rules allow it (see `brands/*/brand.yaml`).

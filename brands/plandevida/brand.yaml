@@ -21,9 +21,8 @@ fonts:
     android: Yrsa
     web: Yrsa
     notes: >
-      Production bundles Yrsa (OFL, weights 300-700) on iOS and Android and loads it via expo-font in app.config.ts.
-      The designer chose Kefa III before seeing this; Kefa III is an Apple system font and cannot be bundled for Android.
-      OPEN decision D-05: keep Yrsa or migrate. Tokens mirror production until decided.
+      Yrsa (OFL, weights 300-700) is bundled by the app and loaded with expo-font. Decision D-05 (closed 2026-10-09):
+      Yrsa stays; Kefa III was rejected because it is an Apple system font that cannot be bundled.
 logo:
   mark_cream: brands/plandevida/assets/logo-cream.svg
   mark_accent: brands/plandevida/assets/logo-accent.svg

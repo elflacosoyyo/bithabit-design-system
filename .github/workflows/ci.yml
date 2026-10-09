@@ -12,4 +12,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # tests, typecheck, token/spec validation, build, and "dist/ is up to date"
       - run: npm run check
+      # every story must render (and every play function must pass) in both a light and a dark brand
+      - run: npm run build-storybook
+      - run: npm run test:stories
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome

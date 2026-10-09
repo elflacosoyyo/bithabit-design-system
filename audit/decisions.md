@@ -13,6 +13,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | D-02 | Ink / text | **`#030213`** (app). Confirmed by `global.css` | `#1A1A1A` (landing) |
 | D-03 | Surface | **`#FAF8F2`** (app). Confirmed by `global.css` | `#FDF5EB` (landing) |
 | D-04 | Splash color | **`#D77D2D`**. Confirmed by `global.css` | `#D4893A` (landing stylesheet) |
+| D-05 | Display serif | **Yrsa** (decided 2026-10-09). Production bundles it (OFL, weights 300–700, iOS and Android) | Kefa III: an Apple system font that cannot be bundled and does not exist on Android |
 | D-06 | Navigation | **Left drawer** (`expo-router/drawer`, confirmed in code) | Bottom tab bar appears only in the Stats exploration |
 | D-12 | Styling stack | **NativeWind 4.2 + Tailwind 3.4, `darkMode: 'class'`, CSS variables in `global.css`.** The build emits a preset and a CSS file that use the app's existing names (`tokens/compat.yaml`) | n/a |
 | D-16 | Code access | **Granted.** Specs verified against the code | n/a |
@@ -22,7 +23,6 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 
 | ID | Topic | What the code says | Recommendation |
 |---|---|---|---|
-| **D-05** | **Display serif** | **Production bundles Yrsa** (OFL, weights 300–700, iOS and Android, `app.config.ts` + `tailwind.config.js`). You chose Kefa III earlier, before this was known. Kefa III is an Apple system font: it cannot be bundled and does not exist on Android | **Keep Yrsa** (already shipped, free, same look on both platforms). The tokens mirror production until you decide; switching is a 3-line change in `brands/plandevida/typography.json` |
 | D-08 | Selector duplication | Settings uses chips (Light/Dark/System, EN/ES/PT); habit detail uses the pill SegmentedControl | Standardize on SegmentedControl; keep chips only if there is a design reason |
 | D-10 | Accessibility debt in light mode | See the contrast table below (W1, W4, W5, W6, W7) | Add text-only variants (darker tan, darker red, ink on tan fills) through `color.text.*` without touching fills |
 | D-17 | Checkbox size | `HabitCard` uses a 24pt box, `FooterAction` a 32pt box (same 24pt glyph) | One size. Proposal: 24pt with a bigger hit area |

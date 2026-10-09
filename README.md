@@ -24,6 +24,7 @@ Code Connect: a thin mapping layer that lets developers (and their Claude) keep 
 |---|---|---|
 | `tokens/` | Design tokens in the W3C DTCG format, in three layers: **primitive → semantic → component** | design, dev |
 | `brands/<id>/` | `brand.yaml` (identity, voice, a11y waivers) + token overrides + assets. A brand only overrides the **semantic** layer | design |
+| `src/`, `stories/`, `.storybook/` | Reference React Native components and the **Storybook** catalog (brand and mode switcher, all-brands matrices, spec pages, contrast audit) | design |
 | `components/<id>/` | `<id>.spec.yaml` (machine contract) + `<id>.usage.md` (when and why) | dev, dev's Claude |
 | `components/inventory.yaml` | Backlog of every component the system will cover | design |
 | `schemas/` | JSON Schemas that validate brands and specs | tooling |
@@ -40,6 +41,7 @@ npm install
 npm run check      # tests + validate + build + "dist is up to date"
 npm run validate   # linter and WCAG contrast for every brand and mode
 npm run build      # regenerate dist/
+npm run storybook  # visual catalog on http://localhost:6006
 ```
 
 ## Brands and modes
@@ -58,7 +60,7 @@ Every brand ships **light** and **dark**. Today:
 | 0 | Repo base, conventions, CI, `CLAUDE.md` | done |
 | 1 | Three-layer tokens, two brands, build, WCAG validation | done |
 | 2 | Component specs and usage docs | **5 of 49** components, verified against the production code (vertical slice) |
-| 3 | Reference components in React Native + Storybook (RN-web) with brand/mode switcher, Chromatic | planned |
+| 3 | Reference components in React Native + Storybook (RN-web) with brand/mode switcher, all-brands matrices, generated spec pages, contrast audit, smoke + interaction tests | **done** (Chromatic is wired but needs your account, see `docs/storybook.md`) |
 | 4 | Code Connect layer: `connect.yaml` template, `ds-sync` Claude skill, onboarding for dev teams | planned |
 | 5 | Per-brand audit report, versioned releases | planned |
 

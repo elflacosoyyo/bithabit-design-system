@@ -12,7 +12,7 @@ oldest first, today last. The strip is the product's signature visual: it replac
 - Any place where "see status + complete in one tap + open detail" is the job.
 
 ## When not to use
-- Read-only history or statistics: use [StatCard](../stat-card/stat-card.usage.md) or a calendar.
+- Read-only history or statistics: use [MetricCard](../metric-card/metric-card.usage.md) or a calendar.
 - Settings rows or navigation rows: those are list items with a chevron, not cards.
 - Anywhere a habit can't be completed from the list (no checkbox means it is not a HabitCard).
 
@@ -31,7 +31,7 @@ oldest first, today last. The strip is the product's signature visual: it replac
 
 ## Content
 - Titles are written by the user or taken from the seed list; sentence case (in Spanish: "Minuto heroico", "Evangelio del día").
-- Never truncate by rewriting the title; the component handles the ellipsis.
+- Never shorten a title in the data. How a long title is displayed (wrap vs. one line with an ellipsis) is an open question: today it wraps.
 
 ## Implementation notes (React Native)
 - Production uses `TouchableOpacity` for the row and for the checkbox (nested, so the checkbox press does not reach the row) and a light haptic on toggle.
