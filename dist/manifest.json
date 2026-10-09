@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "fef9235d1d1ae75f",
+      "tokensHash": "1b524ddefde3d1cf",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "360d268e528fbacb",
+      "tokensHash": "065f48e6a705cab5",
       "modes": [
         "light",
         "dark"
@@ -276,6 +276,115 @@
           "date": "2026-10-09",
           "changes": [
             "Initial spec, verified against Bakia/plan-de-vida at cdfea70. One Button contract with six variants covering the four production components."
+          ]
+        }
+      ]
+    },
+    "calendar-day": {
+      "name": "CalendarDay",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "data-display",
+      "spec": "components/calendar-day/calendar-day.spec.yaml",
+      "usage": "components/calendar-day/calendar-day.usage.md",
+      "tokens": [
+        "calendar-day.bg",
+        "calendar-day.radius-top",
+        "calendar-day.padding-x",
+        "calendar-day.padding-y",
+        "calendar-day.circle-size",
+        "calendar-day.circle-border-width",
+        "calendar-day.ring-done",
+        "calendar-day.today-bg",
+        "calendar-day.label-color",
+        "calendar-day.today-label-color",
+        "calendar-day.label-size",
+        "calendar-day.label-weight",
+        "calendar-day.strip-height",
+        "calendar-day.strip-done",
+        "calendar-day.strip-empty",
+        "calendar-day.pressed-opacity"
+      ],
+      "contentHash": "e945ad51378fbe76",
+      "props": [
+        {
+          "name": "label",
+          "required": true
+        },
+        {
+          "name": "accessibilityLabel",
+          "required": true
+        },
+        {
+          "name": "isToday",
+          "required": false
+        },
+        {
+          "name": "isDone",
+          "required": false
+        },
+        {
+          "name": "onPress",
+          "required": false
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "button",
+      "codeGaps": [
+        "The today label is hard-coded as text-white. The on-today token exists (--color-on-today) and the contract reads it.",
+        "No accessibilityRole, label or state. The day number alone is announced, with no month, weekday or done state.",
+        "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).",
+        "Future days pass no onPress but are still a TouchableOpacity, so they dim when pressed as if they did something.",
+        "In dark mode the today circle is nearly invisible against the cell (about 1.7:1). Plan de Vida carries waiver PDV-W8; BITHABIT lightens the dark today tone."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/components/calendar-day.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/habit-detail-screen/components/history-tab.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/demo/calendar-gallery-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/components/calendar-day.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/habit-detail-screen/components/history-tab.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/demo/calendar-gallery-screen.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft from the production component, found while recreating the habit history."
           ]
         }
       ]
@@ -1084,6 +1193,108 @@
           "date": "2026-10-08",
           "changes": [
             "Initial draft as stat-card from reference videos and the Claude Design Stats exploration."
+          ]
+        }
+      ]
+    },
+    "month-calendar": {
+      "name": "MonthCalendar",
+      "version": "0.1.0",
+      "status": "draft",
+      "category": "data-display",
+      "spec": "components/month-calendar/month-calendar.spec.yaml",
+      "usage": "components/month-calendar/month-calendar.usage.md",
+      "tokens": [
+        "month-calendar.title-color",
+        "month-calendar.title-size",
+        "month-calendar.title-weight",
+        "month-calendar.letter-color",
+        "month-calendar.letter-size",
+        "month-calendar.letter-weight",
+        "month-calendar.column-gap",
+        "month-calendar.row-gap",
+        "month-calendar.months-gap"
+      ],
+      "contentHash": "b11960eac9de9dc9",
+      "props": [
+        {
+          "name": "year",
+          "required": true
+        },
+        {
+          "name": "month",
+          "required": true
+        },
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "dayLetters",
+          "required": true
+        },
+        {
+          "name": "completedDates",
+          "required": true
+        },
+        {
+          "name": "today",
+          "required": true
+        },
+        {
+          "name": "onToggleDate",
+          "required": true
+        },
+        {
+          "name": "dayAccessibilityLabel",
+          "required": true
+        }
+      ],
+      "variants": [],
+      "accessibilityRole": "group",
+      "codeGaps": [
+        "There is no month component. The grid is built inline in HistoryTab, together with the list of six months, the date math and the toggling.",
+        "The weekday letters are not hidden from assistive technology and repeat; the days have no spoken date.",
+        "Weeks start on Sunday for every language, including Spanish, where Monday is usual (decision D-27).",
+        "The number of months is a constant (6) with no way to see older ones.",
+        "Dates are computed with local time (Date), so the grid depends on the device's time zone."
+      ],
+      "codeSources": [
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/habit-detail-screen/components/history-tab.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        },
+        {
+          "repo": "Bakia/plan-de-vida",
+          "path": "src/screens/habit-detail-screen/habit-detail-screen.tsx",
+          "verified": true,
+          "commit": "cdfea70"
+        }
+      ],
+      "sources": {
+        "code": [
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/habit-detail-screen/components/history-tab.tsx",
+            "commit": "cdfea70",
+            "verified": true
+          },
+          {
+            "repo": "Bakia/plan-de-vida",
+            "path": "src/screens/habit-detail-screen/habit-detail-screen.tsx (History tab)",
+            "commit": "cdfea70",
+            "verified": true
+          }
+        ]
+      },
+      "changelog": [
+        {
+          "version": "0.1.0",
+          "date": "2026-10-09",
+          "changes": [
+            "Initial draft. New component extracted from the History tab of the habit detail."
           ]
         }
       ]

@@ -21,3 +21,5 @@ pairs:
   - { id: border.strong-on-canvas,      fg: color.border.strong,   bg: color.bg.canvas,       min: 3.0, kind: ui }
   - { id: border.focus-on-canvas,       fg: color.border.focus,    bg: color.bg.canvas,       min: 3.0, kind: ui }
   - { id: brand.splash-fg-on-splash-bg, fg: color.brand.splash-fg, bg: color.brand.splash-bg, min: 3.0, kind: ui }
+  - { id: calendar.on-today-on-today,   fg: color.calendar.on-today, bg: color.calendar.today,    min: 4.5, kind: text }
+  - { id: calendar.today-on-surface,    fg: color.calendar.today,    bg: color.bg.surface,        min: 3.0, kind: ui }

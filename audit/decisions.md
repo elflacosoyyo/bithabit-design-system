@@ -32,6 +32,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | D-24 | **Button variant names and structure** | Code names the variants primary / outline / destructive / text (four components, `ButtonText` has the tones default, destructive and link). Figma names the components primary / secondary / tertiary / text, and has a compact "tertiary" (105 by 44) that the code does not have | Keep the code names (the contract in `components/button/` uses them) and confirm what Figma's "tertiary" is. Move the app to one `Button` with a `variant` prop |
 | D-25 | **Current section in the menu** | The drawer shows the current section only by an accent colored label (Plan de Vida: tan on cream, 1.88:1, waived as PDV-W1) | Add a marker that does not depend on color (a bar or a weight change) |
 | D-26 | **Empty state on Home and Norms** | Home shows a small sans sentence at the top; Norms shows a larger serif sentence centered in the screen | Pick one placement for both; `empty-state` keeps both as variants until then |
+| D-27 | **First day of the week** | The History calendar starts on Sunday in every language (`D L M M J V S` in Spanish) | Start on Monday in Spanish and any locale that does; make it a prop of `month-calendar` |
 | D-21 | Pressed feedback | `TouchableOpacity` default (0.2) in HabitCard and SegmentedControl; 0.7 in FooterAction | One value: `opacity.pressed` = 0.7 |
 | D-22 | Accessibility props | HabitCard, Checkbox, BottomSheet, SegmentedControl and all four button components have no role/label/busy state; MetricCard has an optional label; ButtonDestructive sets `disabled` state | Add the roles and labels listed in each spec's `code_gaps` |
 | D-07 | Photography | The Figma paywall uses a photo; the Claude Design README says "no photography in the brand" | Allow it only on marketing/conversion surfaces (paywall, onboarding) |
@@ -50,6 +51,7 @@ Computed by `npm run validate` from each brand's own values. BITHABIT passes eve
 | PDV-W4 | Muted text on input fill | 4.32 | 4.5 | needs decision |
 | PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | needs decision |
 | PDV-W6 | **White label on tan fill and on destructive fill** (ButtonPrimary, ButtonDestructive, swipe actions; production uses `text-background`) | 2.00 / about 3.8 | 4.5 | needs decision. Ink `#030213` on tan is about 9:1 |
+| PDV-W8 | Today circle on the card surface, dark mode (calendar) | 1.68 | 3.0 | needs decision: lighten the dark today tone |
 | PDV-W7 | Brand-orange positive change on cream | about 3 | 4.5 | needs decision |
 
 ## Findings from reading the production code

@@ -1,0 +1,40 @@
+{
+  "month-calendar": {
+    "title-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "title-size": {
+      "$value": "{font.size.lg}",
+      "$type": "dimension"
+    },
+    "title-weight": {
+      "$value": "{font.weight.medium}",
+      "$type": "fontWeight"
+    },
+    "letter-color": {
+      "$value": "{color.text.secondary}",
+      "$type": "color"
+    },
+    "letter-size": {
+      "$value": "{font.size.xs}",
+      "$type": "dimension"
+    },
+    "letter-weight": {
+      "$value": "{font.weight.medium}",
+      "$type": "fontWeight"
+    },
+    "column-gap": {
+      "$value": "{spacing.xs}",
+      "$type": "dimension"
+    },
+    "row-gap": {
+      "$value": "{spacing.sm}",
+      "$type": "dimension"
+    },
+    "months-gap": {
+      "$value": "{spacing.lg}",
+      "$type": "dimension"
+    }
+  }
+}

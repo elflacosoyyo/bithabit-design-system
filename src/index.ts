@@ -13,3 +13,5 @@ export { NavHeader, type NavHeaderProps } from './components/NavHeader';
 export { HeaderBar, type HeaderBarProps } from './components/HeaderBar';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { DrawerMenu, type DrawerMenuProps, type DrawerMenuItem } from './components/DrawerMenu';
+export { CalendarDay, type CalendarDayProps } from './components/CalendarDay';
+export { MonthCalendar, weeksOf, type MonthCalendarProps } from './components/MonthCalendar';

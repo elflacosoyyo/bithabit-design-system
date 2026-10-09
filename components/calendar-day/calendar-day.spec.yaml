@@ -1,0 +1,118 @@
+id: calendar-day
+name: CalendarDay
+version: 0.1.0
+status: draft
+category: data-display
+summary: One day of a month calendar. A number in a circle on a surface cell, with a thin strip underneath that fills with the accent when the habit was done.
+purpose: >
+  The History tab of a habit shows each month as a grid of days. Each cell says what day it is, whether it is today, and whether the habit
+  was done, and lets the user mark or unmark that day. It is the same vocabulary as the HabitCard history strip, at the scale of one day.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: cell
+    description: Surface-colored cell, top corners rounded (radius md), padding xs by sm. It flexes to fill its column and is the touch target.
+    required: true
+  - part: circle
+    description: 24pt circle with a 2pt border that holds the day number. The border is the accent when the day is done, otherwise transparent. Today fills it with calendar.today.
+    required: true
+  - part: label
+    description: Day number, sans, 12pt, light. text.primary, or calendar.on-today on the today circle.
+    required: true
+  - part: strip
+    description: 4pt strip under the cell. Accent when the day is done, surface-alt otherwise.
+    required: true
+props:
+  - name: label
+    type: number
+    required: true
+    description: Day of the month.
+  - name: accessibilityLabel
+    type: string
+    required: true
+    description: The spoken date and state, for example "Friday, October 9, completed". Production has none.
+  - name: isToday
+    type: boolean
+    required: false
+    default: false
+    description: Fills the circle with calendar.today and uses the on-today label color.
+  - name: isDone
+    type: boolean
+    required: false
+    default: false
+    description: Accent ring and accent strip.
+  - name: onPress
+    type: "() => void"
+    required: false
+    description: Toggles the day. Omit it for days that cannot be changed (future days); the cell is then inert.
+states:
+  - name: default
+    description: Not done, not today. Plain number, empty strip.
+  - name: done
+    description: Accent ring around the number and an accent strip.
+  - name: today
+    description: Filled circle with a light number.
+  - name: today-done
+    description: Filled circle with the accent ring around it.
+  - name: pressed
+    description: The cell drops to opacity.pressed.
+  - name: inert
+    description: No onPress. Not pressable and exposed as disabled; it looks like the default cell.
+tokens:
+  - calendar-day.bg
+  - calendar-day.radius-top
+  - calendar-day.padding-x
+  - calendar-day.padding-y
+  - calendar-day.circle-size
+  - calendar-day.circle-border-width
+  - calendar-day.ring-done
+  - calendar-day.today-bg
+  - calendar-day.label-color
+  - calendar-day.today-label-color
+  - calendar-day.label-size
+  - calendar-day.label-weight
+  - calendar-day.strip-height
+  - calendar-day.strip-done
+  - calendar-day.strip-empty
+  - calendar-day.pressed-opacity
+accessibility:
+  role: button
+  label: Required. The spoken date and state ("Viernes, 9 de octubre, completado"), never just the number.
+  touch_target: "Cell 40pt high plus the 4pt strip is 44pt; the width is a seventh of the row (about 43pt on a 375pt phone, estimated)."
+  notes:
+    - Expose pressed (selected) for done and disabled for inert cells; mark today with current "date".
+    - Done is shown by the ring and the strip, never by color alone, because the accent ring is a shape and the strip adds a second cue.
+    - The today circle needs 4.5:1 for its label (calendar.on-today on calendar.today, checked by the contrast audit) and 3:1 against the cell (calendar.today-on-surface).
+behavior:
+  - Pressing a past or current day toggles it. The parent decides what that means for the habit and the history.
+  - Future days are inert. Production still dims them on press; the contract does not.
+  - No animation between states.
+related: [month-calendar, habit-card, checkbox]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/components/calendar-day.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/habit-detail-screen/components/history-tab.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/demo/calendar-gallery-screen.tsx
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - The today label is hard-coded as text-white. The on-today token exists (--color-on-today) and the contract reads it.
+  - No accessibilityRole, label or state. The day number alone is announced, with no month, weekday or done state.
+  - Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).
+  - Future days pass no onPress but are still a TouchableOpacity, so they dim when pressed as if they did something.
+  - In dark mode the today circle is nearly invisible against the cell (about 1.7:1). Plan de Vida carries waiver PDV-W8; BITHABIT lightens the dark today tone.
+open_questions:
+  - Can any past day be toggled, however old, and before the habit existed? Production allows every non-future date.
+  - What is the real cell width? It is a flex column, so it depends on the sheet width; 43pt is estimated for a 375pt phone.
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft from the production component, found while recreating the habit history.

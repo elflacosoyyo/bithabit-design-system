@@ -65,12 +65,12 @@ components:
 - id: calendar-day
   name: CalendarDay
   category: data-display
-  status: planned
+  status: spec-draft
   priority: P1
   sources:
   - code:src/components/calendar-day.tsx
   - video
-  notes: Uses a hard-coded text-white on the today circle (token gap).
+  notes: Uses a hard-coded text-white on the today circle (token gap). Dark-mode today circle is nearly invisible (PDV-W8).
 - id: footer-action
   name: FooterAction
   category: action
@@ -464,3 +464,11 @@ components:
   - code:src/screens/home-screen.tsx (ListEmptyComponent)
   - code:src/screens/habits-screen/components/empty-state.tsx
   notes: Two implementations in the app, kept as inline and centered variants.
+- id: month-calendar
+  name: MonthCalendar
+  category: data-display
+  status: spec-draft
+  priority: P1
+  sources:
+  - code:src/screens/habit-detail-screen/components/history-tab.tsx (inline)
+  notes: Extracted from the History tab; the tab is a list of these.

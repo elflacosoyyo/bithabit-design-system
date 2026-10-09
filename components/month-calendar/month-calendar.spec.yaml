@@ -1,0 +1,112 @@
+id: month-calendar
+name: MonthCalendar
+version: 0.1.0
+status: draft
+category: data-display
+summary: One month as a grid of days under its title and a row of weekday letters.
+purpose: >
+  The History tab of a habit lists the last months, newest first, each as a grid where the user sees when the habit was done and can
+  correct any past day. The contract extracts one month into its own component; the tab is a list of them.
+platforms: [react-native]
+surfaces: [app]
+anatomy:
+  - part: title
+    description: Month and year, display serif, 18pt, medium weight, text.primary.
+    required: true
+  - part: weekday-letters
+    description: One letter per column, sans, 12pt, medium, text.secondary. Sunday first in the current code.
+    required: true
+  - part: weeks
+    description: Rows of seven columns separated by 8pt, columns by 4pt. Days that do not belong to the month are empty columns.
+    required: true
+  - part: day
+    description: A CalendarDay in each column of the month.
+    required: true
+props:
+  - name: year
+    type: number
+    required: true
+    description: Full year.
+  - name: month
+    type: number
+    required: true
+    description: 0 to 11, as in JavaScript dates.
+  - name: title
+    type: string
+    required: true
+    description: Localized month and year, capitalized ("Octubre de 2026"). The caller formats it.
+  - name: dayLetters
+    type: "string[]"
+    required: true
+    description: Seven letters, Sunday first, in the app's language.
+  - name: completedDates
+    type: "ReadonlySet<string>"
+    required: true
+    description: Completed dates as YYYY-MM-DD.
+  - name: today
+    type: string
+    required: true
+    description: Today as YYYY-MM-DD. Later days are inert.
+  - name: onToggleDate
+    type: "(date: string) => void"
+    required: true
+    description: Called with the date of a past or current day that was pressed.
+  - name: dayAccessibilityLabel
+    type: "(date: string, state: { done: boolean; today: boolean }) => string"
+    required: true
+    description: Builds the spoken date and state of one day. Production has none.
+states:
+  - name: default
+    description: Month with some days done, today marked, and later days inert.
+  - name: empty
+    description: No day done. Every strip is empty.
+  - name: full
+    description: Every past day done.
+tokens:
+  - month-calendar.title-color
+  - month-calendar.title-size
+  - month-calendar.title-weight
+  - month-calendar.letter-color
+  - month-calendar.letter-size
+  - month-calendar.letter-weight
+  - month-calendar.column-gap
+  - month-calendar.row-gap
+  - month-calendar.months-gap
+accessibility:
+  role: group
+  label: The group is named by its title ("Octubre de 2026"). Every day carries its own spoken label.
+  notes:
+    - The weekday letters are decorative and hidden from assistive technology, because the letters repeat (M and M, T and T) and each day already says its weekday.
+    - The title is a heading so screen reader users can jump between months.
+behavior:
+  - Weeks start on Sunday in the current code. The first day of the month sits in its weekday column.
+  - Pressing a past or current day calls onToggleDate with its date; later days do nothing.
+  - A list of months stacks them newest first with 24pt between them (production shows six).
+content:
+  - Month titles come from the platform's locale formatting, with the first letter capitalized ("Octubre de 2026").
+related: [calendar-day, habit-card]
+sources:
+  code:
+    - repo: Bakia/plan-de-vida
+      path: src/screens/habit-detail-screen/components/history-tab.tsx
+      commit: cdfea70
+      verified: true
+    - repo: Bakia/plan-de-vida
+      path: src/screens/habit-detail-screen/habit-detail-screen.tsx (History tab)
+      commit: cdfea70
+      verified: true
+code_gaps:
+  - There is no month component. The grid is built inline in HistoryTab, together with the list of six months, the date math and the toggling.
+  - The weekday letters are not hidden from assistive technology and repeat; the days have no spoken date.
+  - Weeks start on Sunday for every language, including Spanish, where Monday is usual (decision D-27).
+  - The number of months is a constant (6) with no way to see older ones.
+  - Dates are computed with local time (Date), so the grid depends on the device's time zone.
+open_questions:
+  - Should weeks start on Monday in Spanish? See D-27.
+  - Should the history stop at the date the habit was created, or go back six months for every habit?
+  - What happens to the list when a month is longer than the screen? Production uses a ScrollView with 24pt between months.
+changelog:
+  - version: 0.1.0
+    date: "2026-10-09"
+    changes:
+      - Initial draft. New component extracted from the History tab of the habit detail.

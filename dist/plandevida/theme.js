@@ -255,6 +255,24 @@ export const light = {
       linkLabel: "#717182"
     }
   },
+  calendarDay: {
+    bg: "#faf8f2",
+    radiusTop: 8,
+    paddingX: 4,
+    paddingY: 8,
+    circleSize: 24,
+    circleBorderWidth: 2,
+    ringDone: "#eda96d",
+    todayBg: "#3f4244",
+    labelColor: "#030213",
+    todayLabelColor: "#FFFFFF",
+    labelSize: 12,
+    labelWeight: "300",
+    stripHeight: 4,
+    stripDone: "#eda96d",
+    stripEmpty: "#efede6",
+    pressedOpacity: 0.7
+  },
   checkbox: {
     size: 24,
     hitSlop: 12,
@@ -366,6 +384,17 @@ export const light = {
     subtitleSize: 12,
     subtitleMarginTop: 4,
     footerMarginTop: 8
+  },
+  monthCalendar: {
+    titleColor: "#030213",
+    titleSize: 18,
+    titleWeight: "500",
+    letterColor: "#717182",
+    letterSize: 12,
+    letterWeight: "500",
+    columnGap: 4,
+    rowGap: 8,
+    monthsGap: 24
   },
   navHeader: {
     height: 44,
@@ -637,6 +666,24 @@ export const dark = {
       linkLabel: "#9b9893"
     }
   },
+  calendarDay: {
+    bg: "#1e1c19",
+    radiusTop: 8,
+    paddingX: 4,
+    paddingY: 8,
+    circleSize: 24,
+    circleBorderWidth: 2,
+    ringDone: "#eda96d",
+    todayBg: "#3f4244",
+    labelColor: "#f5f2ec",
+    todayLabelColor: "#FFFFFF",
+    labelSize: 12,
+    labelWeight: "300",
+    stripHeight: 4,
+    stripDone: "#eda96d",
+    stripEmpty: "#2a2722",
+    pressedOpacity: 0.7
+  },
   checkbox: {
     size: 24,
     hitSlop: 12,
@@ -748,6 +795,17 @@ export const dark = {
     subtitleSize: 12,
     subtitleMarginTop: 4,
     footerMarginTop: 8
+  },
+  monthCalendar: {
+    titleColor: "#f5f2ec",
+    titleSize: 18,
+    titleWeight: "500",
+    letterColor: "#9b9893",
+    letterSize: 12,
+    letterWeight: "500",
+    columnGap: 4,
+    rowGap: 8,
+    monthsGap: 24
   },
   navHeader: {
     height: 44,

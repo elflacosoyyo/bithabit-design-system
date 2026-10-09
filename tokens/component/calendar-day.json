@@ -1,0 +1,68 @@
+{
+  "calendar-day": {
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "radius-top": {
+      "$value": "{radius.md}",
+      "$type": "dimension"
+    },
+    "padding-x": {
+      "$value": "{spacing.xs}",
+      "$type": "dimension"
+    },
+    "padding-y": {
+      "$value": "{spacing.sm}",
+      "$type": "dimension"
+    },
+    "circle-size": {
+      "$value": "{spacing.lg}",
+      "$type": "dimension"
+    },
+    "circle-border-width": {
+      "$value": "{border-width.thick}",
+      "$type": "dimension"
+    },
+    "ring-done": {
+      "$value": "{color.accent.default}",
+      "$type": "color"
+    },
+    "today-bg": {
+      "$value": "{color.calendar.today}",
+      "$type": "color"
+    },
+    "label-color": {
+      "$value": "{color.text.primary}",
+      "$type": "color"
+    },
+    "today-label-color": {
+      "$value": "{color.calendar.on-today}",
+      "$type": "color"
+    },
+    "label-size": {
+      "$value": "{font.size.xs}",
+      "$type": "dimension"
+    },
+    "label-weight": {
+      "$value": "{font.weight.light}",
+      "$type": "fontWeight"
+    },
+    "strip-height": {
+      "$value": "{spacing.xs}",
+      "$type": "dimension"
+    },
+    "strip-done": {
+      "$value": "{color.accent.default}",
+      "$type": "color"
+    },
+    "strip-empty": {
+      "$value": "{color.bg.surface-alt}",
+      "$type": "color"
+    },
+    "pressed-opacity": {
+      "$value": "{opacity.pressed}",
+      "$type": "number"
+    }
+  }
+}

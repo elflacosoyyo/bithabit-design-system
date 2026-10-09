@@ -21,6 +21,8 @@ export interface AppPhoneProps {
   initialDrawerOpen?: boolean;
   /** Habit index whose detail sheet starts open. */
   initialDetail?: number | null;
+  /** Tab of the detail sheet that starts selected (0 habit, 1 notes, 2 history). */
+  initialDetailTab?: number;
   onNavChange?: (nav: NavState) => void;
   label?: string;
 }
@@ -40,7 +42,7 @@ const useHabitSource = (mode: HomeMode) => {
   };
 };
 
-export const AppPhone = ({ homeMode = 'live', initialSection = 'home', initialDrawerOpen = false, initialDetail = null, onNavChange, label = 'App screen' }: AppPhoneProps) => {
+export const AppPhone = ({ homeMode = 'live', initialSection = 'home', initialDrawerOpen = false, initialDetail = null, initialDetailTab = 0, onNavChange, label = 'App screen' }: AppPhoneProps) => {
   const ui = useSample().ui;
   const sample = useSample();
   const [section, setSection] = useState<Section>(initialSection);
@@ -72,7 +74,7 @@ export const AppPhone = ({ homeMode = 'live', initialSection = 'home', initialDr
       )}
 
       <BottomSheet isOpen={sheetOpen} onClose={closeSheet} accessibilityLabel={ui.detailLabel} presentation="inline">
-        <HabitDetail title={detail !== null ? sample.habits[detail] : ''} />
+        <HabitDetail title={detail !== null ? sample.habits[detail] : ''} initialTab={initialDetailTab} />
       </BottomSheet>
       <BottomSheet isOpen={newOpen} onClose={() => setNewOpen(false)} accessibilityLabel={ui.newHabit} presentation="inline">
         <div style={{ padding: '4px 16px 32px', fontSize: 14, lineHeight: '20px' }}><b>{ui.newHabit}</b><br />This screen has not been recreated yet.</div>

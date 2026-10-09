@@ -88,6 +88,11 @@ accessibility:
       reason: Production shows positive change in the brand orange (#D77D2D, text-splash), about 3:1 on the cream surface in light mode (ChangeIndicator).
       recommendation: Use a darker orange for text, or rely on the arrow icon and sign and keep the color decorative.
       status: needs-design-decision
+    - id: PDV-W8
+      pair: calendar.today-on-surface
+      reason: In dark mode the filled "today" circle (#3F4244) on the card surface (#1E1C19) is about 1.7:1, so the marker is nearly invisible. Inherited from production.
+      recommendation: "Use a lighter tone for the dark-mode today circle (about #6B6E70, which keeps white labels above 4.5:1)."
+      status: needs-design-decision
 sources:
   - Claude Design export "Plan de Vida Design System" (README, colors_and_type.css, manifest)
   - Figma "Plan de Vida (Copy)" file qWMcWuD7X6qnzXxAmRopvf

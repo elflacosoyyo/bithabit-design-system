@@ -3,7 +3,7 @@
 # syncedVersion/syncedHash record the contract version this app was aligned with at generation time:
 # run `ds-sync check` to see what has moved since, and `ds-sync bump <id>` after you align a component.
 # Props: design-system prop -> app prop, or null when the app has no equivalent.
-# Design-system components with no matching file found: checkbox (looks inline in src/components/habit-card.tsx; a standalone component is suggested), drawer-menu (looks inline in src/components/drawer-content.tsx; a standalone component is suggested), empty-state (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), icon-button (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), nav-header (looks inline in src/navigation/(drawer)/_layout.tsx; a standalone component is suggested).
+# Design-system components with no matching file found: checkbox (looks inline in src/components/habit-card.tsx; a standalone component is suggested), drawer-menu (looks inline in src/components/drawer-content.tsx; a standalone component is suggested), empty-state (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), icon-button (looks inline in src/screens/home-screen.tsx; a standalone component is suggested), month-calendar (looks inline in src/screens/habit-detail-screen/components/history-tab.tsx; a standalone component is suggested), nav-header (looks inline in src/navigation/(drawer)/_layout.tsx; a standalone component is suggested).
 
 designSystem: "@bakia/bithabit-design-system"
 brand: plandevida
@@ -47,6 +47,18 @@ mappings:
       disabled: disabled
       loading: loading
       disabledVariant: disabledVariant
+    acceptedGaps: []
+  calendar-day:
+    component: src/components/calendar-day.tsx
+    export: CalendarDay
+    syncedVersion: 0.1.0
+    syncedHash: "e945ad51378fbe76"
+    props:
+      label: label
+      accessibilityLabel: null
+      isToday: isToday
+      isDone: isDone
+      onPress: onPress
     acceptedGaps: []
   habit-card:
     component: src/components/habit-card.tsx

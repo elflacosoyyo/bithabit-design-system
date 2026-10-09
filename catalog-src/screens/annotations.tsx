@@ -69,14 +69,14 @@ export const PinLayer = ({ frame }: { frame: RefObject<HTMLDivElement | null> })
       {placed.map((p) => {
         const a = byId.get(p.id);
         if (!a) return null; // placed from the previous set of annotations, for one tick after the scope changed
-        const big = p.h > 150; // tall containers (a list, the menu items) take their pin inside the top-left corner so it does not collide with their first child's
+        const big = p.h > 150; // tall containers (the detail sheet, the history) take their pin inside the top-right corner, clear of the text that starts at the left
         return (
           <button
             key={p.id}
             aria-label={`Annotation ${a.id}, ${TYPE_LABEL[a.type]}`}
             aria-pressed={ctx.active === a.id}
             onClick={() => ctx.setActive(ctx.active === a.id ? null : a.id)}
-            style={{ position: 'absolute', left: Math.max(2, Math.min(375 - 26, big ? p.x + 4 + p.index * 24 : p.x + p.w - 14 - p.index * 24)), top: Math.max(2, big ? p.y + 4 : p.y - 10), pointerEvents: 'auto', minWidth: 24, height: 20, padding: '0 5px', borderRadius: 100, border: '2px solid #fff', background: TYPE_COLOR[a.type], color: '#fff', font: '600 10px/16px Inter, system-ui, sans-serif', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.4)' }}
+            style={{ position: 'absolute', left: Math.max(2, Math.min(375 - 26, big ? p.x + p.w - 28 - p.index * 24 : p.x + p.w - 14 - p.index * 24)), top: Math.max(2, big ? p.y + 4 : p.y - 10), pointerEvents: 'auto', minWidth: 24, height: 20, padding: '0 5px', borderRadius: 100, border: '2px solid #fff', background: TYPE_COLOR[a.type], color: '#fff', font: '600 10px/16px Inter, system-ui, sans-serif', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0,0,0,0.4)' }}
           >
             {a.id}
           </button>

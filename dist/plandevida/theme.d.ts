@@ -251,6 +251,24 @@ export interface Theme {
       linkLabel: string;
     };
   };
+  calendarDay: {
+    bg: string;
+    radiusTop: number;
+    paddingX: number;
+    paddingY: number;
+    circleSize: number;
+    circleBorderWidth: number;
+    ringDone: string;
+    todayBg: string;
+    labelColor: string;
+    todayLabelColor: string;
+    labelSize: number;
+    labelWeight: string;
+    stripHeight: number;
+    stripDone: string;
+    stripEmpty: string;
+    pressedOpacity: number;
+  };
   checkbox: {
     size: number;
     hitSlop: number;
@@ -362,6 +380,17 @@ export interface Theme {
     subtitleSize: number;
     subtitleMarginTop: number;
     footerMarginTop: number;
+  };
+  monthCalendar: {
+    titleColor: string;
+    titleSize: number;
+    titleWeight: string;
+    letterColor: string;
+    letterSize: number;
+    letterWeight: string;
+    columnGap: number;
+    rowGap: number;
+    monthsGap: number;
   };
   navHeader: {
     height: number;

@@ -21,10 +21,14 @@ components:
     role: Frame of the norm detail that opens when a card is pressed.
   - id: segmented-control
     role: Tabs inside the detail sheet.
+  - id: month-calendar
+    role: Months of the History tab, newest first.
+  - id: calendar-day
+    role: Each day of a month; marks done days and today.
 pending:
   - name: Norm detail content
-    note: The real sheet has a "mark as done today" footer, an edit icon, a calendar and a notes editor. The recreation shows only the frame, the title, the tabs and the reading text.
-    needs: [footer-action, calendar-day, habit-content]
+    note: The real sheet has a "mark as done today" footer, an edit icon and a notes editor. The recreation shows the frame, the title, the tabs, the reading text and the History calendar (two months instead of six).
+    needs: [footer-action, habit-content]
   - name: Drag to reorder
     note: A long press on a card starts a drag in production. It is documented in the habit-card spec and not recreated.
   - name: Suggested norms sheet
@@ -45,6 +49,9 @@ states:
   - id: detail-open
     label: Detail open
     description: A card was pressed and its detail sheet is open.
+  - id: detail-history
+    label: Detail history
+    description: The detail sheet on its History tab, with the month calendars.
 annotations:
   - id: H1
     type: gap
@@ -63,7 +70,7 @@ annotations:
     text: The title is the app name and the subtitle is the date, with each word capitalized by formatHeaderDate (for example "Viernes, 9 de Octubre").
   - id: H4
     type: note
-    target: list
+    target: card-1
     text: Cards are separated by a 16pt gap and each card adds 4pt above and below. The list starts 8pt below the title.
   - id: H5
     type: gap
@@ -80,7 +87,13 @@ annotations:
     type: gap
     target: sheet
     component: bottom-sheet
-    text: The real detail sheet carries more (footer action, edit, calendar, notes). Only its frame is recreated until footer-action and calendar-day have contracts.
+    text: The real detail sheet carries more (footer action, edit, notes). The footer action and the notes editor are not recreated until footer-action and habit-content have contracts.
+  - id: H9
+    type: decision
+    target: history
+    component: month-calendar
+    decision: D-27
+    text: The history calendar starts weeks on Sunday in every language. Should Spanish start on Monday?
   - id: H8
     type: note
     target: alert

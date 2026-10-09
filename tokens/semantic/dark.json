@@ -112,7 +112,7 @@
     },
     "calendar": {
       "today": {
-        "$value": "{color.gray.700}",
+        "$value": "{color.gray.500}",
         "$type": "color"
       },
       "on-today": {

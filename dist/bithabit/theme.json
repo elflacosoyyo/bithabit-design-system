@@ -255,6 +255,24 @@
         "linkLabel": "#4B5563"
       }
     },
+    "calendarDay": {
+      "bg": "#F9FAFB",
+      "radiusTop": 8,
+      "paddingX": 4,
+      "paddingY": 8,
+      "circleSize": 24,
+      "circleBorderWidth": 2,
+      "ringDone": "#2563EB",
+      "todayBg": "#374151",
+      "labelColor": "#111827",
+      "todayLabelColor": "#FFFFFF",
+      "labelSize": 12,
+      "labelWeight": "300",
+      "stripHeight": 4,
+      "stripDone": "#2563EB",
+      "stripEmpty": "#F3F4F6",
+      "pressedOpacity": 0.7
+    },
     "checkbox": {
       "size": 24,
       "hitSlop": 12,
@@ -366,6 +384,17 @@
       "subtitleSize": 12,
       "subtitleMarginTop": 4,
       "footerMarginTop": 8
+    },
+    "monthCalendar": {
+      "titleColor": "#111827",
+      "titleSize": 18,
+      "titleWeight": "500",
+      "letterColor": "#4B5563",
+      "letterSize": 12,
+      "letterWeight": "500",
+      "columnGap": 4,
+      "rowGap": 8,
+      "monthsGap": 24
     },
     "navHeader": {
       "height": 44,
@@ -583,7 +612,7 @@
         "splashFg": "#FFFFFF"
       },
       "calendar": {
-        "today": "#374151",
+        "today": "#6B7280",
         "onToday": "#FFFFFF"
       }
     },
@@ -636,6 +665,24 @@
         "destructiveDisabledLabel": "#374151",
         "linkLabel": "#9CA3AF"
       }
+    },
+    "calendarDay": {
+      "bg": "#111827",
+      "radiusTop": 8,
+      "paddingX": 4,
+      "paddingY": 8,
+      "circleSize": 24,
+      "circleBorderWidth": 2,
+      "ringDone": "#60A5FA",
+      "todayBg": "#6B7280",
+      "labelColor": "#F9FAFB",
+      "todayLabelColor": "#FFFFFF",
+      "labelSize": 12,
+      "labelWeight": "300",
+      "stripHeight": 4,
+      "stripDone": "#60A5FA",
+      "stripEmpty": "#1F2937",
+      "pressedOpacity": 0.7
     },
     "checkbox": {
       "size": 24,
@@ -748,6 +795,17 @@
       "subtitleSize": 12,
       "subtitleMarginTop": 4,
       "footerMarginTop": 8
+    },
+    "monthCalendar": {
+      "titleColor": "#F9FAFB",
+      "titleSize": 18,
+      "titleWeight": "500",
+      "letterColor": "#9CA3AF",
+      "letterSize": 12,
+      "letterWeight": "500",
+      "columnGap": 4,
+      "rowGap": 8,
+      "monthsGap": 24
     },
     "navHeader": {
       "height": 44,

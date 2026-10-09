@@ -17,6 +17,8 @@ import * as NavHeader from './pages/components/NavHeader';
 import * as HeaderBar from './pages/components/HeaderBar';
 import * as EmptyState from './pages/components/EmptyState';
 import * as DrawerMenu from './pages/components/DrawerMenu';
+import * as CalendarDay from './pages/components/CalendarDay';
+import * as MonthCalendar from './pages/components/MonthCalendar';
 import * as HomeScreen from './pages/screens/Home';
 import * as MenuScreen from './pages/screens/Menu';
 import { Prototype } from './pages/screens/Prototype';
@@ -41,6 +43,8 @@ const COMPONENTS: Array<{ id: string; page: ComponentPage }> = [
   { id: 'header-bar', page: HeaderBar },
   { id: 'empty-state', page: EmptyState },
   { id: 'drawer-menu', page: DrawerMenu },
+  { id: 'calendar-day', page: CalendarDay },
+  { id: 'month-calendar', page: MonthCalendar },
 ];
 
 export const TABS: Tab[] = [

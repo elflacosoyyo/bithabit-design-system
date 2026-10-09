@@ -14,7 +14,7 @@ export const Screen = () => {
     <Workbench
       title="Home"
       docs={[doc]}
-      render={(state, onNav) => <AppPhone homeMode={modeFor(state)} initialDetail={state === 'detail-open' ? 0 : null} onNavChange={onNav} label="Home screen" />}
+      render={(state, onNav) => <AppPhone homeMode={modeFor(state)} initialDetail={state === 'detail-open' || state === 'detail-history' ? 0 : null} initialDetailTab={state === 'detail-history' ? 2 : 0} onNavChange={onNav} label="Home screen" />}
     />
   );
 };

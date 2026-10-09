@@ -258,7 +258,7 @@ await step('prototype: navigate with the menu, mail alert, new norm sheet', asyn
   await phone.getByRole('button', { name: 'New habit' }).click();
   await phone.getByRole('dialog', { name: 'New habit' }).waitFor({ timeout: 4000 });
 });
-for (const [id, labelsByState] of [['home', ['With norms', 'Empty', 'All completed', 'Detail open']], ['menu', ['Open', 'Account active']]]) {
+for (const [id, labelsByState] of [['home', ['With norms', 'Empty', 'All completed', 'Detail open', 'Detail history']], ['menu', ['Open', 'Account active']]]) {
   await step(`screen "${id}": every annotation is attached to an element that exists`, async () => {
     await go(page, `/screens/${id}`, 'bithabit', 'light');
     const ids = await page.locator('[data-annotation]').evaluateAll((els) => els.map((e) => e.getAttribute('data-annotation')));
@@ -281,6 +281,47 @@ for (const [id, labelsByState] of [['home', ['With norms', 'Empty', 'All complet
     assert.deepEqual(missing, [], `${id}: annotation(s) ${missing.join(', ')} match no element in any state (check the target ids in screens/${id}/${id}.screen.yaml)`);
   });
 }
+await step('calendar day: mark days up to today, future days are inert', async () => {
+  await go(page, '/components/calendar-day', 'bithabit', 'light');
+  const region = page.getByRole('region', { name: 'Interactive week', exact: true });
+  const day = region.getByTestId('week-day-6');
+  assert.equal(await day.getAttribute('aria-pressed'), 'true');
+  await day.click();
+  await page.waitForFunction(() => document.querySelector('[aria-label="Interactive week"] [data-testid="week-day-6"]')?.getAttribute('aria-pressed') === 'false', null, { timeout: 4000 });
+  const future = region.getByTestId('week-day-10');
+  assert.equal(await future.getAttribute('aria-disabled'), 'true');
+  assert.match(await region.getByTestId('week-day-9').getAttribute('aria-label'), /Friday, October 9, today, not completed/);
+  assert.equal(await region.getByTestId('week-day-9').getAttribute('aria-current'), 'date');
+});
+await step('month calendar: toggle a past day, today, and not a future day', async () => {
+  await go(page, '/components/month-calendar', 'plandevida', 'light');
+  const region = page.getByRole('region', { name: 'Interactive', exact: true });
+  assert.ok(await region.getByRole('group', { name: 'Octubre de 2026' }).count() === 1, 'month title is localized and capitalized');
+  const toggle = async (date, expected) => {
+    await region.getByTestId(`day-${date}`).click();
+    await page.waitForFunction(([d, v]) => document.querySelector(`[aria-label="Interactive"] [data-testid="day-${d}"]`)?.getAttribute('aria-pressed') === v, [date, expected], { timeout: 4000 });
+  };
+  assert.equal(await region.getByTestId('day-2026-10-09').getAttribute('aria-pressed'), 'false');
+  await toggle('2026-10-09', 'true');
+  await toggle('2026-10-04', 'false'); // seeded as done
+  const future = region.getByTestId('day-2026-10-15');
+  assert.equal(await future.getAttribute('aria-disabled'), 'true');
+  await future.click({ force: true });
+  await page.waitForTimeout(150);
+  assert.equal(await future.getAttribute('aria-pressed'), 'false', 'a future day must not change');
+  assert.match(await region.getByTestId('day-2026-10-09').getAttribute('aria-label'), /Viernes, 9 de octubre, hoy, completado/);
+});
+await step('home screen: the detail sheet shows the history calendar', async () => {
+  await go(page, '/screens/home', 'bithabit', 'light');
+  await page.getByRole('button', { name: 'Detail history', exact: true }).click();
+  const phone = page.getByRole('group', { name: 'Home screen' });
+  const sheet = phone.getByRole('dialog', { name: 'Habit detail' });
+  await sheet.waitFor({ timeout: 4000 });
+  await sheet.getByRole('group', { name: 'October 2026' }).waitFor({ timeout: 4000 });
+  await sheet.getByRole('group', { name: 'September 2026' }).waitFor({ timeout: 4000 });
+  await sheet.getByTestId('day-2026-10-09').click();
+  await page.waitForFunction(() => document.querySelector('[role=dialog] [data-testid="day-2026-10-09"]')?.getAttribute('aria-pressed') === 'true', null, { timeout: 4000 });
+});
 await step('toolbar: switching brand and mode re-themes the page and keeps the route', async () => {
   await go(page, '/foundations/colors', 'bithabit', 'light');
   await page.getByLabel('Brand').selectOption('plandevida');
