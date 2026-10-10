@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "9e26ea98daa62bba",
+      "tokensHash": "df651e46c4119846",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "ed750c010df47376",
+      "tokensHash": "377e457b8148d255",
       "modes": [
         "light",
         "dark"
@@ -33,7 +33,7 @@
   "components": {
     "bottom-sheet": {
       "name": "BottomSheet",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "draft",
       "category": "container",
       "spec": "components/bottom-sheet/bottom-sheet.spec.yaml",
@@ -55,7 +55,7 @@
         "bottom-sheet.spring-stiffness",
         "bottom-sheet.detail-height-ratio"
       ],
-      "contentHash": "f9b622ea7f977e5e",
+      "contentHash": "c91156a2cf38425c",
       "props": [
         {
           "name": "isOpen",
@@ -81,7 +81,7 @@
       "variants": [],
       "accessibilityRole": "dialog",
       "codeGaps": [
-        "The norm detail fixes its own height at 78% of the screen (SHEET_HEIGHT_RATIO in habit-detail-screen.tsx) instead of the sheet doing it. The contract asks for 70% (D-28) and moves the fixed height into the sheet through heightRatio.",
+        "The norm detail fixes its own height (SHEET_HEIGHT_RATIO, 0.78, in habit-detail-screen.tsx) instead of the sheet doing it. The contract keeps the 0.78 and moves the fixed height into the sheet through heightRatio, so the screen no longer sizes it.",
         "The backdrop is the foreground color at 0.5 opacity. In dark mode that is cream, not a dim. The contract uses the overlay token (bg.overlay), which already exists in the app but is unused.",
         "No accessibilityViewIsModal, label or dismiss action; no Reduce Motion handling.",
         "The drag gesture covers only the handle region, not the whole header."
@@ -131,6 +131,13 @@
       },
       "changelog": [
         {
+          "version": "0.3.1",
+          "date": "2026-10-10",
+          "changes": [
+            "The norm detail height ratio stays at production's 0.78 (decision D-28 revised); the token detail-height-ratio is 0.78."
+          ]
+        },
+        {
           "version": "0.3.0",
           "date": "2026-10-09",
           "changes": [
@@ -144,13 +151,6 @@
             "Verified against Bakia/plan-de-vida at cdfea70. Removed snap points, keyboard avoidance and dismissOnBackdropPress (not in the component).",
             "Handle is 40pt by 4pt in text.secondary. Open and close are timing animations of 300ms; spring is only used to snap back.",
             "Added code_gaps (backdrop color, accessibility)."
-          ]
-        },
-        {
-          "version": "0.1.0",
-          "date": "2026-10-08",
-          "changes": [
-            "Initial draft from reference videos, Figma and the Claude Design export."
           ]
         }
       ]

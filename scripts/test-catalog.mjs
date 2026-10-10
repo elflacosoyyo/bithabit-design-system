@@ -311,7 +311,7 @@ await step('month calendar: toggle a past day, today, and not a future day', asy
   assert.equal(await future.getAttribute('aria-pressed'), 'false', 'a future day must not change');
   assert.match(await region.getByTestId('day-2026-10-09').getAttribute('aria-label'), /Viernes, 9 de octubre, hoy, completado/);
 });
-await step('home screen: the detail sheet is 70% of the screen on every tab', async () => {
+await step('home screen: the detail sheet is 78% of the screen on every tab', async () => {
   await go(page, '/screens/home', 'bithabit', 'light');
   await page.getByRole('button', { name: 'Detail open', exact: true }).click();
   const phone = page.getByRole('group', { name: 'Home screen' });
@@ -323,7 +323,7 @@ await step('home screen: the detail sheet is 70% of the screen on every tab', as
     await sheet.getByRole('tab', { name: tab, exact: true }).click();
     await page.waitForTimeout(250);
     const r = await ratio();
-    assert.ok(Math.abs(r - 0.7) < 0.01, `tab ${tab}: sheet is ${(r * 100).toFixed(1)}% of the screen, expected 70%`);
+    assert.ok(Math.abs(r - 0.78) < 0.01, `tab ${tab}: sheet is ${(r * 100).toFixed(1)}% of the screen, expected 78%`);
   }
 });
 await step('home screen: the detail sheet shows the history calendar', async () => {

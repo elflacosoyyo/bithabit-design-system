@@ -20,7 +20,7 @@ export const HabitDetail = ({ title, initialTab = 0 }: { title: string; initialT
     <View testID="sheet" style={{ flex: 1, minHeight: 0, paddingHorizontal: theme.spacing.md, paddingBottom: theme.spacing.xl }}>
       <Text role="heading" aria-level={2} style={{ ...textStyle(theme, 'screenTitle'), color: theme.color.text.primary, marginBottom: theme.spacing.sm }}>{title}</Text>
       <SegmentedControl labels={sample.tabs3} selectedIndex={tab} onSelect={setTab} accessibilityLabel={sample.ui.detailLabel} />
-      {/* The sheet is a fixed 70% of the screen, so whatever the tab holds scrolls inside this area. */}
+      {/* The sheet is a fixed 78% of the screen, so whatever the tab holds scrolls inside this area. */}
       <View testID={tab === 2 ? 'history' : 'detail-body'} style={{ flex: 1, minHeight: 0, marginTop: theme.spacing.md, overflowY: 'auto' }}>
         {tab === 2 ? (
           <View style={{ gap: theme.monthCalendar.monthsGap }}>

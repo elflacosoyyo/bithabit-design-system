@@ -1,6 +1,6 @@
 id: home
 name: Home
-version: 0.1.1
+version: 0.1.2
 status: draft
 summary: Today's norms as a list of swipeable cards under the title and date, with the menu on the left and "add" on the right.
 route: "src/navigation/(drawer)/home.tsx -> src/screens/home-screen.tsx"
@@ -87,7 +87,7 @@ annotations:
     type: gap
     target: sheet
     component: bottom-sheet
-    text: The detail sheet is a fixed 70% of the screen height whatever its content (decision D-28; production fixes it at 78%). The real sheet carries more (footer action, edit, notes). The footer action and the notes editor are not recreated until footer-action and habit-content have contracts.
+    text: The detail sheet is a fixed 78% of the screen height whatever its content (decision D-28, as in production). The real sheet carries more (footer action, edit, notes). The footer action and the notes editor are not recreated until footer-action and habit-content have contracts.
   - id: H9
     type: decision
     target: history
@@ -117,10 +117,14 @@ sources:
       commit: cdfea70
       verified: true
 changelog:
+  - version: 0.1.2
+    date: "2026-10-10"
+    changes:
+      - The detail sheet height is 78% (production's value), not 70%.
   - version: 0.1.1
     date: "2026-10-09"
     changes:
-      - The detail sheet is a fixed 70% of the screen height (D-28), with the content scrolling inside.
+      - The detail sheet is a fixed 70% of the screen height (D-28), with the content scrolling inside. Superseded by 0.1.2.
   - version: 0.1.0
     date: "2026-10-09"
     changes:

@@ -14,8 +14,8 @@ mappings:
   bottom-sheet:
     component: src/components/bottom-sheet.tsx
     export: BottomSheet
-    syncedVersion: 0.3.0
-    syncedHash: "f9b622ea7f977e5e"
+    syncedVersion: 0.3.1
+    syncedHash: "c91156a2cf38425c"
     props:
       isOpen: isOpen
       onClose: onClose

@@ -222,7 +222,7 @@ export const light = {
     velocityThreshold: 500,
     springDamping: 25,
     springStiffness: 100,
-    detailHeightRatio: 0.7
+    detailHeightRatio: 0.78
   },
   button: {
     height: 48,
@@ -634,7 +634,7 @@ export const dark = {
     velocityThreshold: 500,
     springDamping: 25,
     springStiffness: 100,
-    detailHeightRatio: 0.7
+    detailHeightRatio: 0.78
   },
   button: {
     height: 48,
