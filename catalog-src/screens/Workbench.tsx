@@ -22,6 +22,24 @@ const Button = ({ pressed, onClick, children }: { pressed?: boolean; onClick: ()
   );
 };
 
+/** On/off switch with its label, for settings of the view (not for choosing a state). */
+const Toggle = ({ checked, onChange, children }: { checked: boolean; onChange: (v: boolean) => void; children: ReactNode }) => {
+  const { theme } = useTheme();
+  return (
+    <button
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onChange(!checked)}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: 0, border: 0, background: 'transparent', color: theme.color.text.primary, font: '500 13px/1 Inter, system-ui, sans-serif', cursor: 'pointer' }}
+    >
+      <span>{children}</span>
+      <span aria-hidden style={{ position: 'relative', width: 40, height: 24, borderRadius: 100, background: checked ? theme.color.text.primary : theme.color.border.strong, transition: 'background 150ms' }}>
+        <span style={{ position: 'absolute', top: 2, left: checked ? 18 : 2, width: 20, height: 20, borderRadius: 100, background: theme.color.bg.canvas, transition: 'left 150ms' }} />
+      </span>
+    </button>
+  );
+};
+
 const NotesList = () => {
   const { theme, brand, mode } = useTheme();
   const ctx = useAnnotations();
@@ -83,8 +101,8 @@ export const Workbench = ({ title, docs, states = true, render, scopeAnnotations
       {intro}
       <div role="toolbar" aria-label="Screen controls" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', margin: '0 0 20px' }}>
         {states ? main.states.map((s) => <Button key={s.id} pressed={state === s.id} onClick={() => setState(s.id)}>{s.label}</Button>) : null}
-        <Button pressed={show} onClick={() => setShow(!show)}>Annotations</Button>
         <Button onClick={() => demo.reset()}>Reset demo data</Button>
+        <span style={{ marginLeft: 'auto' }}><Toggle checked={show} onChange={setShow}>Annotations</Toggle></span>
       </div>
       {states && current ? <P muted>{current.description}</P> : null}
       <AnnotationProvider annotations={annotations} show={show}>

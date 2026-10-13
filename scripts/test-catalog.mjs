@@ -258,6 +258,22 @@ await step('prototype: navigate with the menu, mail alert, new norm sheet', asyn
   await phone.getByRole('button', { name: 'New habit' }).click();
   await phone.getByRole('dialog', { name: 'New habit' }).waitFor({ timeout: 4000 });
 });
+await step('screens: Annotations is a switch on the right that shows and hides the pins', async () => {
+  await go(page, '/screens/home', 'bithabit', 'light');
+  const toggle = page.getByRole('switch', { name: 'Annotations' });
+  assert.equal(await toggle.getAttribute('aria-checked'), 'true');
+  await page.waitForTimeout(400);
+  assert.ok(await page.locator('[data-pin-layer] button').count() > 0, 'pins are visible when the switch is on');
+  const box = await toggle.boundingBox();
+  const bar = await page.getByRole('toolbar', { name: 'Screen controls' }).boundingBox();
+  assert.ok(box.x + box.width > bar.x + bar.width - 8, 'the switch sits at the right end of the controls');
+  await toggle.click();
+  assert.equal(await toggle.getAttribute('aria-checked'), 'false');
+  assert.equal(await page.locator('[data-pin-layer] button').count(), 0, 'pins are hidden when the switch is off');
+  await toggle.click();
+  await page.waitForTimeout(400);
+  assert.ok(await page.locator('[data-pin-layer] button').count() > 0);
+});
 for (const [id, labelsByState] of [['home', ['With norms', 'Empty', 'All completed', 'Detail open', 'Detail history']], ['menu', ['Open', 'Account active']]]) {
   await step(`screen "${id}": every annotation is attached to an element that exists`, async () => {
     await go(page, `/screens/${id}`, 'bithabit', 'light');
