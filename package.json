@@ -7,7 +7,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elflacosoyyo/bithabit-design-system.git"
+    "url": "git+https://github.com/Bakia/bithabit-design-system.git"
   },
   "files": [
     "brands",

@@ -2,7 +2,7 @@
 
 ## Install (private repo)
 ```bash
-npm i github:elflacosoyyo/bithabit-design-system#v0.1.0
+npm i github:Bakia/bithabit-design-system#v0.1.0
 ```
 Requires GitHub access to the repo. The package ships `dist/`, `components/` (specs and usage docs), `brands/` and `schemas/`.
 

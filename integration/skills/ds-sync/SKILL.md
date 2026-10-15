@@ -18,7 +18,7 @@ components implement which design-system component. This skill compares the two 
 ## Workflow
 1. **Check the setup.**
    - The package must be installed: `node_modules/@bakia/bithabit-design-system/dist/manifest.json`. If not, tell the user to install it
-     (`npm i github:elflacosoyyo/bithabit-design-system#<tag>`); do not install it yourself unless asked.
+     (`npm i github:Bakia/bithabit-design-system#<tag>`); do not install it yourself unless asked.
    - `.bithabit/connect.yaml` must exist. If not, run `npx ds-sync init` (prints a draft to the terminal), show it to the user, and write it
      with `npx ds-sync init --write` only after they review it. Its mappings are guesses: confirm each one.
 2. **Run the report:** `npx ds-sync check` (or `node node_modules/@bakia/bithabit-design-system/integration/ds-sync/sync.mjs check`).

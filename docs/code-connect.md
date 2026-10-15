@@ -23,7 +23,7 @@ The only link is a small mapping file that lives in the app repo.
 
 ## Install in an app
 ```bash
-npm i -D github:elflacosoyyo/bithabit-design-system#<tag>
+npm i -D github:Bakia/bithabit-design-system#<tag>
 mkdir -p .claude/skills && cp -r node_modules/@bakia/bithabit-design-system/integration/skills/ds-sync .claude/skills/
 npx ds-sync init              # prints a draft mapping; review it
 npx ds-sync init --write      # writes .bithabit/connect.yaml (refuses to overwrite without --force)
