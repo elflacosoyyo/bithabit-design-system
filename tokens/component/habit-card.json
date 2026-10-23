@@ -87,6 +87,10 @@
         "$value": "{color.text.on-accent}",
         "$type": "color"
       },
+      "delete-label": {
+        "$value": "{color.text.on-destructive}",
+        "$type": "color"
+      },
       "label-size": {
         "$value": "{font.size.body}",
         "$type": "dimension"

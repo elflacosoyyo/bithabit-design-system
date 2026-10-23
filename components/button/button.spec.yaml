@@ -1,6 +1,6 @@
 id: button
 name: Button
-version: 0.1.2
+version: 0.1.3
 status: draft
 category: action
 summary: Full-width, 44pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
@@ -108,7 +108,7 @@ accessibility:
   notes:
     - Expose disabled (accessibilityState.disabled) and, while loading, busy (accessibilityState.busy).
     - A disabled or loading button must not move focus away or fire onPress.
-    - Contrast depends on the brand. Label on the accent fill and accent-colored labels (outline and text) are the contrast-sensitive combinations; Plan de Vida light mode has waivers for them (PDV-W1, PDV-W6).
+    - Contrast depends on the brand. Label on the accent fill and accent-colored labels (outline and text) are the contrast-sensitive combinations; Plan de Vida light mode has a waiver for the accent-colored labels (PDV-W1).
     - The destructive and link text variants are underlined so they are not told apart by color alone.
 behavior:
   - Presses are blocked while disabled or loading; the button keeps its place and size.
@@ -149,7 +149,7 @@ code_gaps:
   - loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.
   - "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF."
   - Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).
-  - "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. On the destructive red the label is about 3.74:1 (waiver PDV-W6). The outline and text labels are tan on white (waiver PDV-W1)."
+  - "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. The destructive label uses text.on-destructive, white on Plan de Vida's darker red (4.89:1, D-31). The outline and text labels are tan on white (waiver PDV-W1)."
 open_questions:
   - Figma names the variants primary / secondary / tertiary / text but the code names them primary / outline / destructive / text. Which names are canonical? Decision D-24.
   - Is the Figma "button / tertiary" (105 by 44, a compact size) a real variant, or an old explore? The code has nothing compact.
@@ -157,6 +157,10 @@ open_questions:
   - Should loading be supported on destructive and text variants (the contract assumes yes)?
   - Should the neutral disabled look (used by the delete-account confirm) become the single disabled look for destructive?
 changelog:
+  - version: 0.1.3
+    date: "2026-10-23"
+    changes:
+      - The destructive label reads the new text.on-destructive role, and Plan de Vida's destructive red is darker in light mode (D-31), so the white label reaches 4.89:1.
   - version: 0.1.2
     date: "2026-10-23"
     changes:

@@ -172,6 +172,7 @@ export interface Theme {
       disabled: string;
       accent: string;
       onAccent: string;
+      onDestructive: string;
       destructive: string;
     };
     disabled: {
@@ -336,6 +337,7 @@ export interface Theme {
       toggleBg: string;
       deleteBg: string;
       label: string;
+      deleteLabel: string;
       labelSize: number;
       labelWeight: string;
       threshold: number;

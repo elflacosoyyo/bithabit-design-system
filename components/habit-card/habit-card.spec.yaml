@@ -1,6 +1,6 @@
 id: habit-card
 name: HabitCard
-version: 0.3.1
+version: 0.4.0
 status: draft
 category: list
 summary: Tappable row for one habit with a done-today checkbox and a seven-day history strip underneath.
@@ -99,6 +99,7 @@ tokens:
   - habit-card.swipe.toggle-bg
   - habit-card.swipe.delete-bg
   - habit-card.swipe.label
+  - habit-card.swipe.delete-label
   - habit-card.swipe.label-size
   - habit-card.swipe.label-weight
   - habit-card.swipe.threshold
@@ -152,11 +153,15 @@ code_gaps:
   - The checkbox hit area is 40pt (24pt plus hitSlop 8); the contract asks for 48pt (hit slop 12).
   - Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7), as FooterAction already does.
   - Swipe actions have no accessible alternative.
-  - Swipe labels use text-background on accent and destructive fills. The contract uses text.on-accent, which in Plan de Vida light mode is dark grey (7.0:1 on tan, D-29); on the destructive red it is about 3.74:1 (waiver PDV-W6).
+  - Swipe labels use text-background on accent and destructive fills. The contract uses text.on-accent on the accent fill (dark grey in Plan de Vida light mode, 7.0:1 on tan, D-29) and text.on-destructive on the destructive fill (white on the darker red, 4.89:1, D-31), through the separate swipe.label and swipe.delete-label tokens.
 open_questions:
   - Should long titles truncate to one line? Today the title has no numberOfLines and wraps, growing the row.
   - Should the disabled state (set during a drag) have a visual treatment?
 changelog:
+  - version: 0.4.0
+    date: "2026-10-23"
+    changes:
+      - New token habit-card.swipe.delete-label (text.on-destructive) for the label of the delete swipe, so it no longer shares swipe.label with the toggle swipe. Plan de Vida's destructive red is darker in light mode (D-31).
   - version: 0.3.1
     date: "2026-10-23"
     changes:

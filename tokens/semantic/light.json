@@ -47,6 +47,10 @@
         "$value": "{color.white}",
         "$type": "color"
       },
+      "on-destructive": {
+        "$value": "{color.white}",
+        "$type": "color"
+      },
       "destructive": {
         "$value": "{color.red.600}",
         "$type": "color"

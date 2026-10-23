@@ -79,6 +79,7 @@
   --bh-color-text-disabled: #9CA3AF;
   --bh-color-text-accent: #1D4ED8;
   --bh-color-text-on-accent: #FFFFFF;
+  --bh-color-text-on-destructive: #FFFFFF;
   --bh-color-text-destructive: #DC2626;
   --bh-color-border-default: rgba(0, 0, 0, 0.1);
   --bh-color-border-strong: #6B7280;
@@ -200,6 +201,7 @@
   --bh-habit-card-swipe-toggle-bg: #2563EB;
   --bh-habit-card-swipe-delete-bg: #DC2626;
   --bh-habit-card-swipe-label: #FFFFFF;
+  --bh-habit-card-swipe-delete-label: #FFFFFF;
   --bh-habit-card-swipe-label-size: 17px;
   --bh-habit-card-swipe-label-weight: 600;
   --bh-habit-card-swipe-threshold: 80px;
@@ -275,6 +277,7 @@
   --bh-color-text-disabled: #4B5563;
   --bh-color-text-accent: #60A5FA;
   --bh-color-text-on-accent: #030712;
+  --bh-color-text-on-destructive: #030712;
   --bh-color-text-destructive: #F87171;
   --bh-color-border-default: rgba(255, 255, 255, 0.1);
   --bh-color-border-focus: #60A5FA;
@@ -322,6 +325,7 @@
   --bh-habit-card-swipe-toggle-bg: #60A5FA;
   --bh-habit-card-swipe-delete-bg: #F87171;
   --bh-habit-card-swipe-label: #030712;
+  --bh-habit-card-swipe-delete-label: #030712;
   --bh-header-bar-bg: #030712;
   --bh-header-bar-title-color: #F9FAFB;
   --bh-header-bar-subtitle-color: #F9FAFB;

@@ -176,6 +176,7 @@ export const light = {
       disabled: "#9CA3AF",
       accent: "#1D4ED8",
       onAccent: "#FFFFFF",
+      onDestructive: "#FFFFFF",
       destructive: "#DC2626"
     },
     disabled: {
@@ -340,6 +341,7 @@ export const light = {
       toggleBg: "#2563EB",
       deleteBg: "#DC2626",
       label: "#FFFFFF",
+      deleteLabel: "#FFFFFF",
       labelSize: 17,
       labelWeight: "600",
       threshold: 80,
@@ -588,6 +590,7 @@ export const dark = {
       disabled: "#4B5563",
       accent: "#60A5FA",
       onAccent: "#030712",
+      onDestructive: "#030712",
       destructive: "#F87171"
     },
     disabled: {
@@ -752,6 +755,7 @@ export const dark = {
       toggleBg: "#60A5FA",
       deleteBg: "#F87171",
       label: "#030712",
+      deleteLabel: "#030712",
       labelSize: 17,
       labelWeight: "600",
       threshold: 80,

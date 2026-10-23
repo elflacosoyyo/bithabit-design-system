@@ -1,6 +1,6 @@
 # Button
 
-> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.1.2 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.1.3 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 The action button of the product: a 44pt-high control with a short sentence-case label, an optional leading icon and a loading state.
@@ -61,7 +61,7 @@ as one `Button` with a `variant`; `ds-sync` maps each variant to the matching co
 
 ## Brand notes
 - **BITHABIT:** blue fill with white label; every combination passes WCAG AA in light and dark.
-- **Plan de Vida:** tan fill with a dark grey `#2A2C2D` label (7.0:1, from the Figma button / primary, D-29). The tan labels on white (outline and text) and the label on the destructive red are below AA in light mode; they are documented waivers (PDV-W1 and PDV-W6) waiting for a design decision. Dark mode passes.
+- **Plan de Vida:** tan fill with a dark grey `#2A2C2D` label (7.0:1, from the Figma button / primary, D-29). The destructive fill is the darker red `#BF4A4A` with a white label (4.89:1, D-31). The tan labels on white (outline and text) are below AA in light mode; that is a documented waiver (PDV-W1) waiting for a design decision. Dark mode passes.
 
 ## Contract example
 ```tsx

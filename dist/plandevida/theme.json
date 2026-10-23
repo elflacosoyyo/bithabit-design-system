@@ -176,7 +176,8 @@
         "disabled": "#a0a5a8",
         "accent": "#eda96d",
         "onAccent": "#2A2C2D",
-        "destructive": "#d16161"
+        "onDestructive": "#FFFFFF",
+        "destructive": "#BF4A4A"
       },
       "disabled": {
         "default": "#a0a5a8",
@@ -193,7 +194,7 @@
         "subtle": "#fdf5eb"
       },
       "status": {
-        "destructive": "#d16161",
+        "destructive": "#BF4A4A",
         "positive": "#d77d2d"
       },
       "brand": {
@@ -244,14 +245,14 @@
         "label": "#eda96d"
       },
       "destructive": {
-        "bg": "#d16161",
-        "label": "#2A2C2D",
+        "bg": "#BF4A4A",
+        "label": "#FFFFFF",
         "disabledNeutralBg": "#a0a5a8",
         "disabledNeutralLabel": "#717182"
       },
       "text": {
         "label": "#eda96d",
-        "destructiveLabel": "#d16161",
+        "destructiveLabel": "#BF4A4A",
         "destructiveDisabledLabel": "#d1d1d6",
         "linkLabel": "#717182"
       }
@@ -338,8 +339,9 @@
       },
       "swipe": {
         "toggleBg": "#eda96d",
-        "deleteBg": "#d16161",
+        "deleteBg": "#BF4A4A",
         "label": "#2A2C2D",
+        "deleteLabel": "#FFFFFF",
         "labelSize": 17,
         "labelWeight": "600",
         "threshold": 80,
@@ -588,6 +590,7 @@
         "disabled": "#5b5f61",
         "accent": "#eda96d",
         "onAccent": "#131210",
+        "onDestructive": "#131210",
         "destructive": "#e07575"
       },
       "disabled": {
@@ -752,6 +755,7 @@
         "toggleBg": "#eda96d",
         "deleteBg": "#e07575",
         "label": "#131210",
+        "deleteLabel": "#131210",
         "labelSize": 17,
         "labelWeight": "600",
         "threshold": 80,

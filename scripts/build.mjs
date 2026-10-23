@@ -78,6 +78,7 @@ function buildPreset(light) {
           // Roles the app does not have yet (--bh-* variables):
           'accent-text': ev('accent-text'),
           'on-accent': ev('on-accent'),
+          'on-destructive': ev('on-destructive'),
           'destructive-text': ev('destructive-text'),
           positive: ev('positive'),
           focus: ev('focus'),

@@ -18,6 +18,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | D-28 | Norm detail sheet height | **78% of the screen height, fixed**, whatever the content (decided 2026-10-10: keep production's value) | 70% was tried on 2026-10-09; a content-sized sheet changes height between tabs |
 | D-29 | Label color of the primary button (Plan de Vida) | **Dark grey `#2A2C2D` on the tan fill**, from the Figma `button / primary` (node 2:6, variable Dark Grey/900), instead of white. Light mode only: dark mode already used a near-black label. 7.0:1 on tan (white was 2.00:1). Decided 2026-10-23 | Production uses white (`text-background`). Ink `#030213` was also considered (about 9:1) |
 | D-30 | Button height | **44pt** on every variant (decided 2026-10-23, matching the Figma `button / primary`) | Production is 48pt (`h-2xl`). Width (hug vs full) and the 20pt label size from the Figma are still open |
+| D-31 | Destructive red (Plan de Vida, light mode) | **`#BF4A4A`** instead of `#D16161`, with a white label through the new `text.on-destructive` role. Fixes the label on the fill (4.89:1) and the red text on white and cream (4.89 / 4.61). Dark mode keeps `#E07575`. Decided 2026-10-23 | Production uses `#D16161` (3.75:1). A near-black label on the old red (5.47:1) fixed only the button |
 | D-06 | Navigation | **Left drawer** (`expo-router/drawer`, confirmed in code) | Bottom tab bar appears only in the Stats exploration |
 | D-12 | Styling stack | **NativeWind 4.2 + Tailwind 3.4, `darkMode: 'class'`, CSS variables in `global.css`.** The build emits a preset and a CSS file that use the app's existing names (`tokens/compat.yaml`) | n/a |
 | D-16 | Code access | **Granted.** Specs verified against the code | n/a |
@@ -28,7 +29,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | ID | Topic | What the code says | Recommendation |
 |---|---|---|---|
 | D-08 | Selector duplication | Settings uses chips (Light/Dark/System, EN/ES/PT); habit detail uses the pill SegmentedControl | Standardize on SegmentedControl; keep chips only if there is a design reason |
-| D-10 | Accessibility debt in light mode | See the contrast table below (W1, W4, W5, W6, W7) | Add text-only variants (darker tan, darker red, ink on tan fills) through `color.text.*` without touching fills |
+| D-10 | Accessibility debt in light mode | See the contrast table below (W1, W4, W7). W5 and W6 were resolved by D-29 and D-31 | Add text-only variants (darker tan, darker red, ink on tan fills) through `color.text.*` without touching fills |
 | D-17 | Checkbox size | `HabitCard` uses a 24pt box, `FooterAction` a 32pt box (same 24pt glyph) | One size. Proposal: 24pt with a bigger hit area |
 | D-18 | Stat number sizes | `StatNumber` uses 20/30 (type-scale tokens) and 32/34/54 (literals) | Add `font.size.stat` tokens for 32/34/54 or round to the scale |
 | D-20 | Bottom sheet backdrop | Code uses the foreground color at 0.5 opacity, so it is **cream in dark mode**. A `--color-overlay` token exists but is unused | Use `bg.overlay` in both modes |
@@ -52,8 +53,8 @@ Computed by `npm run validate` from each brand's own values. BITHABIT passes eve
 | PDV-W2 | Tan fill on white / cream / alt (history strip, rings) | 2.00 / 1.88 / 1.71 | 3.0 | accepted: decorative, the check glyph carries state |
 | PDV-W3 | Splash mark on splash color | about 2.6 | 3.0 | accepted: logotype exemption |
 | PDV-W4 | Muted text on input fill | 4.32 | 4.5 | needs decision |
-| PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | needs decision |
-| PDV-W6 | **Label on the destructive fill** (ButtonDestructive, swipe delete). The label on the tan fill was fixed by D-29 (dark grey, 7.0:1) | 3.74 | 4.5 | needs decision: darken the destructive fill |
+| PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | **resolved by D-31** (darker red, 4.89 / 4.61) |
+| PDV-W6 | Label on the tan fill and on the destructive fill | 2.00 / 3.75 | 4.5 | **resolved**: tan by D-29 (dark grey, 7.0:1), destructive by D-31 (darker red, 4.89:1) |
 | PDV-W8 | Today circle on the card surface, dark mode (calendar) | 1.68 | 3.0 | needs decision: lighten the dark today tone |
 | PDV-W7 | Brand-orange positive change on cream | about 3 | 4.5 | needs decision |
 

@@ -1,6 +1,6 @@
 # HabitCard
 
-> Spec: [`habit-card.spec.yaml`](./habit-card.spec.yaml) · v0.3.1 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`habit-card.spec.yaml`](./habit-card.spec.yaml) · v0.4.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 A full-width row that represents one habit on the Today screen. It combines a title, a completion
@@ -41,7 +41,7 @@ oldest first, today last. The strip is the product's signature visual: it replac
 
 ## Brand notes
 - **BITHABIT:** surface is a light gray, strip is the blue accent.
-- **Plan de Vida:** cream surface with the tan strip. The tan-on-cream strip is below 3:1 contrast; it is accepted as decorative (waiver PDV-W2) because the check glyph carries the state. The swipe label is dark grey on tan in light mode (D-29); on the destructive red it is below AA (waiver PDV-W6).
+- **Plan de Vida:** cream surface with the tan strip. The tan-on-cream strip is below 3:1 contrast; it is accepted as decorative (waiver PDV-W2) because the check glyph carries the state. The swipe label is dark grey on tan in light mode (D-29) and white on the darker destructive red (D-31); both pass.
 
 ## Contract example
 ```tsx

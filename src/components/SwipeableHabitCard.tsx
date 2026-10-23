@@ -62,6 +62,7 @@ export const SwipeableHabitCard = ({ onToggle, onDeleteRequest, labels, ...card 
   }, [s.revealWidth, s.returnDuration, s.snapDuration, s.threshold, s.velocityThreshold, x]);
 
   const label = { fontFamily: fontFamily(theme, 'sans'), fontSize: s.labelSize, fontWeight: s.labelWeight, color: s.label };
+  const deleteLabel = { ...label, color: s.deleteLabel };
   return (
     <View
       ref={frame}
@@ -74,7 +75,7 @@ export const SwipeableHabitCard = ({ onToggle, onDeleteRequest, labels, ...card 
         <Text style={label}>{card.completed ? labels.undo : labels.done}</Text>
       </View>
       <View style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: s.deleteBg, justifyContent: 'center', alignItems: 'flex-end', paddingRight: theme.spacing.lg, opacity: dir === -1 ? 1 : 0 }} aria-hidden>
-        <Text style={label}>{labels.delete}</Text>
+        <Text style={deleteLabel}>{labels.delete}</Text>
       </View>
       <Animated.View {...pan.panHandlers} style={{ transform: [{ translateX: x }] }}>
         <HabitCard {...card} onToggle={onToggle} />

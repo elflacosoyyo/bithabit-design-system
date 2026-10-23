@@ -34,6 +34,7 @@ module.exports = {
         },
         "accent-text": "var(--bh-color-text-accent)",
         "on-accent": "var(--bh-color-text-on-accent)",
+        "on-destructive": "var(--bh-color-text-on-destructive)",
         "destructive-text": "var(--bh-color-text-destructive)",
         positive: "var(--bh-color-status-positive)",
         focus: "var(--bh-color-border-focus)",

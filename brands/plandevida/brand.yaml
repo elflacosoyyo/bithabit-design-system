@@ -70,19 +70,6 @@ accessibility:
       reason: Muted text (#717182) on the input fill (#F3F3F5) is 4.32:1 in light mode, just under AA. Inherited from production.
       recommendation: "Darken text.secondary slightly (about #6B6B7B) or lighten bg.input."
       status: needs-design-decision
-    - id: PDV-W5
-      pair: text.destructive-on-*
-      reason: Destructive text (#D16161) on white or cream is 3.5 to 3.75:1 ("Delete norm", delete-account confirmation). Inherited from production.
-      recommendation: "Use a darker red for TEXT (about #B83F3F) and keep #D16161 for fills and icons."
-      status: needs-design-decision
-    - id: PDV-W6
-      pair: text.on-accent-on-*
-      reason: >
-        Labels on the accent fill are now dark grey (#2A2C2D, D-29), 7.0:1 on tan, so that half is fixed.
-        What remains is the label on the destructive red fill (ButtonDestructive, swipe delete): 3.74:1 with the dark grey label,
-        3.75:1 with white. In dark mode the label is near-black and passes.
-      recommendation: "Darken the destructive fill (about #B83F3F gives white labels more than 4.5:1) or use a lighter red only for text and icons."
-      status: needs-design-decision
     - id: PDV-W7
       pair: text.positive-on-surface
       reason: Production shows positive change in the brand orange (#D77D2D, text-splash), about 3:1 on the cream surface in light mode (ChangeIndicator).

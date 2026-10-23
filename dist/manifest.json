@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "e5a0a839e60976f2",
+      "tokensHash": "781af85dced410d4",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "10cc78f7f084bcb2",
+      "tokensHash": "121937fc102d1900",
       "modes": [
         "light",
         "dark"
@@ -157,7 +157,7 @@
     },
     "button": {
       "name": "Button",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "status": "draft",
       "category": "action",
       "spec": "components/button/button.spec.yaml",
@@ -186,7 +186,7 @@
         "button.text.destructive-disabled-label",
         "button.text.link-label"
       ],
-      "contentHash": "73d683f7081e6317",
+      "contentHash": "b01758cc12cf70fb",
       "props": [
         {
           "name": "label",
@@ -235,7 +235,7 @@
         "loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.",
         "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF.",
         "Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).",
-        "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. On the destructive red the label is about 3.74:1 (waiver PDV-W6). The outline and text labels are tan on white (waiver PDV-W1)."
+        "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. The destructive label uses text.on-destructive, white on Plan de Vida's darker red (4.89:1, D-31). The outline and text labels are tan on white (waiver PDV-W1)."
       ],
       "codeSources": [
         {
@@ -287,6 +287,13 @@
       },
       "changelog": [
         {
+          "version": "0.1.3",
+          "date": "2026-10-23",
+          "changes": [
+            "The destructive label reads the new text.on-destructive role, and Plan de Vida's destructive red is darker in light mode (D-31), so the white label reaches 4.89:1."
+          ]
+        },
+        {
           "version": "0.1.2",
           "date": "2026-10-23",
           "changes": [
@@ -299,13 +306,6 @@
           "changes": [
             "Corner radius is 4pt (radius.sm) on every variant, through button.radius; it was radius.md (8pt).",
             "Plan de Vida primary label is dark grey #2A2C2D on tan (D-29, from the Figma button / primary), through the brand's text.on-accent. No token or prop changed."
-          ]
-        },
-        {
-          "version": "0.1.0",
-          "date": "2026-10-09",
-          "changes": [
-            "Initial spec, verified against Bakia/plan-de-vida at cdfea70. One Button contract with six variants covering the four production components."
           ]
         }
       ]
@@ -755,7 +755,7 @@
     },
     "habit-card": {
       "name": "HabitCard",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "status": "draft",
       "category": "list",
       "spec": "components/habit-card/habit-card.spec.yaml",
@@ -782,6 +782,7 @@
         "habit-card.swipe.toggle-bg",
         "habit-card.swipe.delete-bg",
         "habit-card.swipe.label",
+        "habit-card.swipe.delete-label",
         "habit-card.swipe.label-size",
         "habit-card.swipe.label-weight",
         "habit-card.swipe.threshold",
@@ -790,7 +791,7 @@
         "habit-card.swipe.snap-duration",
         "habit-card.swipe.return-duration"
       ],
-      "contentHash": "1295a369dcc748d6",
+      "contentHash": "a860d35e32ca3b28",
       "props": [
         {
           "name": "title",
@@ -839,7 +840,7 @@
         "The checkbox hit area is 40pt (24pt plus hitSlop 8); the contract asks for 48pt (hit slop 12).",
         "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7), as FooterAction already does.",
         "Swipe actions have no accessible alternative.",
-        "Swipe labels use text-background on accent and destructive fills. The contract uses text.on-accent, which in Plan de Vida light mode is dark grey (7.0:1 on tan, D-29); on the destructive red it is about 3.74:1 (waiver PDV-W6)."
+        "Swipe labels use text-background on accent and destructive fills. The contract uses text.on-accent on the accent fill (dark grey in Plan de Vida light mode, 7.0:1 on tan, D-29) and text.on-destructive on the destructive fill (white on the darker red, 4.89:1, D-31), through the separate swipe.label and swipe.delete-label tokens."
       ],
       "codeSources": [
         {
@@ -899,6 +900,13 @@
       },
       "changelog": [
         {
+          "version": "0.4.0",
+          "date": "2026-10-23",
+          "changes": [
+            "New token habit-card.swipe.delete-label (text.on-destructive) for the label of the delete swipe, so it no longer shares swipe.label with the toggle swipe. Plan de Vida's destructive red is darker in light mode (D-31)."
+          ]
+        },
+        {
           "version": "0.3.1",
           "date": "2026-10-23",
           "changes": [
@@ -911,14 +919,6 @@
           "changes": [
             "Documented the swipeable variant's props (onDeleteRequest, labels) and added its reference implementation (SwipeableHabitCard) to the catalog.",
             "The reference exposes the swipe actions to assistive technology as custom accessibility actions, which production does not."
-          ]
-        },
-        {
-          "version": "0.2.0",
-          "date": "2026-10-09",
-          "changes": [
-            "Verified against Bakia/plan-de-vida at cdfea70. history is boolean[] of the last 7 days (not a streak); strip is 4pt high with a 2pt gap; swipe behavior documented.",
-            "Added code_gaps (accessibility, hit area, pressed opacity)."
           ]
         }
       ]

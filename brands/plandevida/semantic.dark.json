@@ -43,6 +43,10 @@
         "$value": "{color.pdv.night}",
         "$type": "color"
       },
+      "on-destructive": {
+        "$value": "{color.pdv.night}",
+        "$type": "color"
+      },
       "destructive": {
         "$value": "{color.pdv.red-dark}",
         "$type": "color"

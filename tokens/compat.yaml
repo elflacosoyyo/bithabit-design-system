@@ -25,6 +25,7 @@ extras:
   accent-subtle: color.accent.subtle
   accent-text: color.text.accent
   on-accent: color.text.on-accent
+  on-destructive: color.text.on-destructive
   destructive-text: color.text.destructive
   positive: color.status.positive
   focus: color.border.focus
