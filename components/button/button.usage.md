@@ -1,6 +1,6 @@
 # Button
 
-> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.1.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.1.1 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 The action button of the product: a 48pt-high control with a short sentence-case label, an optional leading icon and a loading state.
@@ -52,16 +52,16 @@ as one `Button` with a `variant`; `ds-sync` maps each variant to the matching co
 - Spanish (Plan de Vida): "Agregar norma", "Cancelar", "Eliminar cuenta"; the same rules apply.
 
 ## Implementation notes (React Native)
-- Production: `TouchableOpacity` with `h-2xl flex-row items-center justify-center gap-sm rounded-md px-md`; label `font-sans text-body font-semibold`.
+- Production: `TouchableOpacity` with `h-2xl flex-row items-center justify-center gap-sm rounded-md px-md` (the contract rounds to `rounded-sm`, 4pt); label `font-sans text-body font-semibold`.
   Primary adds `bg-accent`, outline adds `border-1.5 border-accent`, destructive adds `bg-destructive`. Disabled and loading add `opacity-50`.
-- Labels on the fills use `text-background` today (white in light mode). The contract names the role `text.on-accent`.
+- Labels on the fills use `text-background` today (white in light mode). The contract names the role `text.on-accent`; in Plan de Vida it is dark grey `#2A2C2D` (D-29), so the app should use the `on-accent` class (mapped in `tokens/compat.yaml`) instead of `text-background`.
 - Icons are 18pt: AntDesign on primary and outline, Feather on destructive. Keep them in the label color.
 - Add `accessibilityRole="button"`, `accessibilityState={{ disabled, busy: loading }}` and let the visible label be the accessible name.
 - Press feedback: the contract is a dim to `opacity.pressed` (0.7); production uses the `TouchableOpacity` default (0.2).
 
 ## Brand notes
 - **BITHABIT:** blue fill with white label; every combination passes WCAG AA in light and dark.
-- **Plan de Vida:** tan fill. The white label on tan (2.0:1) and the tan labels on white (outline and text) are below AA in light mode; they are documented waivers (PDV-W6 and PDV-W1) waiting for a design decision. Dark mode passes.
+- **Plan de Vida:** tan fill with a dark grey `#2A2C2D` label (7.0:1, from the Figma button / primary, D-29). The tan labels on white (outline and text) and the label on the destructive red are below AA in light mode; they are documented waivers (PDV-W1 and PDV-W6) waiting for a design decision. Dark mode passes.
 
 ## Contract example
 ```tsx

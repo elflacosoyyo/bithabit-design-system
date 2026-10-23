@@ -78,7 +78,7 @@
   --bh-color-disabled-default: #a0a5a8;
   --bh-color-text-disabled: #a0a5a8;
   --bh-color-text-accent: #eda96d;
-  --bh-color-text-on-accent: #FFFFFF;
+  --bh-color-text-on-accent: #2A2C2D;
   --bh-color-text-destructive: #d16161;
   --bh-color-border-default: rgba(0, 0, 0, 0.1);
   --bh-color-border-strong: #6B7280;
@@ -109,7 +109,7 @@
   --bh-bottom-sheet-spring-stiffness: 100;
   --bh-bottom-sheet-detail-height-ratio: 0.78;
   --bh-button-height: 48px;
-  --bh-button-radius: 8px;
+  --bh-button-radius: 4px;
   --bh-button-padding-x: 16px;
   --bh-button-gap: 8px;
   --bh-button-icon-size: 18px;
@@ -118,12 +118,12 @@
   --bh-button-pressed-opacity: 0.7;
   --bh-button-disabled-opacity: 0.5;
   --bh-button-primary-bg: #eda96d;
-  --bh-button-primary-label: #FFFFFF;
+  --bh-button-primary-label: #2A2C2D;
   --bh-button-outline-border: #eda96d;
   --bh-button-outline-border-width: 1.5px;
   --bh-button-outline-label: #eda96d;
   --bh-button-destructive-bg: #d16161;
-  --bh-button-destructive-label: #FFFFFF;
+  --bh-button-destructive-label: #2A2C2D;
   --bh-button-destructive-disabled-neutral-bg: #a0a5a8;
   --bh-button-destructive-disabled-neutral-label: #717182;
   --bh-button-text-label: #eda96d;
@@ -199,7 +199,7 @@
   --bh-habit-card-strip-segment-empty: #efede6;
   --bh-habit-card-swipe-toggle-bg: #eda96d;
   --bh-habit-card-swipe-delete-bg: #d16161;
-  --bh-habit-card-swipe-label: #FFFFFF;
+  --bh-habit-card-swipe-label: #2A2C2D;
   --bh-habit-card-swipe-label-size: 17px;
   --bh-habit-card-swipe-label-weight: 600;
   --bh-habit-card-swipe-threshold: 80px;

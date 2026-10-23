@@ -78,10 +78,10 @@ accessibility:
     - id: PDV-W6
       pair: text.on-accent-on-*
       reason: >
-        Production labels on accent and destructive fills use text-background, which is white in light mode:
-        white on tan is 2.00:1 and white on destructive red is about 3.8:1 (ButtonPrimary, ButtonDestructive, swipe actions).
-        In dark mode the label is near-black and passes.
-      recommendation: Use ink (#030213) for labels on the tan fill (about 9:1); darken the destructive fill or use ink for labels on it.
+        Labels on the accent fill are now dark grey (#2A2C2D, D-29), 7.0:1 on tan, so that half is fixed.
+        What remains is the label on the destructive red fill (ButtonDestructive, swipe delete): 3.74:1 with the dark grey label,
+        3.75:1 with white. In dark mode the label is near-black and passes.
+      recommendation: "Darken the destructive fill (about #B83F3F gives white labels more than 4.5:1) or use a lighter red only for text and icons."
       status: needs-design-decision
     - id: PDV-W7
       pair: text.positive-on-surface

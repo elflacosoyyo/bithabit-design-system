@@ -5,7 +5,7 @@
       "$type": "dimension"
     },
     "radius": {
-      "$value": "{radius.md}",
+      "$value": "{radius.sm}",
       "$type": "dimension"
     },
     "padding-x": {

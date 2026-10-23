@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "df651e46c4119846",
+      "tokensHash": "8a990b836c77a5c9",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "377e457b8148d255",
+      "tokensHash": "a417cd82393a829d",
       "modes": [
         "light",
         "dark"
@@ -157,7 +157,7 @@
     },
     "button": {
       "name": "Button",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "draft",
       "category": "action",
       "spec": "components/button/button.spec.yaml",
@@ -186,7 +186,7 @@
         "button.text.destructive-disabled-label",
         "button.text.link-label"
       ],
-      "contentHash": "27d0743c2197c3c1",
+      "contentHash": "ae3c8fe333b326c9",
       "props": [
         {
           "name": "label",
@@ -227,13 +227,14 @@
       ],
       "accessibilityRole": "button",
       "codeGaps": [
+        "Production rounds every variant with rounded-md (8pt). The contract uses radius.sm (4pt), from the Figma button, through the button.radius token.",
         "Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.",
         "No accessibilityRole=\"button\" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.",
         "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).",
         "loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.",
         "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF.",
         "Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).",
-        "In Plan de Vida light mode the label is white on tan (2.0:1) for primary and white on red (about 3.8:1) for destructive (waiver PDV-W6), and the outline and text labels are tan on white (waiver PDV-W1)."
+        "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. On the destructive red the label is about 3.74:1 (waiver PDV-W6). The outline and text labels are tan on white (waiver PDV-W1)."
       ],
       "codeSources": [
         {
@@ -284,6 +285,14 @@
         ]
       },
       "changelog": [
+        {
+          "version": "0.1.1",
+          "date": "2026-10-23",
+          "changes": [
+            "Corner radius is 4pt (radius.sm) on every variant, through button.radius; it was radius.md (8pt).",
+            "Plan de Vida primary label is dark grey #2A2C2D on tan (D-29, from the Figma button / primary), through the brand's text.on-accent. No token or prop changed."
+          ]
+        },
         {
           "version": "0.1.0",
           "date": "2026-10-09",
@@ -738,7 +747,7 @@
     },
     "habit-card": {
       "name": "HabitCard",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "status": "draft",
       "category": "list",
       "spec": "components/habit-card/habit-card.spec.yaml",
@@ -773,7 +782,7 @@
         "habit-card.swipe.snap-duration",
         "habit-card.swipe.return-duration"
       ],
-      "contentHash": "3af439b7407b9a8e",
+      "contentHash": "1295a369dcc748d6",
       "props": [
         {
           "name": "title",
@@ -822,7 +831,7 @@
         "The checkbox hit area is 40pt (24pt plus hitSlop 8); the contract asks for 48pt (hit slop 12).",
         "Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7), as FooterAction already does.",
         "Swipe actions have no accessible alternative.",
-        "Swipe labels use text-background on accent and destructive fills. In Plan de Vida light mode that is white on tan (2.0:1), waiver PDV-W6."
+        "Swipe labels use text-background on accent and destructive fills. The contract uses text.on-accent, which in Plan de Vida light mode is dark grey (7.0:1 on tan, D-29); on the destructive red it is about 3.74:1 (waiver PDV-W6)."
       ],
       "codeSources": [
         {
@@ -882,6 +891,13 @@
       },
       "changelog": [
         {
+          "version": "0.3.1",
+          "date": "2026-10-23",
+          "changes": [
+            "The swipe toggle label on the tan fill follows text.on-accent, now dark grey in Plan de Vida (D-29)."
+          ]
+        },
+        {
           "version": "0.3.0",
           "date": "2026-10-09",
           "changes": [
@@ -895,13 +911,6 @@
           "changes": [
             "Verified against Bakia/plan-de-vida at cdfea70. history is boolean[] of the last 7 days (not a streak); strip is 4pt high with a 2pt gap; swipe behavior documented.",
             "Added code_gaps (accessibility, hit area, pressed opacity)."
-          ]
-        },
-        {
-          "version": "0.1.0",
-          "date": "2026-10-08",
-          "changes": [
-            "Initial draft from reference videos, Figma and the Claude Design export."
           ]
         }
       ]

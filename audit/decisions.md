@@ -16,6 +16,7 @@ Production code = `Bakia/plan-de-vida` @ `cdfea70` (2026-10-08), read-only.
 | D-05 | Display serif | **Yrsa** (decided 2026-10-09). Production bundles it (OFL, weights 300–700, iOS and Android) | Kefa III: an Apple system font that cannot be bundled and does not exist on Android |
 | D-23 | Visual catalog | **One self-contained HTML file** (`catalog/index.html`), committed to the repo. No Storybook, no Chromatic. Decided 2026-10-09 to avoid external dependencies and accounts | Storybook (+ Chromatic for hosting and visual regression); Storybook without Chromatic |
 | D-28 | Norm detail sheet height | **78% of the screen height, fixed**, whatever the content (decided 2026-10-10: keep production's value) | 70% was tried on 2026-10-09; a content-sized sheet changes height between tabs |
+| D-29 | Label color of the primary button (Plan de Vida) | **Dark grey `#2A2C2D` on the tan fill**, from the Figma `button / primary` (node 2:6, variable Dark Grey/900), instead of white. Light mode only: dark mode already used a near-black label. 7.0:1 on tan (white was 2.00:1). Decided 2026-10-23 | Production uses white (`text-background`). Ink `#030213` was also considered (about 9:1) |
 | D-06 | Navigation | **Left drawer** (`expo-router/drawer`, confirmed in code) | Bottom tab bar appears only in the Stats exploration |
 | D-12 | Styling stack | **NativeWind 4.2 + Tailwind 3.4, `darkMode: 'class'`, CSS variables in `global.css`.** The build emits a preset and a CSS file that use the app's existing names (`tokens/compat.yaml`) | n/a |
 | D-16 | Code access | **Granted.** Specs verified against the code | n/a |
@@ -51,7 +52,7 @@ Computed by `npm run validate` from each brand's own values. BITHABIT passes eve
 | PDV-W3 | Splash mark on splash color | about 2.6 | 3.0 | accepted: logotype exemption |
 | PDV-W4 | Muted text on input fill | 4.32 | 4.5 | needs decision |
 | PDV-W5 | Destructive text on white / cream | 3.75 / 3.54 | 4.5 | needs decision |
-| PDV-W6 | **White label on tan fill and on destructive fill** (ButtonPrimary, ButtonDestructive, swipe actions; production uses `text-background`) | 2.00 / about 3.8 | 4.5 | needs decision. Ink `#030213` on tan is about 9:1 |
+| PDV-W6 | **Label on the destructive fill** (ButtonDestructive, swipe delete). The label on the tan fill was fixed by D-29 (dark grey, 7.0:1) | 3.74 | 4.5 | needs decision: darken the destructive fill |
 | PDV-W8 | Today circle on the card surface, dark mode (calendar) | 1.68 | 3.0 | needs decision: lighten the dark today tone |
 | PDV-W7 | Brand-orange positive change on cream | about 3 | 4.5 | needs decision |
 

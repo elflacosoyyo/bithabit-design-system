@@ -226,7 +226,7 @@ export const light = {
   },
   button: {
     height: 48,
-    radius: 8,
+    radius: 4,
     paddingX: 16,
     gap: 8,
     iconSize: 18,
@@ -638,7 +638,7 @@ export const dark = {
   },
   button: {
     height: 48,
-    radius: 8,
+    radius: 4,
     paddingX: 16,
     gap: 8,
     iconSize: 18,

@@ -175,7 +175,7 @@ export const light = {
       secondary: "#717182",
       disabled: "#a0a5a8",
       accent: "#eda96d",
-      onAccent: "#FFFFFF",
+      onAccent: "#2A2C2D",
       destructive: "#d16161"
     },
     disabled: {
@@ -226,7 +226,7 @@ export const light = {
   },
   button: {
     height: 48,
-    radius: 8,
+    radius: 4,
     paddingX: 16,
     gap: 8,
     iconSize: 18,
@@ -236,7 +236,7 @@ export const light = {
     disabledOpacity: 0.5,
     primary: {
       bg: "#eda96d",
-      label: "#FFFFFF"
+      label: "#2A2C2D"
     },
     outline: {
       border: "#eda96d",
@@ -245,7 +245,7 @@ export const light = {
     },
     destructive: {
       bg: "#d16161",
-      label: "#FFFFFF",
+      label: "#2A2C2D",
       disabledNeutralBg: "#a0a5a8",
       disabledNeutralLabel: "#717182"
     },
@@ -339,7 +339,7 @@ export const light = {
     swipe: {
       toggleBg: "#eda96d",
       deleteBg: "#d16161",
-      label: "#FFFFFF",
+      label: "#2A2C2D",
       labelSize: 17,
       labelWeight: "600",
       threshold: 80,
@@ -638,7 +638,7 @@ export const dark = {
   },
   button: {
     height: 48,
-    radius: 8,
+    radius: 4,
     paddingX: 16,
     gap: 8,
     iconSize: 18,

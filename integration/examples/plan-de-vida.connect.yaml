@@ -38,8 +38,8 @@ mappings:
         export: ButtonText
       text-link:
         export: ButtonText
-    syncedVersion: 0.1.0
-    syncedHash: "27d0743c2197c3c1"
+    syncedVersion: 0.1.1
+    syncedHash: "ae3c8fe333b326c9"
     props:
       label: label
       onPress: onPress
@@ -64,8 +64,8 @@ mappings:
   habit-card:
     component: src/components/habit-card.tsx
     export: HabitCard
-    syncedVersion: 0.3.0
-    syncedHash: "3af439b7407b9a8e"
+    syncedVersion: 0.3.1
+    syncedHash: "1295a369dcc748d6"
     props:
       title: title
       completed: completed

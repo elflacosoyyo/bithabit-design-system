@@ -1,6 +1,6 @@
 id: button
 name: Button
-version: 0.1.0
+version: 0.1.1
 status: draft
 category: action
 summary: Full-width, 48pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
@@ -12,7 +12,7 @@ platforms: [react-native]
 surfaces: [app]
 anatomy:
   - part: container
-    description: 48pt-high row, radius md, horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
+    description: 48pt-high row, radius sm (4pt), horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
     required: true
   - part: icon
     description: Optional leading icon, 18pt, same color as the label. Allowed on primary, outline and destructive.
@@ -141,19 +141,26 @@ sources:
       commit: cdfea70
       verified: true
 code_gaps:
+  - Production rounds every variant with rounded-md (8pt). The contract uses radius.sm (4pt), from the Figma button, through the button.radius token.
   - Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.
   - No accessibilityRole="button" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.
   - Pressed state is the TouchableOpacity default (0.2); the contract uses opacity.pressed (0.7).
   - loading is part of the shared props type but ButtonDestructive and ButtonText ignore it.
   - "Icons come from two sets (AntDesign on primary and outline, Feather on destructive) and ButtonDestructive hard-codes its icon color as #FFFFFF."
   - Disabled looks different per variant (opacity 50, faded or neutral fill, a subtle label color for text-destructive).
-  - In Plan de Vida light mode the label is white on tan (2.0:1) for primary and white on red (about 3.8:1) for destructive (waiver PDV-W6), and the outline and text labels are tan on white (waiver PDV-W1).
+  - "Production labels on the fills use text-background, white in light mode. The contract uses text.on-accent, which Plan de Vida sets to dark grey #2A2C2D (D-29, from the Figma button / primary): 7.0:1 on tan instead of white at 2.0:1. On the destructive red the label is about 3.74:1 (waiver PDV-W6). The outline and text labels are tan on white (waiver PDV-W1)."
 open_questions:
   - Figma names the variants primary / secondary / tertiary / text but the code names them primary / outline / destructive / text. Which names are canonical? Decision D-24.
   - Is the Figma "button / tertiary" (105 by 44, a compact size) a real variant, or an old explore? The code has nothing compact.
+  - The Figma button / primary (node 2:6) is 105 by 44 with 20pt Inter SemiBold and a 20pt horizontal padding, so it hugs its label. The code is 48pt high, 17pt, and full width. Which size is canonical?
   - Should loading be supported on destructive and text variants (the contract assumes yes)?
   - Should the neutral disabled look (used by the delete-account confirm) become the single disabled look for destructive?
 changelog:
+  - version: 0.1.1
+    date: "2026-10-23"
+    changes:
+      - Corner radius is 4pt (radius.sm) on every variant, through button.radius; it was radius.md (8pt).
+      - "Plan de Vida primary label is dark grey #2A2C2D on tan (D-29, from the Figma button / primary), through the brand's text.on-accent. No token or prop changed."
   - version: 0.1.0
     date: "2026-10-09"
     changes:

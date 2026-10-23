@@ -33,6 +33,10 @@
         "$value": "#2a2722",
         "$type": "color"
       },
+      "grey-900": {
+        "$value": "#2A2C2D",
+        "$type": "color"
+      },
       "tan": {
         "$value": "#eda96d",
         "$type": "color"
