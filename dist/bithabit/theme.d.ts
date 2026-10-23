@@ -234,17 +234,20 @@ export interface Theme {
     primary: {
       bg: string;
       label: string;
+      icon: string;
     };
     outline: {
       border: string;
       borderWidth: number;
       label: string;
+      icon: string;
     };
     destructive: {
       bg: string;
       label: string;
       disabledNeutralBg: string;
       disabledNeutralLabel: string;
+      icon: string;
     };
     text: {
       label: string;

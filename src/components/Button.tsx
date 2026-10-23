@@ -8,8 +8,8 @@ export interface ButtonProps {
   label: string;
   onPress: () => void;
   variant?: ButtonVariant;
-  /** Leading 18pt icon. Not available on the text variants. */
-  icon?: ReactNode;
+  /** Leading 18pt icon. Pass a function to receive the icon color of the variant (button.<variant>.icon). Not available on the text variants. */
+  icon?: ReactNode | ((color: string) => ReactNode);
   disabled?: boolean;
   loading?: boolean;
   /** Destructive only: 'faded' dims the fill, 'neutral' switches to the neutral disabled fill. */
@@ -33,6 +33,8 @@ export const Button = ({ label, onPress, variant = 'primary', icon, disabled = f
     'text-destructive': disabled ? b.text.destructiveDisabledLabel : b.text.destructiveLabel,
     'text-link': b.text.linkLabel,
   }[variant];
+
+  const iconColor = { primary: b.primary.icon, outline: b.outline.icon, destructive: neutral ? b.destructive.disabledNeutralLabel : b.destructive.icon }[variant as 'primary' | 'outline' | 'destructive'];
 
   // Disabled treatment per variant (see the contract): neutral destructive and text-destructive keep full opacity.
   const dimmed = loading || (disabled && !neutral && variant !== 'text-destructive');
@@ -70,7 +72,7 @@ export const Button = ({ label, onPress, variant = 'primary', icon, disabled = f
           <ActivityIndicator color={labelColor} />
         ) : (
           <>
-            {icon && !isText ? <View style={{ width: b.iconSize, height: b.iconSize, alignItems: 'center', justifyContent: 'center' }}>{icon}</View> : null}
+            {icon && !isText ? <View style={{ width: b.iconSize, height: b.iconSize, alignItems: 'center', justifyContent: 'center' }}>{typeof icon === 'function' ? icon(iconColor) : icon}</View> : null}
             <Text
               style={{
                 fontFamily: fontFamily(theme, 'sans'),

@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Button } from '../../../src';
-import type { ButtonVariant } from '../../../src';
 import { PlusGlyph, TrashGlyph } from '../../../src/components/Glyphs';
 import { useTheme } from '../../../src/theme/ThemeProvider';
 import { BrandMatrix } from '../../helpers/BrandMatrix';
 import { Example, noop } from '../../helpers/layout';
 
-/** Icons take the label color of their variant, as in the app. */
-const Icon = ({ kind, variant }: { kind: 'plus' | 'trash'; variant: ButtonVariant }) => {
+/** The button hands its icon color (button.<variant>.icon) to the glyph. */
+const Icon = ({ kind, color }: { kind: 'plus' | 'trash'; color: string }) => {
   const { theme } = useTheme();
-  const color = variant === 'outline' ? theme.button.outline.label : theme.button.primary.label;
   const size = theme.button.iconSize;
   return kind === 'plus' ? <PlusGlyph size={size} color={color} /> : <TrashGlyph size={size} color={color} />;
 };
@@ -27,8 +25,8 @@ const Stack = ({ items }: { items: Array<{ caption: string; button: ReactNode }>
 const AllVariants = () => (
   <div style={{ display: 'grid', gap: 8 }}>
     <Button variant="primary" label="Continue" onPress={noop} />
-    <Button variant="outline" label="Add norm" icon={<Icon kind="plus" variant="outline" />} onPress={noop} />
-    <Button variant="destructive" label="Delete selected (3)" icon={<Icon kind="trash" variant="destructive" />} onPress={noop} />
+    <Button variant="outline" label="Add norm" icon={(c) => <Icon kind="plus" color={c} />} onPress={noop} />
+    <Button variant="destructive" label="Delete selected (3)" icon={(c) => <Icon kind="trash" color={c} />} onPress={noop} />
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       <Button variant="text" label="Cancel" onPress={noop} />
       <Button variant="text-destructive" label="Delete account" onPress={noop} />
@@ -65,7 +63,7 @@ export const Examples = () => (
     <Example title="Primary" note="The one main action of a screen: accent fill, label on the accent.">
       <Stack items={[
         { caption: 'Default', button: <Button variant="primary" label="Continue" onPress={noop} /> },
-        { caption: 'With icon', button: <Button variant="primary" label="Add norm" icon={<Icon kind="plus" variant="primary" />} onPress={noop} /> },
+        { caption: 'With icon', button: <Button variant="primary" label="Add norm" icon={(c) => <Icon kind="plus" color={c} />} onPress={noop} /> },
         { caption: 'Disabled', button: <Button variant="primary" label="Continue" disabled onPress={noop} /> },
         { caption: 'Loading', button: <Button variant="primary" label="Continue" loading onPress={noop} /> },
       ]} />
@@ -73,16 +71,16 @@ export const Examples = () => (
     <Example title="Outline" note="Secondary action: 1.5pt accent border and accent label.">
       <Stack items={[
         { caption: 'Default', button: <Button variant="outline" label="Add norm" onPress={noop} /> },
-        { caption: 'With icon', button: <Button variant="outline" label="Add norm" icon={<Icon kind="plus" variant="outline" />} onPress={noop} /> },
+        { caption: 'With icon', button: <Button variant="outline" label="Add norm" icon={(c) => <Icon kind="plus" color={c} />} onPress={noop} /> },
         { caption: 'Disabled', button: <Button variant="outline" label="Add norm" disabled onPress={noop} /> },
         { caption: 'Loading', button: <Button variant="outline" label="Log out" loading onPress={noop} /> },
       ]} />
     </Example>
     <Example title="Destructive" note="Deleting or removing data. Two disabled looks: faded (default) and neutral (used by the delete-account confirm).">
       <Stack items={[
-        { caption: 'With icon', button: <Button variant="destructive" label="Delete selected (3)" icon={<Icon kind="trash" variant="destructive" />} onPress={noop} /> },
+        { caption: 'With icon', button: <Button variant="destructive" label="Delete selected (3)" icon={(c) => <Icon kind="trash" color={c} />} onPress={noop} /> },
         { caption: 'Without icon', button: <Button variant="destructive" label="Delete account" onPress={noop} /> },
-        { caption: 'Disabled, faded', button: <Button variant="destructive" label="Delete selected (0)" icon={<Icon kind="trash" variant="destructive" />} disabled onPress={noop} /> },
+        { caption: 'Disabled, faded', button: <Button variant="destructive" label="Delete selected (0)" icon={(c) => <Icon kind="trash" color={c} />} disabled onPress={noop} /> },
         { caption: 'Disabled, neutral', button: <Button variant="destructive" label="Delete account" disabled disabledVariant="neutral" onPress={noop} /> },
         { caption: 'Loading', button: <Button variant="destructive" label="Delete account" loading onPress={noop} /> },
       ]} />

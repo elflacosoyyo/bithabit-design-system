@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "781af85dced410d4",
+      "tokensHash": "bd9a10194796f3ea",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "121937fc102d1900",
+      "tokensHash": "6a9c7ae31211a378",
       "modes": [
         "light",
         "dark"
@@ -157,7 +157,7 @@
     },
     "button": {
       "name": "Button",
-      "version": "0.1.3",
+      "version": "0.2.0",
       "status": "draft",
       "category": "action",
       "spec": "components/button/button.spec.yaml",
@@ -168,6 +168,9 @@
         "button.padding-x",
         "button.gap",
         "button.icon-size",
+        "button.primary.icon",
+        "button.outline.icon",
+        "button.destructive.icon",
         "button.font-size",
         "button.font-weight",
         "button.pressed-opacity",
@@ -186,7 +189,7 @@
         "button.text.destructive-disabled-label",
         "button.text.link-label"
       ],
-      "contentHash": "b01758cc12cf70fb",
+      "contentHash": "64591c305d0fe493",
       "props": [
         {
           "name": "label",
@@ -287,6 +290,13 @@
       },
       "changelog": [
         {
+          "version": "0.2.0",
+          "date": "2026-10-23",
+          "changes": [
+            "New tokens button.primary.icon, button.outline.icon and button.destructive.icon, so the icon follows the label color of each variant (dark grey on tan and white on the darker red in Plan de Vida). The icon prop can be a function that receives that color."
+          ]
+        },
+        {
           "version": "0.1.3",
           "date": "2026-10-23",
           "changes": [
@@ -298,14 +308,6 @@
           "date": "2026-10-23",
           "changes": [
             "Height is 44pt on every variant (D-30, from the Figma button / primary), through button.height; it was 48pt (spacing.2xl)."
-          ]
-        },
-        {
-          "version": "0.1.1",
-          "date": "2026-10-23",
-          "changes": [
-            "Corner radius is 4pt (radius.sm) on every variant, through button.radius; it was radius.md (8pt).",
-            "Plan de Vida primary label is dark grey #2A2C2D on tan (D-29, from the Figma button / primary), through the brand's text.on-accent. No token or prop changed."
           ]
         }
       ]

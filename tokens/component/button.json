@@ -44,6 +44,10 @@
       "label": {
         "$value": "{color.text.on-accent}",
         "$type": "color"
+      },
+      "icon": {
+        "$value": "{color.text.on-accent}",
+        "$type": "color"
       }
     },
     "outline": {
@@ -56,6 +60,10 @@
         "$type": "dimension"
       },
       "label": {
+        "$value": "{color.text.accent}",
+        "$type": "color"
+      },
+      "icon": {
         "$value": "{color.text.accent}",
         "$type": "color"
       }
@@ -75,6 +83,10 @@
       },
       "disabled-neutral-label": {
         "$value": "{color.text.secondary}",
+        "$type": "color"
+      },
+      "icon": {
+        "$value": "{color.text.on-destructive}",
         "$type": "color"
       }
     },

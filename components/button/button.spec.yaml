@@ -1,6 +1,6 @@
 id: button
 name: Button
-version: 0.1.3
+version: 0.2.0
 status: draft
 category: action
 summary: Full-width, 44pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
@@ -15,7 +15,7 @@ anatomy:
     description: 44pt-high row, radius sm (4pt), horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
     required: true
   - part: icon
-    description: Optional leading icon, 18pt, same color as the label. Allowed on primary, outline and destructive.
+    description: Optional leading icon, 18pt, in the icon color of the variant (button.primary.icon, button.outline.icon, button.destructive.icon), which is the same role as its label. Allowed on primary, outline and destructive.
     required: false
   - part: label
     description: Sentence-case action, sans, 17pt, semibold. Text variants may be underlined.
@@ -40,7 +40,7 @@ props:
   - name: icon
     type: ReactNode
     required: false
-    description: Optional leading 18pt icon (production passes an icon name such as "trash-2"). Not available on the text variants.
+    description: Optional leading 18pt icon (production passes an icon name such as "trash-2"). Either a node or a function that receives the icon color of the variant. Not available on the text variants.
   - name: disabled
     type: boolean
     required: false
@@ -84,6 +84,9 @@ tokens:
   - button.padding-x
   - button.gap
   - button.icon-size
+  - button.primary.icon
+  - button.outline.icon
+  - button.destructive.icon
   - button.font-size
   - button.font-weight
   - button.pressed-opacity
@@ -157,6 +160,10 @@ open_questions:
   - Should loading be supported on destructive and text variants (the contract assumes yes)?
   - Should the neutral disabled look (used by the delete-account confirm) become the single disabled look for destructive?
 changelog:
+  - version: 0.2.0
+    date: "2026-10-23"
+    changes:
+      - New tokens button.primary.icon, button.outline.icon and button.destructive.icon, so the icon follows the label color of each variant (dark grey on tan and white on the darker red in Plan de Vida). The icon prop can be a function that receives that color.
   - version: 0.1.3
     date: "2026-10-23"
     changes:

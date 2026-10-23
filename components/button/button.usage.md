@@ -1,6 +1,6 @@
 # Button
 
-> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.1.3 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
+> Spec: [`button.spec.yaml`](./button.spec.yaml) · v0.2.0 · **draft** (verified against `Bakia/plan-de-vida` @ cdfea70)
 
 ## What it is
 The action button of the product: a 44pt-high control with a short sentence-case label, an optional leading icon and a loading state.
@@ -55,7 +55,7 @@ as one `Button` with a `variant`; `ds-sync` maps each variant to the matching co
 - Production: `TouchableOpacity` with `h-2xl` (48pt; the contract is 44pt) `flex-row items-center justify-center gap-sm rounded-md px-md` (the contract rounds to `rounded-sm`, 4pt); label `font-sans text-body font-semibold`.
   Primary adds `bg-accent`, outline adds `border-1.5 border-accent`, destructive adds `bg-destructive`. Disabled and loading add `opacity-50`.
 - Labels on the fills use `text-background` today (white in light mode). The contract names the role `text.on-accent`; in Plan de Vida it is dark grey `#2A2C2D` (D-29), so the app should use the `on-accent` class (mapped in `tokens/compat.yaml`) instead of `text-background`.
-- Icons are 18pt: AntDesign on primary and outline, Feather on destructive. Keep them in the label color.
+- Icons are 18pt: AntDesign on primary and outline, Feather on destructive. The icon takes the label color of its variant through `button.<variant>.icon` (dark grey on the tan primary and white on the destructive red in Plan de Vida), so never hard-code it; production hard-codes `#FFFFFF` on the destructive icon.
 - Add `accessibilityRole="button"`, `accessibilityState={{ disabled, busy: loading }}` and let the visible label be the accessible name.
 - Press feedback: the contract is a dim to `opacity.pressed` (0.7); production uses the `TouchableOpacity` default (0.2).
 
