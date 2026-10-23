@@ -1,7 +1,7 @@
 {
   "button": {
     "height": {
-      "$value": "{spacing.2xl}",
+      "$value": "44px",
       "$type": "dimension"
     },
     "radius": {

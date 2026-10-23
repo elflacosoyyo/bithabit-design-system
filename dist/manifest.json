@@ -4,7 +4,7 @@
     "bithabit": {
       "name": "BITHABIT",
       "status": "default",
-      "tokensHash": "8a990b836c77a5c9",
+      "tokensHash": "e5a0a839e60976f2",
       "modes": [
         "light",
         "dark"
@@ -18,7 +18,7 @@
     "plandevida": {
       "name": "Plan de Vida",
       "status": "active",
-      "tokensHash": "a417cd82393a829d",
+      "tokensHash": "10cc78f7f084bcb2",
       "modes": [
         "light",
         "dark"
@@ -157,7 +157,7 @@
     },
     "button": {
       "name": "Button",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "status": "draft",
       "category": "action",
       "spec": "components/button/button.spec.yaml",
@@ -186,7 +186,7 @@
         "button.text.destructive-disabled-label",
         "button.text.link-label"
       ],
-      "contentHash": "ae3c8fe333b326c9",
+      "contentHash": "73d683f7081e6317",
       "props": [
         {
           "name": "label",
@@ -227,6 +227,7 @@
       ],
       "accessibilityRole": "button",
       "codeGaps": [
+        "Production buttons are 48pt high (h-2xl). The contract uses 44pt (D-30, from the Figma) through the button.height token, which is a literal 44px because the spacing scale has no 44.",
         "Production rounds every variant with rounded-md (8pt). The contract uses radius.sm (4pt), from the Figma button, through the button.radius token.",
         "Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.",
         "No accessibilityRole=\"button\" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.",
@@ -285,6 +286,13 @@
         ]
       },
       "changelog": [
+        {
+          "version": "0.1.2",
+          "date": "2026-10-23",
+          "changes": [
+            "Height is 44pt on every variant (D-30, from the Figma button / primary), through button.height; it was 48pt (spacing.2xl)."
+          ]
+        },
         {
           "version": "0.1.1",
           "date": "2026-10-23",

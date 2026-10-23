@@ -1,9 +1,9 @@
 id: button
 name: Button
-version: 0.1.1
+version: 0.1.2
 status: draft
 category: action
-summary: Full-width, 48pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
+summary: Full-width, 44pt-high action button in four visual variants (primary, outline, destructive and text), with optional leading icon and a loading state.
 purpose: >
   The one way to trigger an action in the product: continue, sign in with Apple or Google, add a norm,
   log out, delete. The variant states how important and how risky the action is; the container, size, type and
@@ -12,7 +12,7 @@ platforms: [react-native]
 surfaces: [app]
 anatomy:
   - part: container
-    description: 48pt-high row, radius sm (4pt), horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
+    description: 44pt-high row, radius sm (4pt), horizontal padding md, content centered with gap sm. Primary has the accent fill, destructive the destructive fill, outline a 1.5pt accent border, text has no container.
     required: true
   - part: icon
     description: Optional leading icon, 18pt, same color as the label. Allowed on primary, outline and destructive.
@@ -104,7 +104,7 @@ tokens:
 accessibility:
   role: button
   label: The visible label. Add an accessibilityLabel only when the label alone is ambiguous out of context.
-  touch_target: 48pt high on every variant, including text; primary, outline and destructive are full width.
+  touch_target: 44pt high on every variant, including text (the iOS minimum; Android guidance is 48dp); primary, outline and destructive are full width.
   notes:
     - Expose disabled (accessibilityState.disabled) and, while loading, busy (accessibilityState.busy).
     - A disabled or loading button must not move focus away or fire onPress.
@@ -141,6 +141,7 @@ sources:
       commit: cdfea70
       verified: true
 code_gaps:
+  - Production buttons are 48pt high (h-2xl). The contract uses 44pt (D-30, from the Figma) through the button.height token, which is a literal 44px because the spacing scale has no 44.
   - Production rounds every variant with rounded-md (8pt). The contract uses radius.sm (4pt), from the Figma button, through the button.radius token.
   - Four separate components (ButtonPrimary, ButtonOutline, ButtonDestructive, ButtonText) with different prop sets; the contract is one Button with a variant.
   - No accessibilityRole="button" on any variant. Only ButtonDestructive sets accessibilityState (disabled); none expose busy while loading.
@@ -152,10 +153,14 @@ code_gaps:
 open_questions:
   - Figma names the variants primary / secondary / tertiary / text but the code names them primary / outline / destructive / text. Which names are canonical? Decision D-24.
   - Is the Figma "button / tertiary" (105 by 44, a compact size) a real variant, or an old explore? The code has nothing compact.
-  - The Figma button / primary (node 2:6) is 105 by 44 with 20pt Inter SemiBold and a 20pt horizontal padding, so it hugs its label. The code is 48pt high, 17pt, and full width. Which size is canonical?
+  - The Figma button / primary (node 2:6) is 105 by 44 with 20pt Inter SemiBold and a 20pt horizontal padding, so it hugs its label. The height is now 44pt in the contract (D-30), as in the Figma. The width (hug versus full width) and the 20pt label versus the code's 17pt are still open. Which is canonical?
   - Should loading be supported on destructive and text variants (the contract assumes yes)?
   - Should the neutral disabled look (used by the delete-account confirm) become the single disabled look for destructive?
 changelog:
+  - version: 0.1.2
+    date: "2026-10-23"
+    changes:
+      - Height is 44pt on every variant (D-30, from the Figma button / primary), through button.height; it was 48pt (spacing.2xl).
   - version: 0.1.1
     date: "2026-10-23"
     changes:

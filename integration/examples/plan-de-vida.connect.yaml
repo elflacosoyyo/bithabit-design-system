@@ -38,8 +38,8 @@ mappings:
         export: ButtonText
       text-link:
         export: ButtonText
-    syncedVersion: 0.1.1
-    syncedHash: "ae3c8fe333b326c9"
+    syncedVersion: 0.1.2
+    syncedHash: "73d683f7081e6317"
     props:
       label: label
       onPress: onPress

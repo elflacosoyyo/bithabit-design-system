@@ -225,7 +225,7 @@ export const light = {
     detailHeightRatio: 0.78
   },
   button: {
-    height: 48,
+    height: 44,
     radius: 4,
     paddingX: 16,
     gap: 8,
@@ -637,7 +637,7 @@ export const dark = {
     detailHeightRatio: 0.78
   },
   button: {
-    height: 48,
+    height: 44,
     radius: 4,
     paddingX: 16,
     gap: 8,
